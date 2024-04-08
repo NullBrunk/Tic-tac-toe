@@ -43,4 +43,6 @@ Route::name("app.") -> middleware("auth") -> controller(AppController::class) ->
     Route::get("/generate",  "generate") -> name("generate");
 
     Route::get("/play/{id}", "join_game") -> name("join_game");
+    Route::get("/move/{id}/{position}", "users_plays") -> name("play");
+
 });

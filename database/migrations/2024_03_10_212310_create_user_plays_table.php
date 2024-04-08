@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_plays', function (Blueprint $table) {
+            
             $table -> string('gameid');
             $table -> foreign('gameid') 
                    -> references('gameid') 
@@ -19,6 +20,13 @@ return new class extends Migration
                    -> onUpdate('cascade')
                    -> onDelete('cascade');
 
+            $table->bigInteger('userid')->unsigned();
+            $table -> foreign('userid') 
+                   -> references('id') 
+                   -> on('users')
+                   -> onUpdate('cascade')
+                   -> onDelete('cascade');
+            
             $table -> string('symbol');
             $table -> string('position');
         });

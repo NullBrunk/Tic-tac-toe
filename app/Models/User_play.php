@@ -12,6 +12,7 @@ class User_play extends Model
 
     protected $fillable = [
         "gameid",
+        "userid",
         "symbol",
         "position"
     ];

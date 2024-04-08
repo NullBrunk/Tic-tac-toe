@@ -246,12 +246,12 @@ button i {
 .game {
     margin-top: 10vh;
     color: #1d2124;
+    background-image: linear-gradient(40deg,hsl(275.5, 83.7%, 75.9%),hsl(168.9, 79.9%, 62.9%));
+    text-align: center;
     border-radius: .75rem;
     font-weight: 700;
     padding: 100px;
     justify-content: center;
-    text-align: center;
-    background-image: linear-gradient(40deg,hsl(275.5, 83.7%, 75.9%),hsl(168.9, 79.9%, 62.9%));
     display: flex;
     flex-direction: column;
     font-size: 3rem;
@@ -261,4 +261,39 @@ button i {
 .play-button {
     width: 100px;
 }
+#morpion .col {
+    display: flex;
 
+}
+
+#morpion .col .case {
+    color: #1d2124;
+    background-color: hsl(276, 70%, 64%);
+    color: #161618;
+    font-weight: 900;
+    text-align: center;
+    border-radius: .75rem;
+    padding: 7vh 7vw;
+    height: 10vh;
+    width: 10vw;
+    justify-content: center;
+    font-size: 60px;
+    margin: 4px;
+    cursor: pointer;
+
+    transition: all 0.5s;
+}
+
+#morpion .col .case:hover {
+    background-color: hsl(276, 85%, 55%);
+}
+
+
+#share {
+    margin-top: 150px;
+    font-size: 12px;
+}
+
+#share a {
+    color: #5e178e;
+}
