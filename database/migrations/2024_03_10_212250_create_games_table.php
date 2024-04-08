@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table -> string('gameid') -> primary();
+            $table -> boolean("isended");
+            $table -> string("winner");
             $table->timestamps();
         });
     }

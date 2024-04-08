@@ -11,5 +11,7 @@ class Game extends Model
 
     protected $fillable = [
         "gameid",
+        "isended",
+        "winner"
     ];
 }
