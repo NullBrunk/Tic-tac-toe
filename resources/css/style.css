@@ -113,8 +113,8 @@ nav > div{
 }
 
 .body-title {
-    font-size: 90px;
-    line-height: 90px;
+    font-size: 190px;
+    line-height: 190px;
     padding-top: 4%;
     margin-bottom: 30px;
 }
@@ -138,8 +138,8 @@ button, .button {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 14px 17px;
-    font-size: 17px;
+    padding: 24px 27px;
+    font-size: 26px;
     color: black;
     border: none;
     border-radius: 5px;
@@ -296,7 +296,7 @@ button i {
     text-align: center;
     background-color: #42e0ce;
     border-radius: 10px;
-    margin: 15px 10px;
+    margin: 15px 4px;
     padding: 10px;
     font-weight: 900;
 }

@@ -7,7 +7,7 @@
     <section class="container flex-between" style="margin-top: 4rem;">
         <div>
             <h1 class="body-title">
-                <span class="text-gradient">Tic-tac-toe</span> developed with Laravel 
+                A<span class="text-gradient"> multiplayer</span> <br> tic-tac-toe 
             </h1>
 
             <div class="flex">

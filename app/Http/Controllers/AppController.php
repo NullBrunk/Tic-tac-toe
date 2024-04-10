@@ -74,10 +74,13 @@ class AppController extends Controller
         $pion = $morpion[$x][$y];
 
 
-        if(check_line($morpion, $x, $y) ||
-            check_col($morpion, $x, $y) ||
-            check_diagonale_dg($morpion, $x, $y) ||
-            check_diagonale_gd($morpion, $x, $y)
+        if(
+            $pion !== "" && (
+                check_line($morpion, $x, $y) ||
+                check_col($morpion, $x, $y) ||
+                check_diagonale_dg($morpion, $x, $y) ||
+                check_diagonale_gd($morpion, $x, $y)
+            )
         ) {
             Game::where("gameid", "=", $id) -> update([
                 "winner" => $pion
