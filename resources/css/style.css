@@ -300,3 +300,25 @@ button i {
     padding: 10px;
     font-weight: 900;
 }
+
+.index-page {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+}
+
+
+@media(max-width: 1000px) {
+    .body-title {
+        font-size: 90px !important;
+        line-height: 90px !important;
+        padding-top: 4%;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .buttons {
+        margin: auto;
+        justify-content: center;
+    }
+}
