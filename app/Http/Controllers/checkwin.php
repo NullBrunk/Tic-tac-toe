@@ -41,7 +41,7 @@ function check_col(array $morpion, int $x, int $y){
         $points++;
     }
 
-    return $points === 2;
+    if($points === 2) return true;
 }
 
 function check_diagonale_gd(array $morpion, int $x, int $y){
@@ -65,7 +65,7 @@ function check_diagonale_gd(array $morpion, int $x, int $y){
         $points++;
     }
 
-    return $points === 2;
+    if($points === 2) return true;
 }
 
 
@@ -90,5 +90,5 @@ function check_diagonale_dg(array $morpion, int $x, int $y){
         $points++;
     }
     
-    return $points === 2;
+    if($points === 2) return true;
 }

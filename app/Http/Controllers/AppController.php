@@ -14,7 +14,7 @@ class AppController extends Controller
     public function generate() {
         
         // Generate a token
-        $uuid = Str::random(40);
+        $uuid = Str::random(4);
     
         // Create the game
         Game::create([
@@ -24,6 +24,7 @@ class AppController extends Controller
         // Redirect to the page
         return to_route("app.join_game", $uuid);
     }
+
 
     public function join_game(string $id) {
         $joined_user = User_join::where("gameid", "=", $id);
@@ -45,29 +46,13 @@ class AppController extends Controller
             $count++;
         }
 
-        $morpion = [["", "", ""], ["", "", ""], ["", "", ""]];
-        foreach(User_play::where("gameid", $id) -> get() -> toArray() as $coup) {
-            $morpion[
-                floor($coup["position"]/3)
-            ]
-            [
-                $coup["position"]%3
-            ] = $coup["symbol"];
-        }
-
-        $game = Game::where("gameid", "=", $id) -> get() -> first();
-
         return view("app.morpion", [ 
-            "morpion" => $morpion, 
-            "alone" => $count === 1, 
             "gameid" => $id, 
-            "winner" => $game -> winner,
-            "isended" => $game -> isended
         ]);
     }
 
     
-    public function get_morpion(string $id): array {
+    public static function get_morpion(string $id): array {
         $coups = User_play::where("gameid", "=", $id) -> get();
         $morpion = [["", "", ""],["", "", ""],["", "", ""]];
 
@@ -80,17 +65,30 @@ class AppController extends Controller
         return $morpion;
     }
     
-    public function check_win(array $morpion, int $position) {
+    public static function check_win(array $morpion, int $position, string $id) {
 
         include_once "checkwin.php";
 
         $x = $position / 3;
         $y = $position % 3;
+        $pion = $morpion[$x][$y];
 
-        return check_line($morpion, $x, $y) ||
+
+        if(check_line($morpion, $x, $y) ||
             check_col($morpion, $x, $y) ||
             check_diagonale_dg($morpion, $x, $y) ||
-            check_diagonale_gd($morpion, $x, $y);
+            check_diagonale_gd($morpion, $x, $y)
+        ) {
+            Game::where("gameid", "=", $id) -> update([
+                "winner" => $pion
+            ]);
+        }
+
+        if(User_play::where("gameid", "=", $id) -> get() -> count() === 9) {
+            Game::where("gameid", "=", $id) -> update([
+                "winner" => "draw"
+            ]);
+        }
 
     }
     
@@ -98,27 +96,23 @@ class AppController extends Controller
      *  @param string $id 
      *  @param int $case
      */
-    public function users_plays(string $id, int $position) {
+    public static function users_plays(string $id, int $position) {
 
         $players = User_join::where("gameid", "=", $id);
         $game_coups = User_play::where("gameid", "=", $id);
         
-        if(Game::where("gameid", "=", $id) -> get() -> first() -> isended) {
-            return abort(401);
-        }
+        $last_turn = $game_coups -> get() -> last();
         
-        // There is only one player in the game
-        if($players -> get() -> count() !== 2) {
-            return abort(401);
+        if(
+            Game::where("gameid", "=", $id) -> get() -> first() -> winner !== null
+            // if there is only one player in the game
+            || $players -> get() -> count() !== 2
+            // The player try to play 2 times in a row
+            || isset($last_turn) && $last_turn -> userid === session("id") 
+        ) {
+            // Exit the function
+            return;
         }
-        
-        // The player try to play 2 times in a row
-        $last_turn = User_play::where("gameid", $id) -> get() -> last();
-
-        if(isset($last_turn) && $last_turn -> userid === session("id")) {
-            return abort(401);
-        }
-        
 
         $symbol = $players 
                 -> where("player", "=", session("id")) 
@@ -142,37 +136,8 @@ class AppController extends Controller
                 "symbol" => $symbol        
             ]);
 
-
-            $win = self::check_win(self::get_morpion($id), $position);
-            $ended = $game_coups -> count() === 9;
-
-            if($win || $ended) {
-                $game = Game::where("gameid", "=", $id);
-                
-                $game -> update([
-                    "isended" => true
-                ]); 
-
-                if($ended) {
-                    $game -> update([
-                        "winner" => "draw"
-                    ]);
-
-                    return ["end" => 0];
-                } 
-                else {
-                    $game -> update([
-                        "winner" => $symbol
-                    ]);
-
-                    return ["end" => 1, "winner" => $symbol];
-                }
-            }
-
         } else {
             return abort(401);
         }
-
-        return ["end" => -1];
     }
 }

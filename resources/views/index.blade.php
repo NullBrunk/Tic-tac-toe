@@ -7,7 +7,7 @@
     <section class="container flex-between" style="margin-top: 4rem;">
         <div>
             <h1 class="body-title">
-                <span class="text-gradient">Tic-tac-toe</span> Starter for Astro
+                <span class="text-gradient">Tic-tac-toe</span> developed with Laravel 
             </h1>
 
             <div class="flex">
@@ -23,7 +23,5 @@
             </div>
             
         </div>
-        
-        <img class="body-img" src="/assets/img/bg.webp" alt="">
     </section>
 @endsection
