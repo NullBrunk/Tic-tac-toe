@@ -45,19 +45,19 @@ class ProfileController extends Controller
             "users2.email AS email_p2", 
             "user_joins.symbol AS join_p1",
             "user_joins2.symbol AS join_p2",
-            "games.winner AS winner",
+            "games.winner",
             "games.created_at",
         ) 
         -> join('user_joins as user_joins2', 
             function ($join) {
-                $join -> on('user_joins.gameid', '=', 'user_joins2.gameid')
-                      -> where('user_joins.player', '<>', 'user_joins2.player');
+                $join -> on('user_joins.gameid', '=', DB::raw("`user_joins2`.`gameid`"))
+                      -> where('user_joins.player', '<>', DB::raw("`user_joins2`.`player`"));
             })
         -> join('users', 'user_joins.player', '=', 'users.id')
-        -> join('users as users2', 'user_joins2.player', '=', 'users.id')
+        -> join('users as users2', 'user_joins2.player', '=', 'users2.id')
         -> join('games', 'user_joins.gameid', '=', 'games.gameid')
-        -> where("winner", "<>", null) 
-        -> where("winner", "<>", "")
+        -> where("games.winner", "<>", null) 
+        -> where("games.winner", "<>", "")
         -> where("users.email", "<>", DB::raw("`users2`.`email`"))
         -> where(function ($query) use ($id) {
             $query -> where('users.id', $id)
@@ -98,15 +98,11 @@ class ProfileController extends Controller
         }
         $lost_games = $played_games - $won_games - $drawn_games - $not_ended_games;
         
-        # Don't count unterminated games in the "played games"
-        $played_games -= $not_ended_games;
-
         # Get the history of played games of the user
         $history = $this -> get_history($user -> id); 
 
         
         return view("profile", [
-            "played_games" => $played_games,
             "won_games" => $won_games,
             "lost_games" => $lost_games,
             "drawn_games" => $drawn_games,

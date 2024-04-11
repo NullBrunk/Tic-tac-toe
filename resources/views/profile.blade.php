@@ -31,36 +31,60 @@
 
             <div class="relative more-infos">
                 <div class="commentbar-top">
-                    <h5>Game history</h5>
+                    <h5 class="patch-approximatif">Game history</h5>
                     <hr style="background-color: #a14fd6; margin: 0px; height: 5px;">
                 </div>
                 
                 <div>
-                    @dump($history)
                     @foreach($history as $battle)
-                        <p class="battle">
-                            @dump(sizeof($history))
-                            @dump($battle)
-                        </p>
+                        
+                    @if($battle["winner"] === "draw")                    
+                            @php($class = "transfer")
+                        @elseif((
+                            $battle["email_p1"] === $email && 
+                            $battle["join_p1"] === $battle["winner"]
+                        ) || (
+                            $battle["email_p2"] === $email && 
+                            $battle["join_p2"] === $battle["winner"]
+                        ))
+                            @php($class = "trophy")
+                        @else
+                            @php($class = "x-circle")
+                        @endif
+                        
+                        <div class="battle {{ $class }}">
+                            <div>
+                                <i class="bx bx bx-{{ $class }}"></i>
+                            </div>
+
+                            <div style="margin-left: 35%;">
+                                <b>{{ $battle["email_p1"] }}</b>
+                                ({{ $battle["join_p1"] }})
+    
+                                <span class="fg vs">
+                                    VS
+                                </span>
+
+                                ({{ $battle["join_p2"] }})
+                                <b>{{ $battle["email_p2"] }}</b>
+                            </div>
+
+                            <div style="margin-left: auto;">
+                                {{ \Carbon\Carbon::parse($battle["created_at"]) -> diffForHumans() }}
+                            </div>
+
+                        </div>
+
                     @endforeach
                 </div>
             </div>
 
-            <div class="more-infos">
+            <div class="more-infos" style="overflow: hidden;">
                 <h5>General informations</h5>
                 <hr style="background-color: #a14fd6; margin: 0px; height: 5px;">
 
                 <div class="flex info">
-                    <div class="card">
-                        <span>
-                            <i class='bx bx-joystick'></i>
-                            PLAYED
-                        </span>
-                        <span class="stats">
-                            {{ $played_games }}
-                        </span>
-                    </div>
-                    <div class="card">
+                    <div class="card trophy">
                         <span>
                             <i class='bx bx-trophy'></i>
                             WON
@@ -69,7 +93,7 @@
                             {{ $won_games }}
                         </span>
                     </div>
-                    <div class="card">
+                    <div class="card x-circle">
                         <span>
                             <i class='bx bx-x-circle'></i>
                             LOST
@@ -78,7 +102,7 @@
                             {{ $lost_games }}
                         </span>
                     </div>
-                    <div class="card">
+                    <div class="card transfer">
                         <span>
                             <i class='bx bx-transfer'></i>
                             DRAWN

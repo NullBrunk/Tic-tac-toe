@@ -138,13 +138,12 @@ button, .button {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 24px 27px;
-    font-size: 26px;
+    padding: 10px 27px;
+    font-size: 20px;
     color: black;
     border: none;
     border-radius: 5px;
     margin-right: 10px;
-    gap: 7px;
     cursor: pointer;
 }
 
@@ -196,6 +195,7 @@ button i {
     margin-bottom: 10px;
     cursor: pointer;
     font-weight: 700;
+    padding: 20px 80px;
 
     transition: all .5s;
 }
@@ -320,11 +320,11 @@ button i {
 }
 
 .fg-O {
-    color: #42e0ce !important;
+    color: #18bc9c !important;
 }
 
 .fg-X {
-    color: #b062e3 !important;
+    color: #ee6677 !important;
 }
 
 @media(max-width: 1000px) {
@@ -429,6 +429,14 @@ button i {
     margin-bottom: 14px;
     font-size: 1.25rem;
     padding-left: 4px;
+    padding-top: 14px;
+}
+
+.patch-approximatif {
+    border: 3px solid rgba(161,79,214,.2);
+    border-bottom: 0;
+    border-right: 0;
+    border-left: 0;
 }
 
 .pro-cards .commentbar-top {
@@ -445,6 +453,7 @@ button i {
     height: 35vh;
     border-radius: 8px;
     padding: 10px;
+    padding-top: 0px;
     overflow: scroll;
 }
 
@@ -462,7 +471,7 @@ button i {
 }
 
 .info .card {
-    width: 25%;
+    width: 33%;
     text-align: center;
     background-color: #22cebe;
     border-radius: 5px;
@@ -508,4 +517,28 @@ button i {
 
 .battle {
     background-color: #22cebe;
+    display: flex;
+    padding: 15px;
+    margin: 15px 10px;
+    border-radius: 5px;
+}
+
+.trophy {
+    background-color: #18bc9c !important;
+}
+
+.x-circle {
+    background-color: #ee6677 !important;
+}
+
+.transfer {
+    background-color: #a14fd6 !important;
+}
+
+.fg {
+    color: #161618;
+}
+
+.vs {
+    font-weight: 900;
 }
