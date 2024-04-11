@@ -122,7 +122,7 @@ class AppController extends Controller
                 -> get() 
                 -> first() 
                 -> symbol;
-        
+        session(["sybmol" => $symbol]);
 
         // Check si il y a deja un symbole placé la 
         if(sizeof(

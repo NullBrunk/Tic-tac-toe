@@ -261,13 +261,18 @@ button i {
 }
 
 #morpion .col .case {
-    color: #1d2124;
-    background-color: hsl(276, 70%, 64%);
-    color: #161618;
+    /* color: #1d2124; */
+    /* background-color: hsl(276, 70%, 64%); */
+    /* color: #161618; */
+    
+    border: 10px solid hsl(276, 70%, 64%);
+    background-color: #161618;
     font-weight: 900;
     text-align: center;
     border-radius: .75rem;
     padding: 7vh 7vw;
+    padding-top: 6vh;
+
     height: 23vh;
     width: 30vw;
     justify-content: center;
@@ -294,7 +299,6 @@ button i {
 
 #result {
     text-align: center;
-    background-color: #42e0ce;
     border-radius: 10px;
     margin: 15px 4px;
     padding: 10px;
@@ -307,6 +311,21 @@ button i {
     height: 80vh;
 }
 
+.bg-green {
+    background-color: #42e0ce;
+}
+
+.X {
+    background-color: #b062e3;
+}
+
+.fg-O {
+    color: #42e0ce !important;
+}
+
+.fg-X {
+    color: #b062e3 !important;
+}
 
 @media(max-width: 1000px) {
     .body-title {
@@ -321,4 +340,172 @@ button i {
         margin: auto;
         justify-content: center;
     }
+}
+
+.profile-container {
+    width: 92vw;
+    margin-top: 4vw;
+    margin-left: 4vw
+}
+
+.banner {
+    position: relative;
+    height: 19vh;
+    border-radius: 8px;
+    overflow: hidden;
+    user-select: none;
+    background: linear-gradient(315deg, hsl(276, 79%, 69%) 25%, hsl(173, 75%, 47%));
+}
+
+.absolute {
+    position: absolute;
+}
+
+.informations {
+    color: #5e5e5e;
+    z-index: 10;
+    width: calc(92vw - 10%);
+    height: 160px;
+    margin-left: 5%;
+    margin-top: 10px;
+}
+
+.profile-name {
+    position: absolute;
+    border: 5px solid #fff;
+    color: #fff;
+    background-color: #bababa;
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    user-select: none;
+    font-family: Avenir;
+    top: -40%;
+    left: 0;
+}
+
+.profile-info {
+    margin-left: 190px;
+    color: #fff;
+}
+
+.mail {
+    font-weight: bolder;
+    margin-bottom: 0 !important;
+    font-size: 22px;
+}
+
+.joined {
+    font-size: 15px;
+}
+
+.pro-buttons {
+    margin-left: auto;
+    margin-top: 15px;
+}
+
+.pro-buttons .button {
+    background-color: #a14fd6;
+    color: #fff;
+    border-radius: 7px;
+    padding: 10px;
+    border: none;
+}
+
+.pro-cards {
+    margin-top: 160px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 3%;
+    height: 25vh;
+}
+
+.relative {
+    position: relative;
+}
+
+.pro-cards h5 {
+    margin-bottom: 14px;
+    font-size: 1.25rem;
+    padding-left: 4px;
+}
+
+.pro-cards .commentbar-top {
+    position: sticky;
+    top: 0;
+    background-color: #161618;
+    z-index: 2;
+}
+
+.pro-cards .more-infos {
+    box-shadow: rgba(161, 79, 214, 0.2) 0px 0px 0px 3px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 3px;
+    background-color: #161618;
+    width: 47%;
+    height: 35vh;
+    border-radius: 8px;
+    padding: 10px;
+    overflow: scroll;
+}
+
+.pro-cards .more-infos p {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    height: 100%;
+    color: #161618;
+}
+
+.info {
+    padding: 25px;
+    height: 65%;
+}
+
+.info .card {
+    width: 25%;
+    text-align: center;
+    background-color: #22cebe;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info .card span {
+    font-weight: 700;
+    color: #161618;
+}
+
+
+.stats {
+    font-weight: 900 !important;
+    font-size: 75px;
+    margin: auto;
+}
+
+
+.loader {
+    width: 13px;
+    height: 13px;
+    border: 3px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin-left: 5px;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} 
+
+.battle {
+    background-color: #22cebe;
 }

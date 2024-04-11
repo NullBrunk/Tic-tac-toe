@@ -2,9 +2,10 @@
 
 namespace App\Livewire;
 
-use App\Http\Controllers\AppController;
 use App\Models\Game;
 use Livewire\Component;
+use App\Http\Controllers\AppController;
+use App\Models\User_join;
 
 
 class Morpion extends Component
@@ -12,6 +13,7 @@ class Morpion extends Component
     public $k = 0;
     public $id;
     public $morpion;
+    public $alone = true;
     
     public $position = null;
     public $ended = null;
@@ -39,9 +41,30 @@ class Morpion extends Component
     }
 
 
+    /**
+     * Check if the user is alone
+     * 
+     * @return void
+     */
+    public function is_alone() {
+        $joined_players = User_join::where("gameid", "=", $this -> id) -> count();
+        
+        if($joined_players !== 1) {
+            $this -> alone = false;
+        }
+    }
+
+    /**
+     * Update the morpion
+     *
+     * @return void
+     */
     public function update_morpion() {
         # If the game is ended do not reload anything
         if($this -> ended !== null) return;
+
+        # Check if you are alone or not
+        if($this -> alone === true) $this -> is_alone();
 
         $this -> ended = Game::where("gameid", "=", $this -> id) -> get() -> first() -> winner;
 
@@ -54,6 +77,7 @@ class Morpion extends Component
             # Check if someone has winned
             AppController::check_win($this -> morpion, $this -> position, $this -> id);
     }
+
 
     public function render()
     {

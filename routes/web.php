@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AppController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,7 +24,8 @@ Route::middleware("guest") -> name("auth.") -> controller(AuthController::class)
     Route::post("/signup", "signup");
 });
 
-Route::get("logout", function() {
+
+Route::get("logout", function () {
     # Clean the session
     session() -> flush();
 
@@ -44,5 +47,18 @@ Route::name("app.") -> middleware("auth") -> controller(AppController::class) ->
 
     Route::get("/p/{id}", "join_game") -> name("join_game");
     Route::get("/move/{id}/{position}", "users_plays") -> name("play");
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| Profile routing
+|--------------------------------------------------------------------------
+| 
+*/
+
+Route::name("settings.") -> middleware("auth") -> controller(ProfileController::class) -> group(function () {
+
+    Route::get("/profile/{user:email}",  "show_profile") -> name("show");
 
 });
