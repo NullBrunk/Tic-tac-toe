@@ -64,6 +64,7 @@ class ProfileController extends Controller
                    -> orWhere('users2.id', $id);
         })
         -> groupBy("games.gameid")
+        -> orderBy("games.created_at", "DESC")
         -> get()
         -> toArray();
 

@@ -51,21 +51,24 @@
                         @else
                             @php($class = "x-circle")
                         @endif
-                        
+
                         <div class="battle {{ $class }}">
                             <div>
                                 <i class="bx bx bx-{{ $class }}"></i>
                             </div>
 
                             <div style="margin-left: 35%;">
+                                <style>
+                                    b {
+                                        color: #fbec7b;
+                                    }
+                                </style>
                                 <b>{{ $battle["email_p1"] }}</b>
-                                ({{ $battle["join_p1"] }})
     
                                 <span class="fg vs">
                                     VS
                                 </span>
 
-                                ({{ $battle["join_p2"] }})
                                 <b>{{ $battle["email_p2"] }}</b>
                             </div>
 
