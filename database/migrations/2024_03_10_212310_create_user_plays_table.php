@@ -17,15 +17,13 @@ return new class extends Migration
             $table -> foreign('gameid') 
                    -> references('gameid') 
                    -> on('games')
-                   -> onUpdate('cascade')
-                   -> onDelete('cascade');
+                   -> onUpdate('cascade');
 
             $table->bigInteger('userid')->unsigned();
             $table -> foreign('userid') 
                    -> references('id') 
                    -> on('users')
-                   -> onUpdate('cascade')
-                   -> onDelete('cascade');
+                   -> onUpdate('cascade');
             
             $table -> string('symbol');
             $table -> string('position');

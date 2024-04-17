@@ -16,15 +16,13 @@ return new class extends Migration
             $table -> foreign('player') 
                    -> references('id') 
                    -> on('users')
-                   -> onUpdate('cascade')
-                   -> onDelete('cascade');
+                   -> onUpdate('cascade');
 
             $table -> string('gameid');
             $table -> foreign('gameid') 
                     -> references('gameid') 
                     -> on('games')
-                    -> onUpdate('cascade')
-                    -> onDelete('cascade');
+                    -> onUpdate('cascade');
 
             $table -> string("symbol");
 
