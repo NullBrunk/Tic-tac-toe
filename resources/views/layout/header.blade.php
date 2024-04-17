@@ -10,12 +10,21 @@
 
        <ul class="navbar">            
             @if(session() -> has("id"))
-
                 <li>
-                    <a class="link bigger m-auto" href="{{ route("profile.show", session("email")) }}">
-                        <i class='bx bx-user-circle' ></i>
-                    </a>
-               </li>
+                    <div class="profile-button dropdown" id="dropdown">
+                        <i class='bx bx-menu'></i>
+                        
+                        <div id="dropdown-content" class="dropdown-content">
+                            <a class="flex" href="{{ route("profile.show", session("email")) }}">
+                                <span>Profile</span>
+                            </a>
+                            <a class="flex" href="{{ route("auth.logout") }}"">
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    
+                    </div>
+                </li>
             @else
                 <li>        
                     <a id="header-login-button" class="link" href="{{ route("auth.login") }}">

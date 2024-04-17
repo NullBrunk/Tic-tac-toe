@@ -26,19 +26,26 @@
     </div>
 
 
-    @php($k=0)
+    <div>
 
-    @foreach($morpion as $line)
-        <form class="col">
-            @foreach($line as $case)
-                <input 
-                    type="button" 
-                    class="case fg-{{$case}}" 
-                    value="{{ $case }}" 
-                    wire:click="play({{ $k++ }})"
-                />
-            @endforeach
-        </form>
-    @endforeach
-
+        @php($k=0)
+        @php($styles = [
+            "right-bottom", "right-left-bottom", "left-bottom",
+            "top-right-bottom", "", "top-left-bottom",
+            "top-right", "top-right-left", "top-left",
+        ])
+        @foreach($morpion as $line)
+            <form class="col">
+                @foreach($line as $case)
+                    <input 
+                        type="button" 
+                        class="case fg-{{$case}} border-all {{ $styles[$k] }}" 
+                        value="{{ $case }}" 
+                        wire:click="play({{ $k++ }})"
+                    />
+                @endforeach
+            </form>
+        @endforeach
+    </div>
+        
 </div>

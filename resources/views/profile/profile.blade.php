@@ -5,9 +5,9 @@
 
 @section("body")
     <section class="profile-container" style="margin-top: 4rem;">
-        <div class="banner"></div>
+        <div class="banner" data-aos="fade-in" data-aos-duration="1000" ></div>
         
-        <div class="absolute informations flex">
+        <div class="absolute informations flex" data-aos="fade-in" data-aos-duration="1000">
             <div class="profile-name flex">
                 <img src="https://ui-avatars.com/api/?background=a14fd6&color=fff&amp;size=300&amp;rounded=true&amp;length=1&amp;name={{ $email }}" alt="Profile picture">
             </div>
@@ -23,12 +23,11 @@
             @if($email === session("email"))
                 <div class="pro-buttons flex">
                     <a class="button" href="{{ route("profile.settings") }}"><i class="bx bx-cog"></i></a>
-                    <a class="button" href="{{ route("auth.logout") }}"><i class='bx bx-log-out-circle'></i></a>
                 </div>
             @endif
         </div>
 
-        <div class="pro-cards">
+        <div class="pro-cards" data-aos="fade-up" data-aos-duration="1000">
 
             <div class="relative more-infos">
                 <div class="commentbar-top">

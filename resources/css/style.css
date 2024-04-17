@@ -72,7 +72,7 @@ nav > div{
 }
 
 .flex {
-    display: flex;
+    display: flex !important;
 }
 
 .w-100 {
@@ -190,18 +190,14 @@ nav {
     font-weight: 700;
 }
 
-
-/* #header-login-button:hover span {
-    display: none;
+.profile-button {
+    font-size: 34px;
 }
 
-#header-login-button:hover i {
-    margin-right: calc((117px / 2) + 2px); 
-    transform: translateX(calc(117px / 4));
-    font-weight: 900;
+.profile-button:hover {
+    color: #6842ff;
+    transition: all 0.5s;
 }
- */
-
 
 #header-login-button {
     display: flex;
@@ -228,6 +224,36 @@ nav {
     transform: translateX(27px);
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 80px;
+    flex-direction: column;
+
+    background-color: #6842ff;
+    z-index: 1;
+
+    border-radius: 10px;
+}
+
+.dropdown-content a {
+    padding: 15px 30px;;
+    border: 1px solid #1e1f30;
+}
+
+.dropdown-content a:hover {
+    background-color: #1e1f30;
+}
+
+.dropdown-content a span, .dropdown-content a i {
+    font-size: 18px;
+}
 
 
 
@@ -509,31 +535,22 @@ linear gradient
     display: flex;
 }
 
-#morpion .col .case {
-    /* color: #1d2124; */
-    /* background-color: hsl(276, 70%, 64%); */
-    /* color: #161618; */
-    
-    border: 10px solid hsl(276, 70%, 64%);
-    background-color: #161618;
+#morpion .col .case {    
+    background-color: #0c0d14;
     font-weight: 900;
     text-align: center;
-    border-radius: .75rem;
     padding: 7vh 7vw;
     padding-top: 6vh;
-
     height: 23vh;
     width: 30vw;
     justify-content: center;
     font-size: 60px;
-    margin: 4px;
     cursor: pointer;
-
     transition: all 0.5s;
 }
 
 #morpion .col .case:hover {
-    background-color: hsl(276, 85%, 55%);
+    background-color: rgba(104,66,255, 0.3);
 }
 
 #result {
@@ -567,6 +584,25 @@ linear gradient
 } 
 
 
+.right-bottom, .right-left-bottom, .left-bottom {
+    border-top: none !important;
+} 
+
+.left-bottom, .top-left-bottom, .top-left{
+    border-right: none !important;
+} 
+
+.top-right-bottom, .top-right, .right-bottom {
+    border-left: none !important;
+} 
+
+.top-right, .top-right-left, .top-left  {
+    border-bottom: none !important;
+} 
+
+.border-all {
+    border: 5px solid #6842ff;
+} 
 
 
 /* Profile page */
