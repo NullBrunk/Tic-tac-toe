@@ -10,7 +10,3 @@
 ![repo size](https://img.shields.io/github/repo-size/NullBrunk/L3T?style=for-the-badge)
 
 </div>
-
-
-https://github.com/NullBrunk/Morpion/assets/125673909/fa984b84-1cbb-4f84-ad07-cfb88e2773c8
-
