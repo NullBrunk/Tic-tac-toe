@@ -10,3 +10,5 @@
 ![repo size](https://img.shields.io/github/repo-size/NullBrunk/L3T?style=for-the-badge)
 
 </div>
+
+![L3T](https://github.com/NullBrunk/L3T/assets/125673909/2b192e38-c4eb-4e10-9fed-c803cc0adecc)
