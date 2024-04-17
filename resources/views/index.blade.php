@@ -4,21 +4,19 @@
 
 
 @section("body")
-    <section class="container index-page" style="margin-top: 4rem;">
-            <h1 class="body-title">
-                A<span class="text-gradient"> multiplayer</span> <br> tic-tac-toe 
-            </h1>
 
-            <div class="flex buttons">
-                <a class="button purple-button" href="{{ env('GITHUB_URL') }}" target="_blank">
-                    <i class='bx bxl-github'></i>
-                    See on github
-                </a>
-                
-                <a class="button green-button" href="{{ env('PORTFOLIO_URL') }}" target="_blank">
-                    <i class='bx bx-bookmark' ></i>
-                    Read the doc
-                </a>
-            </div>            
+    <section class="container index-page" style="margin-top: 0rem;">
+            <div data-aos="zoom-in" data-aos-duration="1000" class="game main-img"></div>
+
+            <div data-aos="fade-up" data-aos-duration="1000" class="flex buttons m-auto" style="margin-top: 50px;">
+                <div class="index-button">
+                    <div class="button-wrapper" onclick="redirect('{{ route('app.generate') }}')">
+                        <div class="text">PLAY A GAME</div>
+                        <span class="game-icon">
+                            <i style="font-weight: bold !important;" class="bx bx-joystick"></i> 
+                        </span>
+                    </div>
+                </div>            
+            </div>
     </section>
 @endsection

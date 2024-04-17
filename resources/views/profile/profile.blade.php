@@ -7,8 +7,8 @@
     <section class="profile-container" style="margin-top: 4rem;">
         <div class="banner"></div>
         
-        <div class="absolute informations title ">
-            <div class="profile-name title ">
+        <div class="absolute informations flex">
+            <div class="profile-name flex">
                 <img src="https://ui-avatars.com/api/?background=a14fd6&color=fff&amp;size=300&amp;rounded=true&amp;length=1&amp;name={{ $email }}" alt="Profile picture">
             </div>
             <div class="profile-info">
@@ -21,8 +21,9 @@
             </div>    
 
             @if($email === session("email"))
-                <div class="pro-buttons">
-                    <a class="button" href="http://127.0.0.1/settings"><i class="bx bx-cog"></i></a>
+                <div class="pro-buttons flex">
+                    <a class="button" href="{{ route("profile.settings") }}"><i class="bx bx-cog"></i></a>
+                    <a class="button" href="{{ route("auth.logout") }}"><i class='bx bx-log-out-circle'></i></a>
                 </div>
             @endif
         </div>
@@ -58,18 +59,13 @@
                             </div>
 
                             <div style="margin-left: 35%;">
-                                <style>
-                                    b {
-                                        color: #fbec7b;
-                                    }
-                                </style>
-                                <b>{{ $battle["email_p1"] }}</b>
+                                <a class="profile-link" href="{{ $battle["email_p1"] }}">{{ $battle["email_p1"] }}</a>
     
-                                <span class="fg vs">
+                                <span class="fg bolder">
                                     VS
                                 </span>
 
-                                <b>{{ $battle["email_p2"] }}</b>
+                                <a class="profile-link" href="{{ $battle["email_p2"] }}">{{ $battle["email_p2"] }}</a>
                             </div>
 
                             <div style="margin-left: auto;">

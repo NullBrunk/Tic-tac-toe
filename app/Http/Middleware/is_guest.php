@@ -16,7 +16,7 @@ class is_guest
     public function handle(Request $request, Closure $next): Response
     {
         if(session() -> has("id"))
-            return to_route("app.app");
+            return to_route("index");
         
         return $next($request);
     }

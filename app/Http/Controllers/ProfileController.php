@@ -13,11 +13,11 @@ class ProfileController extends Controller
 {
 
     /**
-     * Eloquent request to get general stats (played games, winned games, lost games etc)
+     * Eloquent request to get the general stats (played games, winned games, lost games etc) of a given user
      *
      * @param integer $id_user      The id of the user to query
      * 
-     * @return Collection           The orm response 
+     * @return Collection           The ORM response 
      */
     private function get_general_stats(int $id_user) {
         # Disable the "ONLY_FULL_GROUP_BY" mode that is auto enabled on laravel
@@ -33,11 +33,11 @@ class ProfileController extends Controller
 
 
     /**
-     * Get the history of played games, with the opponent, the winner and the date
+     * Get the history of played games (player, his opponent, winner, and the date)
      *
      * @param integer $id       The id of the user to query
      * 
-     * @return array            An array that represents history
+     * @return array            The ORM response 
      */
     private function get_history(int $id) {
         return User_join::select(
@@ -67,19 +67,22 @@ class ProfileController extends Controller
         -> orderBy("games.created_at", "DESC")
         -> get()
         -> toArray();
-
     } 
+
 
     /**
      * Show the profile of a given user
      *
      * @param Users $user       The user through model binding
+     * 
      * @return void
      */
     public function show_profile(Users $user) {
 
+        # Get the ORM responde to the request
         $statistics = $this -> get_general_stats($user -> id);
 
+        # Parse the ORM response to get usable stats
         $played_games = 0;
         $drawn_games = 0;
         $won_games = 0;
@@ -99,18 +102,29 @@ class ProfileController extends Controller
         }
         $lost_games = $played_games - $won_games - $drawn_games - $not_ended_games;
         
-        # Get the history of played games of the user
+        # Get an array that represents the history of played games of the user
         $history = $this -> get_history($user -> id); 
 
-        
-        return view("profile", [
+        # Return the profile page with all the needed parameters
+        return view("profile.profile", [
             "won_games" => $won_games,
             "lost_games" => $lost_games,
             "drawn_games" => $drawn_games,
             "email" => $user -> email,
             "history" => $history,
 
+            # diffForHumans -> 15 seconds ago, 2 months ago for example
             "created_at" => Carbon::parse($user -> created_at) -> diffForHumans(),
         ]);
+    }
+
+    
+    /**
+     * Show the settings page
+     *
+     * @return view
+     */
+    public function show_settings() {
+        return view("profile.settings");
     }
 }

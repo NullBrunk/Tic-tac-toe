@@ -14,7 +14,7 @@ class AuthController extends Controller
      *
      * @param string $to_hash       The string to hash
      *
-     * @return                      The hash in sha512
+     * @return string               The hash in sha512
      */
     private static function hash(string $to_hash) {
         return hash("sha512", hash("sha512", $to_hash));
@@ -24,9 +24,9 @@ class AuthController extends Controller
     /**
      * Log in a user
      *
-     * @param LoginReq $request
+     * @param LoginReq $request     The validated request
      *
-     * @return          Redirection to / or to /login with errors
+     * @return redirect             Redirection to / or to /login with errors
      */
     public function login(LoginReq $request) {
 
@@ -48,22 +48,21 @@ class AuthController extends Controller
         session($data[0]);
 
         # Go to / page
-        return to_route("app.app");
+        return to_route("index");
     }
 
 
     /**
      * Signup a user
      *
-     * @param SignupReq $request
+     * @param SignupReq $request        The validated request
      * 
-     * @return          Redirection to the login page with a success message 
+     * @return redirect                 Redirection to the login page with a success message 
      */
     public function signup(SignupReq $request) {
 
         # Since the validation of the request include the fact that the name is unique in
         # the table, we can create the user without any validation at this level
-
         $user = Users::create([
             "name" => $request["name"],
             "email" => $request["email"],
@@ -71,7 +70,6 @@ class AuthController extends Controller
         ]);
 
         # And safely return to the login page
-        
         return to_route("auth.login") -> with(
             "success", "User " . $user -> name . " has been created !"
         );

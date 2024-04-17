@@ -4,7 +4,7 @@
 
 
 @section("body")
-    <section class="container auth-form">
+    <section data-aos="zoom-in" data-aos-duration="1000" class="container auth-form">
         
         <form action="{{ route("auth.login") }}" method="post">
             @csrf
@@ -37,6 +37,9 @@
                 <input type="password" name="password" id="password" placeholder="••••••••" class="@error("password" || "loginerror") error-border @enderror input-form">
             </div>
             
+            <span class="account-creation">
+                Don't have an account yet ? <a href="{{ route("auth.signup") }}">Signup</a>
+            </span>
             <button>Login</button>
         </form>
     

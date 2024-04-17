@@ -10,7 +10,10 @@
         {{-- Uncomment this line if you prefer to use bootstrap icons --}}
         {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
         
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <link rel="stylesheet" href="/assets/css/style.min.css">
+
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <script src="/assets/js/app.min.js"></script>
     </head>
 

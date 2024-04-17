@@ -42,10 +42,9 @@ Route::get("logout", function () {
 */
 
 Route::name("app.") -> middleware("auth") -> controller(AppController::class) -> group(function () {
-    Route::view("/app",  "app.app") -> name("app");
     Route::get("/generate",  "generate") -> name("generate");
 
-    Route::get("/p/{id}", "join_game") -> name("join_game");
+    Route::get("/play/{id}", "join_game") -> name("join_game");
     Route::get("/move/{id}/{position}", "users_plays") -> name("play");
 });
 
@@ -57,8 +56,9 @@ Route::name("app.") -> middleware("auth") -> controller(AppController::class) ->
 | 
 */
 
-Route::name("settings.") -> middleware("auth") -> controller(ProfileController::class) -> group(function () {
+Route::name("profile.") -> middleware("auth") -> controller(ProfileController::class) -> group(function () {
 
-    Route::get("/profile/{user:email}",  "show_profile") -> name("show");
+    Route::get("settings",  "show_settings") -> name("settings");
+    Route::get("p/{user:email}",  "show_profile") -> name("show");
 
 });

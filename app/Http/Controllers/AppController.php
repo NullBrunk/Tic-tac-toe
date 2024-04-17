@@ -11,30 +11,51 @@ use Illuminate\Support\Str;
 
 class AppController extends Controller
 {
+    /**
+     * Generate a unique ID to identify a game
+     *
+     * @return route        Join the game with the generated ID
+     */
     public function generate() {
         
-        // Generate a token
+        # Generate the random unique ID
         $uuid = Str::random(4);
     
-        // Create the game
+        # Create a game with the generated ID
         Game::create([
             "gameid" => $uuid
         ]);
 
-        // Redirect to the page
+        # And join the game that we just created
         return to_route("app.join_game", $uuid);
     }
 
 
+    /**
+     * Join a game
+     *
+     * @param string $id        The unique ID of the game to join
+     * 
+     * @return view|403         The view of the tictactoe board, or a 403 abort            
+     */
     public function join_game(string $id) {
+        # Get all the users that joined the game
         $joined_user = User_join::where("gameid", "=", $id);
+        # Count them
         $count = $joined_user -> count();
         
+        # Have you joined the game already ?
         $user_has_not_join = $joined_user -> where("player", "=", session("id")) -> count() === 0;
+        
+        # If there is already two users AND you have not joined the game
         if($count === 2 && $user_has_not_join) {
             return abort(403);
         } 
+
+        # If there is less than two users in the game, AND you have not joined the game
         else if($user_has_not_join) {
+            
+            # Join the game
             $symbol = $count === 0 ? "O" : "X";
 
             User_join::create([
@@ -46,12 +67,20 @@ class AppController extends Controller
             $count++;
         }
 
+
         return view("app.morpion", [ 
             "gameid" => $id, 
         ]);
     }
 
     
+    /**
+     * Get a morpion
+     *
+     * @param string $id        The ID of the game
+     * 
+     * @return array            The morpion in form of a 2D array
+     */
     public static function get_morpion(string $id): array {
         $coups = User_play::where("gameid", "=", $id) -> get();
         $morpion = [["", "", ""],["", "", ""],["", "", ""]];
@@ -65,6 +94,16 @@ class AppController extends Controller
         return $morpion;
     }
     
+
+    /**
+     * Check if the placed pawn led to a win or a draw or nothing
+     *
+     * @param array $morpion        The morpion
+     * @param integer $position     The position of the placed pawn (from 0 to 8)
+     * @param string $id            The unique ID of the game
+     * 
+     * @return void                 Update the database "winner" row, don't return
+     */
     public static function check_win(array $morpion, int $position, string $id) {
 
         include_once "checkwin.php";
@@ -92,7 +131,6 @@ class AppController extends Controller
                 "winner" => "draw"
             ]);
         }
-
     }
     
     /**
