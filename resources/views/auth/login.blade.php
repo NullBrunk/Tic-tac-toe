@@ -16,11 +16,13 @@
             </div>
 
             @error("loginerror")
-                {{ $message }}
+                <div class="bg-red msg-box">
+                    {{ $message }}
+                </div> 
             @enderror
 
             @if(session() -> has("success"))
-                <div class="success">
+                <div class="bg-green msg-box">
                     {{ session("success") }}
                 </div>    
             @endif

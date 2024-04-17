@@ -15,6 +15,8 @@
 
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <script src="/assets/js/app.min.js"></script>
+
+        <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
     </head>
 
     <body>

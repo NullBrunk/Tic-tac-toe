@@ -63,8 +63,13 @@ nav > div{
     color: red;
 }
 
-.success {
-    color: green;
+.msg-box {
+    padding: 9px;
+    border-radius: 12px;
+    text-align: center;
+
+    margin-top: 47px;
+    margin-bottom: 47px;
 }
 
 .bigger {
@@ -89,6 +94,10 @@ nav > div{
 
 .bg-green {
     background-color: #42e0ce;
+}
+
+.bg-red {
+    background-color: #ee6677;
 }
 
 .X {
@@ -541,7 +550,7 @@ linear gradient
     text-align: center;
     padding: 7vh 7vw;
     padding-top: 6vh;
-    height: 23vh;
+    height: 25vh;
     width: 30vw;
     justify-content: center;
     font-size: 60px;

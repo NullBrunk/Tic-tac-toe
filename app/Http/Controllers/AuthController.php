@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SignupEvent;
 use App\Http\Requests\LoginReq;
 use App\Http\Requests\SignupReq;
+use App\Models\Mail_validation;
+use Illuminate\Support\Str;
 use App\Models\Users;
 
 class AuthController extends Controller
@@ -35,11 +38,16 @@ class AuthController extends Controller
                 -> where("password", "=", self::hash($request["password"]))
                 -> get() 
                 -> toArray();
-        
+                
         # If there is no such combination in the table, return to previous page with error
         if(empty($data)) {
             return to_route("auth.login") -> withErrors([
                 "loginerror" => "Invalid username or password"
+            ]);
+        }
+        if($data[0]["verified"] === 0) {
+            return to_route("auth.login") -> withErrors([
+                "loginerror" => "You need to verify your mail address"
             ]);
         }
 
@@ -66,12 +74,48 @@ class AuthController extends Controller
         $user = Users::create([
             "name" => $request["name"],
             "email" => $request["email"],
+            "verified" => false,
             "password" => self::hash($request["password"])
         ]);
 
+        # Create the validation unique token
+        $checksum = Str::uuid();
+        # Add an entry into the validation table
+        Mail_validation::create([
+            "userid" => $user -> id,
+            "checksum" => $checksum,
+        ]);
+        # Dispatch a SignupEvent so that the SignupListener catch it
+        SignupEvent::dispatch($user -> email, $checksum);
+
         # And safely return to the login page
         return to_route("auth.login") -> with(
-            "success", "User " . $user -> name . " has been created !"
+            "success", "User " . $user -> name . " has been created, please check your inbox !"
         );
+    }
+
+    
+    /**
+     * Validate a user by confirming his mail
+     *
+     * @param string $checksum      Random UUID generated to check the mail
+     * 
+     * @return route|403            Returns either to /login either to a 403 page
+     */
+    public function confirm_mail(string $checksum) {
+        $data = Mail_validation::where("checksum", "=", $checksum) -> get();
+
+        if($data -> first()){
+            $data = $data[0];
+
+            Users::where("id", "=", $data -> userid) -> update([
+                "verified" => 1
+            ]);
+            $data -> delete();
+
+            return to_route("auth.login") -> with("success", "Your mail have been confirmed, you can log-in now");
+        }
+
+        return abort(403);
     }
 }
