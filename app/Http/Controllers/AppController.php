@@ -23,7 +23,8 @@ class AppController extends Controller
     
         # Create a game with the generated ID
         Game::create([
-            "gameid" => $uuid
+            "gameid" => $uuid,
+            "winner" => null
         ]);
 
         # And join the game that we just created

@@ -173,7 +173,7 @@
 		    <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; padding-top: 2px; padding-bottom: 30px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
               <p style="margin: 0;">If the button doesn't work, copy and paste the following link in your browser:</p>
-              <p style="margin: 0;"><a href="{{ route("auth.confirm_mail", $checksum) }}" target="_blank">{{ route("auth.confirm_mail", $checksum) }}</a></p>            
+              <p style="margin: 0;"><a href="{{ route("auth.confirm_mail", [$mail, $confirmation_token]) }}" target="_blank">{{ route("auth.confirm_mail", [ $mail, $confirmation_token ]) }}</a></p>            
               <p style="margin-top: 15px;">If you're being redirected to the index page, that means that you're already logged with another account. Please logout, then click on the link a second time.</p>        
             </td>
 
@@ -188,7 +188,7 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center" bgcolor="#37517e" style="border-radius: 6px;">
-                          <a href="{{ route("auth.confirm_mail", $checksum) }}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Verify the mail</a>
+                          <a href="{{ route("auth.confirm_mail", [ $mail, $confirmation_token ]) }}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Verify the mail</a>
                         </td>
                       </tr>
                     </table>

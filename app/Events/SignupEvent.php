@@ -12,7 +12,7 @@ class SignupEvent
     /**
      * Create a new event instance.
      */
-    public function __construct(public string $mail, public string $checksum)
+    public function __construct(public string $mail, public string $confirmation_token)
     {
     }
 }

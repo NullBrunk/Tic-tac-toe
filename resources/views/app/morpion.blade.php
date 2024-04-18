@@ -9,7 +9,7 @@
     <section class="container" data-aos="zoom-in-up" data-aos-duration="1000">
 
         <section id="morpion" onclick="clicked(event)">
-            @livewire('morpion', [ "id" => $gameid ])
+            <livewire:morpion :id="$gameid" />
         </section>
         
     </section>

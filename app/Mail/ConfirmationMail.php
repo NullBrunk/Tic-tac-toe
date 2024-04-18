@@ -16,7 +16,7 @@ class ConfirmationMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public string $mail, public string $checksum)
+    public function __construct(public string $mail, public string $confirmation_token)
     {
     }
 

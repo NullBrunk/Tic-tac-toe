@@ -25,7 +25,7 @@ class SignupListener implements ShouldQueue
     public function handle(SignupEvent $event): void
     {
         $this -> mailer -> send(
-            new ConfirmationMail($event -> mail, $event -> checksum)
+            new ConfirmationMail($event -> mail, $event -> confirmation_token)
         );
     }
 }

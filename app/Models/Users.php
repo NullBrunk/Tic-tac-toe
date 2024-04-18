@@ -12,7 +12,7 @@ class Users extends Model
     protected $fillable = [
         "name",
         "email",
-        "verified",
+        "confirmation_token",
         "password"
     ];
 }

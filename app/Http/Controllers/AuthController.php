@@ -45,7 +45,7 @@ class AuthController extends Controller
                 "loginerror" => "Invalid username or password"
             ]);
         }
-        if($data[0]["verified"] === 0) {
+        if($data[0]["confirmation_token"] !== null) {
             return to_route("auth.login") -> withErrors([
                 "loginerror" => "You need to verify your mail address"
             ]);
@@ -68,25 +68,20 @@ class AuthController extends Controller
      * @return redirect                 Redirection to the login page with a success message 
      */
     public function signup(SignupReq $request) {
+        # Create the validation unique token
+        $confirmation_token = Str::uuid();
 
         # Since the validation of the request include the fact that the name is unique in
         # the table, we can create the user without any validation at this level
         $user = Users::create([
             "name" => $request["name"],
             "email" => $request["email"],
-            "verified" => false,
+            "confirmation_token" => $confirmation_token,
             "password" => self::hash($request["password"])
         ]);
 
-        # Create the validation unique token
-        $checksum = Str::uuid();
-        # Add an entry into the validation table
-        Mail_validation::create([
-            "userid" => $user -> id,
-            "checksum" => $checksum,
-        ]);
         # Dispatch a SignupEvent so that the SignupListener catch it
-        SignupEvent::dispatch($user -> email, $checksum);
+        SignupEvent::dispatch($user -> email, $confirmation_token);
 
         # And safely return to the login page
         return to_route("auth.login") -> with(
@@ -102,16 +97,15 @@ class AuthController extends Controller
      * 
      * @return route|403            Returns either to /login either to a 403 page
      */
-    public function confirm_mail(string $checksum) {
-        $data = Mail_validation::where("checksum", "=", $checksum) -> get();
+    public function confirm_mail(string $mail, string $confirmation_token) {
+        $data = Users::where("email", "=", $mail) 
+                -> where("confirmation_token", "=", $confirmation_token) 
+                -> get();
 
         if($data -> first()){
-            $data = $data[0];
-
-            Users::where("id", "=", $data -> userid) -> update([
-                "verified" => 1
+            Users::where("id", "=", $data -> first() -> id) -> update([
+                "confirmation_token" => null
             ]);
-            $data -> delete();
 
             return to_route("auth.login") -> with("success", "Your mail have been confirmed, you can log-in now");
         }
