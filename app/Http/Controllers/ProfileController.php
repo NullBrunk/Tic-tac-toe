@@ -42,7 +42,9 @@ class ProfileController extends Controller
     private function get_history(int $id) {
         return User_join::select(
             "users.email AS email_p1", 
-            "users2.email AS email_p2", 
+            "users.name AS name_p1",
+            "users2.email AS email_p2",
+            "users2.name AS name_p2", 
             "user_joins.symbol AS join_p1",
             "user_joins2.symbol AS join_p2",
             "games.winner",
@@ -111,6 +113,7 @@ class ProfileController extends Controller
             "lost_games" => $lost_games,
             "drawn_games" => $drawn_games,
             "email" => $user -> email,
+            "name" => $user -> name,
             "history" => $history,
 
             # diffForHumans -> 15 seconds ago, 2 months ago for example

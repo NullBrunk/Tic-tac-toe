@@ -30,7 +30,7 @@
             <div>
                 @error("email") <div class="error">{{ $message }}</div> @enderror 
                 <label for="email">E-mail: </label> <br>
-                <input type="email" name="email" id="email" value="{{ old("email") }}" placeholder="john@doe.fr" class="@error("email" || "loginerror" ) error-border @enderror input-form">
+                <input type="email" name="email" id="email" placeholder="john@doe.fr" class="@error("email" || "loginerror" ) error-border @enderror input-form">
             </div>
             
             <div>

@@ -61,6 +61,6 @@ Route::name("app.") -> middleware("auth") -> controller(AppController::class) ->
 Route::name("profile.") -> middleware("auth") -> controller(ProfileController::class) -> group(function () {
 
     Route::get("settings",  "show_settings") -> name("settings");
-    Route::get("p/{user:email}",  "show_profile") -> name("show");
+    Route::get("p/{user:name}",  "show_profile") -> name("show");
 
 });

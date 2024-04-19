@@ -11,7 +11,9 @@ window.addEventListener('load', () => {
     /**
      * Le but de cette fonction est de faire en sorte que lorsque le dropdown est actif on 
      * on puisse cliquer n'importe ou dans le fenetre pour le "désactiver"
-     */
+     *
+     * @return {undefined} 
+    */
     function handle_removal() {
         // On enleve la classe flex pour le masquer
         dropdown_content.classList.remove("flex");

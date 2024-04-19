@@ -9,11 +9,11 @@
         
         <div class="absolute informations flex" data-aos="fade-in" data-aos-duration="1000">
             <div class="profile-name flex">
-                <img src="https://ui-avatars.com/api/?background=a14fd6&color=fff&amp;size=300&amp;rounded=true&amp;length=1&amp;name={{ $email }}" alt="Profile picture">
+                <img src="https://ui-avatars.com/api/?background=a14fd6&color=fff&amp;size=300&amp;rounded=true&amp;length=1&amp;name={{ $name }}" alt="Profile picture">
             </div>
             <div class="profile-info">
                 <p class="mail">
-                    {{ strtoupper($email) }}
+                    {{ strtoupper($name) }}
                 </p>
                 <p class="joined" id="joined">
                     {{ $created_at }}
@@ -37,15 +37,15 @@
                 
                 <div>
                     @foreach($history as $battle)
-                        
-                    @if($battle["winner"] === "draw")                    
+                    
+                        @if($battle["winner"] === "draw")                    
                             @php($class = "transfer")
                         @elseif((
-                            $battle["email_p1"] === $email && 
-                            $battle["join_p1"] === $battle["winner"]
-                        ) || (
-                            $battle["email_p2"] === $email && 
-                            $battle["join_p2"] === $battle["winner"]
+                                $battle["email_p1"] === $email && 
+                                $battle["join_p1"] === $battle["winner"]
+                            ) || (
+                                $battle["email_p2"] === $email && 
+                                $battle["join_p2"] === $battle["winner"]
                         ))
                             @php($class = "trophy")
                         @else
@@ -58,13 +58,13 @@
                             </div>
 
                             <div style="margin-left: 35%;">
-                                <a class="profile-link" href="{{ $battle["email_p1"] }}">{{ $battle["email_p1"] }}</a>
+                                <a class="profile-link" href="{{ $battle["name_p1"] }}">{{ $battle["name_p1"] }}</a>
     
                                 <span class="fg bolder">
                                     VS
                                 </span>
 
-                                <a class="profile-link" href="{{ $battle["email_p2"] }}">{{ $battle["email_p2"] }}</a>
+                                <a class="profile-link" href="{{ $battle["name_p2"] }}">{{ $battle["name_p2"] }}</a>
                             </div>
 
                             <div style="margin-left: auto;">

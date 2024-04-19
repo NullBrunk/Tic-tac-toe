@@ -1,6 +1,7 @@
 .DEFAULT_GOAL = help
 
 serv: ## Start the DB and launch the HTTP server
+	@mailhog&
 	@sudo systemctl start mariadb
 	@sudo php artisan serve --port 80 --host 0.0.0.0
 
