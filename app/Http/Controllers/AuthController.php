@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Events\SignupEvent;
 use App\Http\Requests\LoginReq;
 use App\Http\Requests\SignupReq;
-use App\Models\Mail_validation;
 use Illuminate\Support\Str;
 use App\Models\Users;
 
@@ -61,13 +60,13 @@ class AuthController extends Controller
 
 
     /**
-     * Signup a user
+     * Register a user
      *
      * @param SignupReq $request        The validated request
      * 
      * @return redirect                 Redirection to the login page with a success message 
      */
-    public function signup(SignupReq $request) {
+    public function register(SignupReq $request) {
         # Create the validation unique token
         $confirmation_token = Str::uuid();
 

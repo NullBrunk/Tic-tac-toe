@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AppController;
+use App\Http\Controllers\GameController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +20,8 @@ Route::middleware("guest") -> name("auth.") -> controller(AuthController::class)
     Route::view("/login", "auth.login") -> name("login");
     Route::post("/login", "login");
     
-    Route::view("/signup", "auth.signup") -> name("signup");
-    Route::post("/signup", "signup");
+    Route::view("/register", "auth.register") -> name("register");
+    Route::post("/register", "register");
 
     Route::get("/verify/{mail}/{confirmation_token}", "confirm_mail") -> name("confirm_mail");
 });
@@ -43,10 +43,10 @@ Route::get("logout", function () {
 | 
 */
 
-Route::name("app.") -> middleware("auth") -> controller(AppController::class) -> group(function () {
-    Route::get("/generate",  "generate") -> name("generate");
+Route::name("app.") -> middleware("auth") -> controller(GameController::class) -> group(function () {
+    Route::get("/create",  "create") -> name("generate");
 
-    Route::get("/play/{id}", "join_game") -> name("join_game");
+    Route::get("/play/{id}", "join") -> name("join");
     Route::get("/move/{id}/{position}", "users_plays") -> name("play");
 });
 
@@ -61,6 +61,6 @@ Route::name("app.") -> middleware("auth") -> controller(AppController::class) ->
 Route::name("profile.") -> middleware("auth") -> controller(ProfileController::class) -> group(function () {
 
     Route::get("settings",  "show_settings") -> name("settings");
-    Route::get("p/{user:name}",  "show_profile") -> name("show");
+    Route::get("p/{user:name}",  "show") -> name("show");
 
 });

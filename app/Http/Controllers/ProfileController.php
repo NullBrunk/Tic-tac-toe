@@ -79,7 +79,7 @@ class ProfileController extends Controller
      * 
      * @return void
      */
-    public function show_profile(Users $user) {
+    public function show(Users $user) {
 
         # Get the ORM responde to the request
         $statistics = $this -> get_general_stats($user -> id);

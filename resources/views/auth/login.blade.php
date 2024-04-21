@@ -40,7 +40,7 @@
             </div>
             
             <span class="account-creation">
-                Don't have an account yet ? <a href="{{ route("auth.signup") }}">Signup</a>
+                Don't have an account yet ? <a href="{{ route("auth.register") }}">Register</a>
             </span>
             <button>Login</button>
         </form>

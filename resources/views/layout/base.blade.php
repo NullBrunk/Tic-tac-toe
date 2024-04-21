@@ -5,18 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@yield("title", config("app.name"))</title>
 
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        
-        {{-- Uncomment this line if you prefer to use bootstrap icons --}}
-        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> --}}
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>        
         
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-        <link rel="stylesheet" href="/assets/css/style.min.css">
+        <link rel="stylesheet" href="{{ asset("/assets/css/style.min.css") }}">
 
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-        <script src="/assets/js/app.min.js"></script>
+        <script src="{{ asset("/assets/js/app.min.js") }}"></script>
 
-        <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset("/favicon.svg") }}" type="image/x-icon">
     </head>
 
     <body>

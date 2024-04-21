@@ -6,7 +6,7 @@
 @section("body")
     <section data-aos="zoom-in" data-aos-duration="1000" class="container auth-form">
         
-        <form action="{{ route("auth.signup") }}" method="post">
+        <form action="{{ route("auth.register") }}" method="post">
             @csrf
  
             <div class="icon">
@@ -40,9 +40,9 @@
             </div>
 
             <span class="account-creation">
-                Already have an account ? <a href="{{ route("auth.login") }}">Login</a>
+                Already registered ? <a href="{{ route("auth.login") }}">Login</a>
             </span>
-            <button>Signup</button>
+            <button>Register</button>
         </form>
     
     </section>
