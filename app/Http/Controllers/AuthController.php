@@ -37,7 +37,7 @@ class AuthController extends Controller
                 -> where("password", "=", self::hash($request["password"]))
                 -> get() 
                 -> toArray();
-                
+
         # If there is no such combination in the table, return to previous page with error
         if(empty($data)) {
             return to_route("auth.login") -> withErrors([
