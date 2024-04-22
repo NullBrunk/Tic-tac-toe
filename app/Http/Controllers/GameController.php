@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\MorpionController;
 use App\Models\Game;
 use App\Models\User_join;
 use App\Models\User_play;
 use Illuminate\Support\Str;
-use App\Http\Controllers\MorpionController;
 
 class GameController extends Controller
 {
@@ -30,7 +30,6 @@ class GameController extends Controller
         # Retourne à la route permettant de rejoindre la partie que nous venons de créer
         return to_route("app.join", $uuid);
     }
-
 
     /**
      * Rejoindre une partie
@@ -85,7 +84,6 @@ class GameController extends Controller
             "gameid" => $id, 
         ]);
     }
-
     
 
     /**

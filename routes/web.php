@@ -58,9 +58,17 @@ Route::name("app.") -> middleware("auth") -> controller(GameController::class) -
 | 
 */
 
-Route::name("profile.") -> middleware("auth") -> controller(ProfileController::class) -> group(function () {
+Route::name("profile.") -> middleware(["auth", "no-cache"]) -> controller(ProfileController::class) -> group(function () {
 
     Route::get("settings",  "show_settings") -> name("settings");
     Route::get("p/{user:name}",  "show") -> name("show");
 
 });
+
+/*
+# Test the mail
+use App\Mail\ConfirmationMail;
+Route::get("/mail", function() {
+    return new ConfirmationMail("a@a.a", "idididid");
+});
+*/

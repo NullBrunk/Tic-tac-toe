@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class is_guest
+class NoCacheControl
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,12 @@ class is_guest
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(session() -> has("id"))
-            return to_route("index");
-        
-        return $next($request);
+        $response = $next($request);
+
+        # Ne pas mettre en cache pour éviter l'accès à des données sensible via le
+        # cache du navigateur meme après la déconnexion d'un utilisateur
+        $response -> header("Cache-control", "no-cache, no-store, max-age=0, must-revalidate");
+
+        return $response;
     }
 }

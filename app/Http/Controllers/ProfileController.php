@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User_join;
 use App\Models\Users;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 

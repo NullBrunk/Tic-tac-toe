@@ -14,7 +14,6 @@
                     <i class='bx bxs-user-detail'></i>
                 </span>
             </div>
-
             @error("loginerror")
                 <div class="bg-red msg-box">
                     {{ $message }}

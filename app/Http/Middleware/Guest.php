@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class is_logged
+class Guest
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,8 @@ class is_logged
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!(session() -> has("id")))
-            return to_route("auth.login");
+        if(session() -> has("id"))
+            return to_route("index");
         
         return $next($request);
     }
