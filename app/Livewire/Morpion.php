@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\Game;
 use Livewire\Component;
 use App\Models\User_join;
-use App\Http\Controllers\GameController;
+use App\Http\Controllers\GamesController;
 use App\Http\Controllers\MorpionController;
 
 
@@ -35,7 +35,7 @@ class Morpion extends Component
         $this -> position = $position;
 
         # Play the turn of the player
-        GameController::store($this -> id, $this -> position);
+        GamesController::store($this -> id, $this -> position);
         
         # Update the morpion
         $this -> update_morpion();
@@ -76,7 +76,7 @@ class Morpion extends Component
         # vérifier si quelqu'un a gagné
         if($this -> position !== null)
             # Check if someone has winned
-            GameController::check_win($this -> morpion, $this -> position, $this -> id);
+            GamesController::check_win($this -> morpion, $this -> position, $this -> id);
     }
 
 

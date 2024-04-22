@@ -8,7 +8,7 @@ use App\Models\User_join;
 use App\Models\User_play;
 use Illuminate\Support\Str;
 
-class GameController extends Controller
+class GamesController extends Controller
 {
     /**
      * Génère un ID sur 4 caractère pour identifer une Game de manière unique
@@ -28,7 +28,7 @@ class GameController extends Controller
         ]);
 
         # Retourne à la route permettant de rejoindre la partie que nous venons de créer
-        return to_route("game.join", $uuid);
+        return to_route("games.join", $uuid);
     }
 
     /**
@@ -80,7 +80,7 @@ class GameController extends Controller
         }
 
 
-        return view("app.morpion", [ 
+        return view("app.games.morpion", [ 
             "gameid" => $id, 
         ]);
     }

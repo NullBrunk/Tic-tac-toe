@@ -22,7 +22,7 @@
 
             @if($email === session("email"))
                 <div class="pro-buttons flex">
-                    <a class="button" href="{{ route("profile.settings") }}"><i class="bx bx-cog"></i></a>
+                    <a class="button" href="{{ route("settings.profile") }}"><i class="bx bx-cog"></i></a>
                 </div>
             @endif
         </div>

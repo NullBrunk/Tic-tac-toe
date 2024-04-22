@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
-class ProfileController extends Controller
+class SettingsController extends Controller
 {
 
     /**
@@ -107,7 +107,7 @@ class ProfileController extends Controller
         $history = $this -> get_history($user -> id); 
 
         # Return the profile page with all the needed parameters
-        return view("profile.profile", [
+        return view("app.settings.profile", [
             "won_games" => $won_games,
             "lost_games" => $lost_games,
             "drawn_games" => $drawn_games,
@@ -127,6 +127,6 @@ class ProfileController extends Controller
      * @return view
      */
     public function show_settings() {
-        return view("profile.settings");
+        return view("app.settings.settings");
     }
 }

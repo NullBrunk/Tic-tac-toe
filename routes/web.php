@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\GameController;
+use App\Http\Controllers\GamesController;
 
 use Illuminate\Support\Facades\Route;
 
 
-Route::view("/", "index") -> name("index");
+Route::view("/", "app.index") -> name("index");
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,10 @@ Route::view("/", "index") -> name("index");
 */
 
 Route::middleware("guest") -> name("auth.") -> controller(AuthController::class) -> group( function () {
-    Route::view("/login", "auth.login") -> name("login");
+    Route::view("/login", "app.auth.login") -> name("login");
     Route::post("/login", "login");
     
-    Route::view("/register", "auth.register") -> name("register");
+    Route::view("/register", "app.auth.register") -> name("register");
     Route::post("/register", "register");
 
     Route::get("/verify/{mail}/{confirmation_token}", "confirm_mail") -> name("confirm_mail");
@@ -43,7 +44,7 @@ Route::get("logout", function () {
 | 
 */
 
-Route::name("game.") -> middleware("auth") -> controller(GameController::class) -> group(function () {
+Route::name("games.") -> middleware("auth") -> controller(GamesController::class) -> group(function () {
     Route::get("/create",  "create") -> name("create");
 
     Route::get("/play/{id}", "join") -> name("join");
@@ -58,9 +59,9 @@ Route::name("game.") -> middleware("auth") -> controller(GameController::class) 
 | 
 */
 
-Route::name("profile.") -> middleware(["auth", "no-cache"]) -> controller(ProfileController::class) -> group(function () {
+Route::name("settings.") -> middleware(["auth", "no-cache"]) -> controller(SettingsController::class) -> group(function () {
 
-    Route::get("settings",  "show_settings") -> name("settings");
+    Route::get("settings",  "show_settings") -> name("profile");
     Route::get("p/{user:name}",  "show") -> name("show");
 
 });

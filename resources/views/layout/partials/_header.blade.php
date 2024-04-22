@@ -15,7 +15,7 @@
                         <i class='bx bx-menu'></i>
                         
                         <div id="dropdown-content" class="dropdown-content">
-                            <a class="flex" href="{{ route("profile.show", session("name")) }}">
+                            <a class="flex" href="{{ route("settings.show", session("name")) }}">
                                 <span>Profile</span>
                             </a>
                             <a class="flex" href="{{ route("auth.logout") }}"">

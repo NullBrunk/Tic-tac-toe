@@ -18,7 +18,7 @@
     </head>
 
     <body>
-        @include("layout.header")
+        @include("layout.partials._header")
         @yield("body")
     </body>
 

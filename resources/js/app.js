@@ -1,12 +1,11 @@
-function redirect(url) {
-    window.location.href = url;
-}
-
 window.addEventListener('load', () => {    
     // Trigger aos event if you havent scrolled
     AOS.init({
         offset: 1,
     });
+
+    // On recupere la div qui est le conteneur du dropdown
+    let dropdown_content = document.getElementById("dropdown-content");
 
     /**
      * Le but de cette fonction est de faire en sorte que lorsque le dropdown est actif on 
@@ -15,6 +14,7 @@ window.addEventListener('load', () => {
      * @return {undefined} 
     */
     function handle_removal() {
+        //console.log(dropdown_content)
         // On enleve la classe flex pour le masquer
         dropdown_content.classList.remove("flex");
         // On enleve le listenner, sinon la prochaine fois qu'on cliquera sur
@@ -25,9 +25,6 @@ window.addEventListener('load', () => {
 
     // Quand on clique sur le dropdown
     document.getElementById("dropdown").addEventListener("click", () => {
-
-        // On recupere la div qui est le conteneur du dropdown
-        dropdown_content = document.getElementById("dropdown-content");
 
         // On l'affiche ou on le masque
         dropdown_content.classList.toggle("flex");
