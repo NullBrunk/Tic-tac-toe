@@ -9,11 +9,6 @@ class User_play extends Model
 {
     use HasFactory;
     public $timestamps = false;
-
-    protected $fillable = [
-        "gameid",
-        "userid",
-        "symbol",
-        "position"
-    ];
+    
+    protected $guarded = [];
 }

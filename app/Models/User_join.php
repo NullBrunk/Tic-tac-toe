@@ -10,9 +10,5 @@ class User_join extends Model
     use HasFactory;
     public $timestamps = false;
     
-    protected $fillable = [
-        "player",
-        "gameid",
-        "symbol"
-    ];
+    protected $guarded = [];
 }

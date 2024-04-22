@@ -9,10 +9,5 @@ class Users extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        "name",
-        "email",
-        "confirmation_token",
-        "password"
-    ];
+    protected $guarded = [];
 }

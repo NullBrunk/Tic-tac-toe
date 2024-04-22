@@ -9,8 +9,5 @@ class Game extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        "gameid",
-        "winner"
-    ];
+    protected $guarded = [];
 }
