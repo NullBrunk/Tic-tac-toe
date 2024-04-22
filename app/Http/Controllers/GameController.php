@@ -28,7 +28,7 @@ class GameController extends Controller
         ]);
 
         # Retourne à la route permettant de rejoindre la partie que nous venons de créer
-        return to_route("app.join", $uuid);
+        return to_route("game.join", $uuid);
     }
 
     /**

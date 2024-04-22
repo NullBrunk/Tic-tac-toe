@@ -10,7 +10,7 @@
 
             <div data-aos="fade-up" data-aos-duration="1000" class="flex buttons m-auto" style="margin-top: 50px;">
                 <div class="index-button">
-                    <div class="button-wrapper" onclick="redirect('{{ route('app.generate') }}')">
+                    <div class="button-wrapper" onclick="redirect('{{ route('game.create') }}')">
                         <div class="text">PLAY A GAME</div>
                         <span class="game-icon">
                             <i style="font-weight: bold !important;" class="bx bx-joystick"></i> 

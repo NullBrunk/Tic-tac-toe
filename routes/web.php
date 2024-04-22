@@ -43,8 +43,8 @@ Route::get("logout", function () {
 | 
 */
 
-Route::name("app.") -> middleware("auth") -> controller(GameController::class) -> group(function () {
-    Route::get("/create",  "create") -> name("generate");
+Route::name("game.") -> middleware("auth") -> controller(GameController::class) -> group(function () {
+    Route::get("/create",  "create") -> name("create");
 
     Route::get("/play/{id}", "join") -> name("join");
     Route::get("/move/{id}/{position}", "users_plays") -> name("play");
