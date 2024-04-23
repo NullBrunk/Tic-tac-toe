@@ -27,13 +27,14 @@ class AuthController extends Controller
      * Log in a user
      *
      * @param LoginReq $request     The validated request
+     * @param Users $user           The user through dependency injection
      *
      * @return redirect             Redirection to / or to /login with errors
      */
-    public function login(LoginReq $request) {
+    public function login(LoginReq $request, Users $user) {
 
         # Search for the username & password combination in the users table
-        $data = Users::where("email", "=", $request["email"]) 
+        $data = $user -> find_by_mail($request["email"]) 
                 -> where("password", "=", self::hash($request["password"]))
                 -> get() 
                 -> toArray();
@@ -44,6 +45,9 @@ class AuthController extends Controller
                 "loginerror" => "Invalid username or password"
             ]);
         }
+
+        # Si le champs confirmation token ne vaut pas null, c'est que le mail n'a pas encore
+        # été validé
         if($data[0]["confirmation_token"] !== null) {
             return to_route("auth.login") -> withErrors([
                 "loginerror" => "You need to verify your mail address"
@@ -79,12 +83,13 @@ class AuthController extends Controller
             "password" => self::hash($request["password"])
         ]);
 
-        # Dispatch a SignupEvent so that the SignupListener catch it
+        # On envoie un événement SignupEvent qui sera capturé par le
+        # SignupListener qui enverra un mail contenant le confirmation token
         SignupEvent::dispatch($user -> email, $confirmation_token);
 
-        # And safely return to the login page
         return to_route("auth.login") -> with(
-            "success", "User " . $user -> name . " has been created, please check your inbox !"
+            "success", 
+            "User " . $user -> name . " has been created, please check your inbox !"
         );
     }
 
@@ -92,23 +97,23 @@ class AuthController extends Controller
     /**
      * Validate a user by confirming his mail
      *
+     * @param Users $user           The user through model binding
      * @param string $checksum      Random UUID generated to check the mail
      * 
      * @return route|403            Returns either to /login either to a 403 page
      */
-    public function confirm_mail(string $mail, string $confirmation_token) {
-        $data = Users::where("email", "=", $mail) 
-                -> where("confirmation_token", "=", $confirmation_token) 
-                -> get();
+    public function confirm_mail(Users $user, string $confirmation_token) {
+        
+        # Si le confirmation token passé dans l'URL n'est pas le meme que
+        # le confirmation token attribué à la création du user
+        if($user -> confirmation_token !== $confirmation_token)
+            return abort(403);
+        
+        $user -> update([ "confirmation_token" => null ]);
 
-        if($data -> first()){
-            Users::where("id", "=", $data -> first() -> id) -> update([
-                "confirmation_token" => null
-            ]);
-
-            return to_route("auth.login") -> with("success", "Your mail have been confirmed, you can log-in now");
-        }
-
-        return abort(403);
+        return to_route("auth.login") -> with(
+            "success", 
+            "Your mail have been confirmed, you can log-in now"
+        );
     }
 }

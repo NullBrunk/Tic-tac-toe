@@ -4,6 +4,7 @@
 
 
 @section("body")
+
     <section class="profile-container" style="margin-top: 4rem;">
         <div class="banner" data-aos="fade-in" data-aos-duration="1000" ></div>
         
@@ -87,26 +88,23 @@
                             <i class='bx bx-trophy'></i>
                             WON
                         </span>
-                        <span class="stats">
-                            {{ $won_games }}
-                        </span>
+                        <span id="won" data-stat="{{ $won_games }}" class="stats">
                     </div>
                     <div class="card x-circle">
                         <span>
                             <i class='bx bx-x-circle'></i>
                             LOST
                         </span>
-                        <span class="stats">
-                            {{ $lost_games }}
-                        </span>
+                        <span id="lost" data-stat="{{ $lost_games }}" class="stats">
+
                     </div>
                     <div class="card transfer">
                         <span>
                             <i class='bx bx-transfer'></i>
                             DRAWN
                         </span>
-                        <span class="stats">
-                            {{ $drawn_games }}
+                        <span id="drawn" data-stat="{{ $drawn_games }}" class="stats">
+                            
                         </span>
                     </div>
                 </div>
@@ -115,4 +113,6 @@
 
         </div>
     </section>
+
+    <script src="{{ asset("/assets/specific_js/profile.min.js") }}"></script>
 @endsection

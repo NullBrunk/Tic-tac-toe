@@ -1,4 +1,3 @@
-
 <nav>
    <div class="flex-between header">
        <div class="title flex">
@@ -18,7 +17,7 @@
                             <a class="flex" href="{{ route("settings.show", session("name")) }}">
                                 <span>Profile</span>
                             </a>
-                            <a class="flex" href="{{ route("auth.logout") }}"">
+                            <a class="flex" href="{{ route("auth.logout") }}">
                                 <span>Logout</span>
                             </a>
                         </div>
