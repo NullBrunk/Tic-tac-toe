@@ -26,7 +26,7 @@
                 </li>
             @else
                 <li>        
-                    <a id="header-login-button" class="link" href="{{ route("auth.login") }}">
+                    <a class="link header-login-button" href="{{ route("auth.login") }}">
                         <i class='bx bx-log-in-circle'></i> 
                         <span class="ml-10">Login</span>
                     </a>

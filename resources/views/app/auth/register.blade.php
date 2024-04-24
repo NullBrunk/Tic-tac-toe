@@ -4,7 +4,7 @@
 
 
 @section("body")
-    <section data-aos="zoom-in" data-aos-duration="1000" class="container auth-form">
+    <section id="auth" data-aos="zoom-in" data-aos-duration="1000" class="container auth-form">
         
         <form action="{{ route("auth.register") }}" method="post">
             @csrf

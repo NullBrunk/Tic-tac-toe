@@ -41,10 +41,10 @@ class GamesController extends Controller
      */
     public function join(string $id) {
         # Vérifier que la game existe
-        Game::where("gameid", "=", $id) -> firstorfail();
+        Game::where("gameid", $id) -> firstorfail();
         
         # On recupère tous les utilisateurs qui ont rejoint la Game
-        $joined_user = User_join::where("gameid", "=", $id);
+        $joined_user = User_join::where("gameid", $id);
 
         # On les compte
         $count = $joined_user -> count();
@@ -52,7 +52,7 @@ class GamesController extends Controller
         # Si cette variable vaut true, ca veut dire que l'utilisateur actuel n'a pas rejoint la game
         # sinon l'utilisateur a déja rejoint la game
 
-        $user_has_not_join = $joined_user -> where("player", "=", session("id")) 
+        $user_has_not_join = $joined_user -> where("player", session("id")) 
                              -> count() === 0;
         
         # Si deux utilisateurs ont déja rejoint la partie et que l'utilisateur qui fait la requete
@@ -97,7 +97,7 @@ class GamesController extends Controller
      */
     public static function check_win(array $morpion, int $position, string $id) {
 
-        if(Game::where("gameid", "=", $id) -> first() -> winner !== null) {
+        if(Game::where("gameid", $id) -> first() -> winner !== null) {
             return;
         }
 
@@ -106,13 +106,13 @@ class GamesController extends Controller
         $pion = $morpion[$x][$y];
 
         if(MorpionController::check_win($morpion, $x, $y)) {
-            Game::where("gameid", "=", $id) -> update([
+            Game::where("gameid", $id) -> update([
                 "winner" => $pion
             ]);
             return;
         }
-        else if(User_play::where("gameid", "=", $id) -> get() -> count() === 9) {
-            Game::where("gameid", "=", $id) -> update([
+        else if(User_play::where("gameid", $id) -> get() -> count() === 9) {
+            Game::where("gameid", $id) -> update([
                 "winner" => "draw"
             ]);
         }
@@ -130,10 +130,10 @@ class GamesController extends Controller
     public static function store(string $id, int $position) {
 
         # Utilisateurs qui ont rejoint la game
-        $players = User_join::where("gameid", "=", $id);
+        $players = User_join::where("gameid", $id);
 
         # Tous les coups joués pendant la partie
-        $game_coups = User_play::where("gameid", "=", $id);
+        $game_coups = User_play::where("gameid", $id);
         
         # Recupère le dernier coup joué
         $last_turn = $game_coups -> get() -> last();
@@ -141,7 +141,7 @@ class GamesController extends Controller
         # Test tout ce qui rend interdit au joueur de jouer un coup à cet endroit
         if(
             # La partie est finie
-            Game::where("gameid", "=", $id) -> get() -> first() -> winner !== null
+            Game::where("gameid", $id) -> get() -> first() -> winner !== null
             
             # Ou alors la partie n'a pas encore commencé
             || $players -> get() -> count() !== 2
@@ -158,7 +158,7 @@ class GamesController extends Controller
         
         # Cette ligne est la pour être sur que ce genre de chose ne se produise pas
         $symbol = $players 
-                -> where("player", "=", session("id")) 
+                -> where("player", session("id")) 
                 -> get() 
                 -> first() 
                 -> symbol;
@@ -166,7 +166,7 @@ class GamesController extends Controller
 
         # Si il n'y a pas déja un symbole placé ici
         if(sizeof(
-                $game_coups -> where("position", "=", $position) 
+                $game_coups -> where("position", $position) 
                 -> get() 
                 -> toArray()
             ) === 0

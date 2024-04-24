@@ -27,15 +27,14 @@ class AuthController extends Controller
      * Log in a user
      *
      * @param LoginReq $request     The validated request
-     * @param Users $user           The user through dependency injection
      *
      * @return redirect             Redirection to / or to /login with errors
      */
-    public function login(LoginReq $request, Users $user) {
+    public function login(LoginReq $request) {
 
         # Search for the username & password combination in the users table
-        $data = $user -> find_by_mail($request["email"]) 
-                -> where("password", "=", self::hash($request["password"]))
+        $data = Users::where("email", $request["email"])
+                -> where("password", self::hash($request["password"]))
                 -> get() 
                 -> toArray();
 

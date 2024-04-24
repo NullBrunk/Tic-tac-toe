@@ -5,7 +5,7 @@
 
 @section("body")
 
-    <section class="profile-container" style="margin-top: 4rem;">
+    <section id="settings">
         <div class="banner" data-aos="fade-in" data-aos-duration="1000" ></div>
         
         <div class="absolute informations flex" data-aos="fade-in" data-aos-duration="1000">
