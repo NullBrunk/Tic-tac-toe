@@ -14,7 +14,7 @@
             </div>
             <div class="profile-info">
                 <p class="mail">
-                    {{ strtoupper($name) }}
+                    {{ mb_strtoupper($name) }}
                 </p>
                 <p class="joined" id="joined">
                     {{ $created_at }}
@@ -32,7 +32,11 @@
 
             <div class="relative more-infos">
                 <div class="commentbar-top">
-                    <h5 class="patch-approximatif">Game history</h5>
+                    <h5 class="patch-approximatif">
+                        {{ ucfirst(
+                            __("app.settings.game_history")
+                        ) }} 
+                    </h5>
                     <hr style="background-color: #a14fd6; margin: 0px; height: 5px;">
                 </div>
                 
@@ -79,21 +83,29 @@
             </div>
 
             <div class="more-infos" style="overflow: hidden;">
-                <h5>General informations</h5>
+                <h5>
+                    {{ ucfirst(
+                        __("app.settings.general_info")
+                    ) }} 
+                </h5>
                 <hr style="background-color: #a14fd6; margin: 0px; height: 5px;">
 
                 <div class="flex info">
                     <div class="card trophy">
                         <span>
                             <i class='bx bx-trophy'></i>
-                            WON
+                            {{ mb_strtoupper(
+                                __("app.settings.won")
+                            ) }} 
                         </span>
                         <span id="won" data-stat="{{ $won_games }}" class="stats">
                     </div>
                     <div class="card x-circle">
                         <span>
                             <i class='bx bx-x-circle'></i>
-                            LOST
+                            {{ mb_strtoupper(
+                                __("app.settings.lost")
+                            ) }}
                         </span>
                         <span id="lost" data-stat="{{ $lost_games }}" class="stats">
 
@@ -101,7 +113,9 @@
                     <div class="card transfer">
                         <span>
                             <i class='bx bx-transfer'></i>
-                            DRAWN
+                            {{ mb_strtoupper(
+                                __("app.settings.drawn")
+                            ) }}
                         </span>
                         <span id="drawn" data-stat="{{ $drawn_games }}" class="stats">
                             

@@ -17,7 +17,11 @@
 
             <div>
                 @error("name") <div class="error">{{ $message }}</div> @enderror 
-                <label for="name">Name: </label> <br>
+                <label for="name">
+                    {{ ucfirst(
+                        __("validation.attributes.name")
+                    ) }}:
+                </label> <br>
                 <input type="text" name="name" id="name" value="{{ old("name") }}" placeholder="John Doe" class="@error("name") error-border @enderror input-form">
             </div>
             
@@ -29,20 +33,28 @@
             
             <div>
                 @error("password") <div class="error">{{ $message }}</div> @enderror 
-                <label for="password">Password: </label> <br>
+                <label for="password">
+                    {{ ucfirst(
+                        __("validation.attributes.password")
+                    ) }}:
+                </label> <br>
                 <input type="password" name="password" id="password" placeholder="••••••••" class="@error("password") error-border @enderror input-form">
             </div>
             
             <div>
                 @error("password_confirmation") <div class="error">{{ $message }}</div> @enderror 
-                <label for="password_confirmation">Password confirmation: </label> <br>
+                <label for="password_confirmation">
+                    {{ ucfirst(
+                        __("validation.attributes.password_confirmation")
+                    ) }}:
+                </label> <br>
                 <input type="password" name="password_confirmation" id="password_confirmation" placeholder="••••••••" class="@error("password_confirmation") error-border @enderror input-form">
             </div>
 
             <span class="account-creation">
-                Already registered ? <a href="{{ route("auth.login") }}">Login</a>
+                @lang("app.login_message") <a href="{{ route("auth.login") }}">@lang("app.login")</a>
             </span>
-            <button>Register</button>
+            <button>@lang("app.register")</button>
         </form>
     
     </section>

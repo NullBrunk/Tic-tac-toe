@@ -6,6 +6,7 @@ use App\Http\Controllers\GamesController;
 
 use Illuminate\Support\Facades\Route;
 
+app() ->setLocale("fr");
 
 Route::view("/", "app.index") -> name("index");
 

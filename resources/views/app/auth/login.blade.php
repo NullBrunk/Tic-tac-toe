@@ -34,14 +34,19 @@
             
             <div>
                 @error("password") <div class="error">{{ $message }}</div> @enderror 
-                <label for="password">Password: </label> <br>
+                <label for="password">
+                    {{ ucfirst(
+                        __("validation.attributes.password")
+                    ) }}: 
+                </label> 
+                <br>
                 <input type="password" name="password" id="password" placeholder="••••••••" class="@error("password" || "loginerror") error-border @enderror input-form">
             </div>
             
             <span class="account-creation">
-                Don't have an account yet ? <a href="{{ route("auth.register") }}">Register</a>
+                @lang("app.register_message") <a href="{{ route("auth.register") }}">@lang("app.register")</a>
             </span>
-            <button>Login</button>
+            <button>@lang("app.login")</button>
         </form>
     
     </section>

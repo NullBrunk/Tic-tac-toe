@@ -15,10 +15,18 @@
                         
                         <div id="dropdown-content" class="dropdown-content">
                             <a class="flex" href="{{ route("settings.show", session("name")) }}">
-                                <span>Profile</span>
+                                <span>
+                                    {{ ucfirst(
+                                        __("app.profile")
+                                    ) }}
+                                </span>
                             </a>
                             <a class="flex" href="{{ route("auth.logout") }}">
-                                <span>Logout</span>
+                                <span>
+                                    {{ ucfirst(
+                                        __("app.logout")
+                                    ) }}
+                                </span>
                             </a>
                         </div>
                     
@@ -28,7 +36,11 @@
                 <li>        
                     <a class="link header-login-button" href="{{ route("auth.login") }}">
                         <i class='bx bx-log-in-circle'></i> 
-                        <span class="ml-10">Login</span>
+                        <span class="ml-10">
+                            {{ ucfirst(
+                                __("app.login")
+                            ) }}
+                        </span>
                     </a>
                 </li>
            @endif

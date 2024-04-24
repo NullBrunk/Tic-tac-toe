@@ -4,23 +4,33 @@
         
         @if($ended === "draw")
             <span id="draw">
-                IT'S A DRAW
+                 {{ strtoupper(
+                        __("app.game.draw")
+                    ) }} !
             </span>
         @endif
 
         @if($ended !== null && $ended !== "draw")
             <span id="winner">
                 @if($ended === session("symbol")) 
-                    <span id="name">YOU</span> WON !
+                     {{ mb_strtoupper(
+                            __("app.game.won")
+                        ) }} !
                 @elseif($ended !== session("symbol"))
-                    <span id="name">YOU</span> LOST !
+                     {{ strtoupper(
+                            __("app.game.lost")
+                        ) }} !
                 @endif
             </span>
         @endif
 
     
         @if($alone)
-            <span>WAITING FOR YOUR OPPONENT</span>
+            <span>
+                {{ strtoupper(
+                        __("app.game.waiting")
+                    ) }}
+            </span>
             <span class="loader"></span>
         @endif
     </div>

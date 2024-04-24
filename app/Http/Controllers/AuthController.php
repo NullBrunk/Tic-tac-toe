@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\SignupEvent;
 use App\Http\Requests\LoginReq;
-use App\Http\Requests\SignupReq;
+use App\Http\Requests\RegisterReq;
 use Illuminate\Support\Str;
 use App\Models\Users;
 
@@ -45,16 +45,15 @@ class AuthController extends Controller
             ]);
         }
 
-        # Si le champs confirmation token ne vaut pas null, c'est que le mail n'a pas encore
-        # été validé
+        # Si le champs confirmation token ne vaut pas null, c'est que le mail 
+        # n'a pas encore été validé
         if($data[0]["confirmation_token"] !== null) {
             return to_route("auth.login") -> withErrors([
                 "loginerror" => "You need to verify your mail address"
             ]);
         }
 
-        # Add the full content returned by the table to the session
-        # ( ID : NAME : EMAIL : PASSWORD (sha512) : TIMESTAMPS )
+        # Add the full content returned by the ORM request to the session
         session($data[0]);
 
         # Go to / page
@@ -65,11 +64,11 @@ class AuthController extends Controller
     /**
      * Register a user
      *
-     * @param SignupReq $request        The validated request
+     * @param RegisterReq $request        The validated request
      * 
      * @return redirect                 Redirection to the login page with a success message 
      */
-    public function register(SignupReq $request) {
+    public function register(RegisterReq $request) {
         # Create the validation unique token
         $confirmation_token = Str::uuid();
 
@@ -103,8 +102,8 @@ class AuthController extends Controller
      */
     public function confirm_mail(Users $user, string $confirmation_token) {
         
-        # Si le confirmation token passé dans l'URL n'est pas le meme que
-        # le confirmation token attribué à la création du user
+        # Si le confirmation_token passé dans l'URL n'est pas le même que
+        # le confirmation token attribué au user lors de sa création
         if($user -> confirmation_token !== $confirmation_token)
             return abort(403);
         

@@ -13,7 +13,11 @@
         <div data-aos="fade-up" data-aos-duration="1000" class="flex buttons m-auto" style="margin-top: 50px;">
             <div class="index-button">
                 <div class="button-wrapper" onclick="window.location.href = '{{ route('games.create') }}'">
-                    <div class="text">PLAY A GAME</div>
+                    <div class="text">
+                        {{ strtoupper(
+                        __("app.game.play")
+                        ) }}
+                    </div>
                     <span class="game-icon">
                         <i style="font-weight: bold !important;" class="bx bx-joystick"></i> 
                     </span>

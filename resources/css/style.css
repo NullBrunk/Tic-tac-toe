@@ -239,6 +239,7 @@ nav .profile-button:hover {
 
 nav .header-login-button {
     display: flex;
+    min-width: max-content;
     width: 80px;
     height: 25px;
     justify-content: center;
@@ -271,9 +272,9 @@ nav .dropdown {
 nav .dropdown-content {
     display: none;
     position: absolute;
-    min-width: 80px;
+    min-width: 200px;
     flex-direction: column;
-
+    left: -50px;
     background-color: var(--purple);
     z-index: 1;
 
@@ -840,7 +841,8 @@ nav .dropdown-content a i {
 #settings .settings-container .content button {
     font-weight: 800;
     color: white;
-    width: 300px;
+    min-width: fit-content;
+    width: 400px;
 }
 
 #settings .X:hover {
