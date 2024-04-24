@@ -24,9 +24,6 @@ docker-compose up --build
 
 # 📚 Deep overview
 
-### 🗺️ General 
-
-
 ### 🎮 Game
 https://github.com/NullBrunk/L3T/assets/125673909/36b9744f-9cc4-4b43-a498-6d57776c94d8
 
