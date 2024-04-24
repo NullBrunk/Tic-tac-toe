@@ -51,10 +51,17 @@
                 <input type="password" name="password_confirmation" id="password_confirmation" placeholder="••••••••" class="@error("password_confirmation") error-border @enderror input-form">
             </div>
 
-            <span class="account-creation">
-                @lang("app.login_message") <a href="{{ route("auth.login") }}">@lang("app.login")</a>
+             <span class="account-creation">
+                {{ ucfirst(__("app.login_message")) }} 
+                <a href="{{ route("auth.login") }}">
+                    {{ ucfirst(__("app.login")) }} 
+                </a>
             </span>
-            <button>@lang("app.register")</button>
+            <button>
+                {{ ucfirst(
+                    __("app.register")
+                ) }}
+            </button>
         </form>
     
     </section>

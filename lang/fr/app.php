@@ -1,22 +1,22 @@
 <?php
 
 return [
-	"register_message" => "Vous n'avez pas encore de compte ?",
-	"register" => "Créer un compte",
+	"register_message" => "vous n'avez pas encore de compte ?",
+	"register" => "créer un compte",
 
-	"login_message" => "Vous avez déja un compte ?",
-	"login" => "Se connecter",
+	"login_message" => "vous avez déja un compte ?",
+	"login" => "se connecter",
 
-	"logout" => "Se déconnecter",
+	"logout" => "se déconnecter",
 	"profile" => "profil",	
 
 	"game" => [
 		"play" => "jouer",
 		"waiting" => "en attente de votre adversaire",
 
-		"won" => "Vous avez gagné",
-		"lost" => "Vous avez perdu",
-		"draw" => "C'est un match nul"
+		"won" => "vous avez gagné",
+		"lost" => "vous avez perdu",
+		"draw" => "c'est un match nul"
 	],
 
 	"settings" => [

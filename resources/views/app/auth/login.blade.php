@@ -44,9 +44,16 @@
             </div>
             
             <span class="account-creation">
-                @lang("app.register_message") <a href="{{ route("auth.register") }}">@lang("app.register")</a>
+                {{ ucfirst(__("app.register_message")) }} 
+                <a href="{{ route("auth.register") }}">
+                    {{ ucfirst(__("app.register")) }} 
+                </a>
             </span>
-            <button>@lang("app.login")</button>
+            <button>
+                {{ ucfirst(
+                    __("app.login")
+                ) }}
+            </button>
         </form>
     
     </section>

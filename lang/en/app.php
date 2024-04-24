@@ -22,7 +22,7 @@ return [
 	],
 
 	"settings" => [
-		"settings" => "paramètres",
+		"settings" => "settings",
 
 		// PROFILE PAGE
 		"general_info" => "general informations",
@@ -35,6 +35,6 @@ return [
 		"username" => "change your username",
 		"password" => "change your password",
 		"deletion" => "delete",
-		"delete" => "delete",
+		"delete" => "delete your account",
 	],
 ];
