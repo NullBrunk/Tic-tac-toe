@@ -6,7 +6,7 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/NullBrunk/L3T?style=for-the-badge)
 ![repo size](https://img.shields.io/github/repo-size/NullBrunk/L3T?style=for-the-badge)
 
-![L3T](https://github.com/NullBrunk/L3T/assets/125673909/2b192e38-c4eb-4e10-9fed-c803cc0adecc)
+![image](https://github.com/NullBrunk/L3T/assets/125673909/7eb5796f-0cf9-499d-ba30-bedbda868624)
 
 </div>
 
@@ -26,8 +26,16 @@ docker-compose up --build
 
 ### 🗺️ General 
 
-### 👤 Login
-![image](https://github.com/NullBrunk/L3T/assets/125673909/797cc0f5-9db6-43d9-9860-226022de0abe)
+
+### 🎮 Game
+https://github.com/NullBrunk/L3T/assets/125673909/36b9744f-9cc4-4b43-a498-6d57776c94d8
+
+### 🔐 Login
+https://github.com/NullBrunk/L3T/assets/125673909/40b49521-a41a-461f-84d5-cc5afc80548a
+
+### 👤 Profile
+https://github.com/NullBrunk/L3T/assets/125673909/5f220014-9120-4f12-84a0-4b60636b99b3
+
 
 
 
