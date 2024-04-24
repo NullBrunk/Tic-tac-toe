@@ -24,11 +24,11 @@ docker-compose up --build
 
 # 📚 Deep overview
 
-### 🎮 Game
-https://github.com/NullBrunk/L3T/assets/125673909/36b9744f-9cc4-4b43-a498-6d57776c94d8
-
 ### 🔐 Login
 https://github.com/NullBrunk/L3T/assets/125673909/40b49521-a41a-461f-84d5-cc5afc80548a
+
+### 🎮 Game
+https://github.com/NullBrunk/L3T/assets/125673909/36b9744f-9cc4-4b43-a498-6d57776c94d8
 
 ### 👤 Profile
 https://github.com/NullBrunk/L3T/assets/125673909/5f220014-9120-4f12-84a0-4b60636b99b3
