@@ -62,7 +62,7 @@
                                 <i class="bx bx bx-{{ $class }}"></i>
                             </div>
 
-                            <div style="margin-left: 35%;">
+                            <div class="profile-left">
                                 <a class="profile-link" href="{{ $battle["name_p1"] }}">{{ $battle["name_p1"] }}</a>
     
                                 <span class="fg bolder">

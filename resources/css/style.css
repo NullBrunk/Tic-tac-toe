@@ -283,7 +283,7 @@ nav .dropdown-content {
 
 nav .dropdown-content a {
     padding: 15px 30px;;
-    border: 1px solid #1e1f30;
+    border-top: 1px solid #1e1f30;
 }
 
 nav .dropdown-content a:hover {
@@ -689,6 +689,10 @@ nav .dropdown-content a i {
     left: 0;
 }
 
+#settings .profile-left {
+    margin-left: 35%;
+}
+
 #settings .profile-info {
     margin-left: 190px;
     color: #fff;
@@ -853,4 +857,44 @@ nav .dropdown-content a i {
 #settings .bg-red:hover {
     background-color: #d9828d;
     transition: all 0.5s;
+}
+
+@media(max-width: 1000px) {
+    .container {
+        margin: 20px 4.5vw
+    }
+
+    #auth .input-form {
+        width: max-content;
+        width: -moz-available;
+        width: -webkit-fill-available
+    }
+
+    #settings .pro-cards {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    #settings .pro-cards .more-infos {
+        width: calc(100% - 20px);
+        margin-top: 20px;
+        height: 50vh;
+    }
+
+    #settings .info {
+        flex-direction: column;
+        overflow: scroll;
+        overflow-x: hidden;
+
+    }
+
+    #settings .info .card {
+        width: calc(100% - 40px);
+    }
+}
+
+@media(max-width: 550px) {
+    #settings .profile-left {
+        margin-left: 25px;
+    }
 }
