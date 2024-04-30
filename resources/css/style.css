@@ -17,6 +17,8 @@ body {
     background-color: var(--bg-color);
     color: var(--fg-color);
     
+    scroll-behavior: smooth;
+    
     min-height: 100vh;
 }
 
