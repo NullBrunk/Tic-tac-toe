@@ -8,11 +8,9 @@ mail:
 dev:
 	npm run dev
 
-mig: ## Make the migration
-	@php artisan migrate
-
 drop: ## Drop the database and make the migration
-	echo "DROP DATABASE morpion;" | mariadb -u root -proot && make mig
+	echo "DROP DATABASE morpion;" | mariadb -u root -proot && \
+	php artisan migrate --force --seed
 
 help: 
 	@grep -E '(^[a-zA-Z_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-10s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
