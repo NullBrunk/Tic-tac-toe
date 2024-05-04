@@ -6,7 +6,9 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/NullBrunk/L3T?style=for-the-badge)
 ![repo size](https://img.shields.io/github/repo-size/NullBrunk/L3T?style=for-the-badge)
 
-![image](https://github.com/NullBrunk/L3T/assets/125673909/7eb5796f-0cf9-499d-ba30-bedbda868624)
+![L3T](https://github.com/NullBrunk/L3T/assets/125673909/1c2c492c-1a03-4670-8fb3-1bb291005b2a)
+
+
 
 </div>
 
