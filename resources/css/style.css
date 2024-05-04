@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Manrope:700');
+
 * {
     padding: 0;
     margin: 0;
@@ -157,6 +159,29 @@ nav > div{
 /*          Définitions des classes CSS           */
 
 /* GÉNÉRALITÉS */
+
+.grid {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    z-index: -1;
+}
+
+.blur {
+    height: 12rem;
+    width: 12rem;
+    background-color: var(--purple);
+    filter: blur(100px);
+    border-radius: 100px;
+    z-index: 0;
+    position: absolute;
+  }
+
+
 .container {
     margin: 20px 12.5vw;
 }
@@ -492,6 +517,31 @@ nav .dropdown-content a i {
     font-size: 3rem;
     overflow: hidden;
 }
+
+
+.index-title {
+    font-family: 'Manrope';
+    font-size: 2px;
+    font-weight: 700;
+    letter-spacing: -0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    z-index: 1000;
+    margin-top: 36vh;
+    margin-bottom: 22vh;
+}
+
+.index-title img {
+    width: 2000px;
+}
+
+.buttons {
+    justify-content: center;
+    align-self: center;
+}
+
 /**************************************************/
 
  

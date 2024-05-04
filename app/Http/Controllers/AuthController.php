@@ -32,31 +32,31 @@ class AuthController extends Controller
      */
     public function login(LoginReq $request) {
 
-        # Search for the username & password combination in the users table
+        // Search for the username & password combination in the users table
         $data = Users::where("email", $request["email"])
                 -> where("password", self::hash($request["password"]))
                 -> get() 
                 -> toArray();
 
-        # If there is no such combination in the table, return to previous page with error
+        // If there is no such combination in the table, return to previous page with error
         if(empty($data)) {
             return to_route("auth.login") -> withErrors([
                 "loginerror" => "Invalid username or password"
             ]);
         }
 
-        # Si le champs confirmation token ne vaut pas null, c'est que le mail 
-        # n'a pas encore été validé
+        // Si le champs confirmation token ne vaut pas null, c'est que le mail 
+        // n'a pas encore été validé
         if($data[0]["confirmation_token"] !== null) {
             return to_route("auth.login") -> withErrors([
                 "loginerror" => "You need to verify your mail address"
             ]);
         }
 
-        # Add the full content returned by the ORM request to the session
+        // Add the full content returned by the ORM request to the session
         session($data[0]);
 
-        # Go to / page
+        // Go to / page
         return to_route("index");
     }
 
@@ -69,11 +69,11 @@ class AuthController extends Controller
      * @return redirect                 Redirection to the login page with a success message 
      */
     public function register(RegisterReq $request) {
-        # Create the validation unique token
+        // Create the validation unique token
         $confirmation_token = Str::uuid();
 
-        # Since the validation of the request include the fact that the name is unique in
-        # the table, we can create the user without any validation at this level
+        // Since the validation of the request include the fact that the name is unique in
+        // the table, we can create the user without any validation at this level
         $user = Users::create([
             "name" => $request["name"],
             "email" => $request["email"],
@@ -81,8 +81,8 @@ class AuthController extends Controller
             "password" => self::hash($request["password"])
         ]);
 
-        # On envoie un événement SignupEvent qui sera capturé par le
-        # SignupListener qui enverra un mail contenant le confirmation token
+        // On envoie un événement SignupEvent qui sera capturé par le
+        // SignupListener qui enverra un mail contenant le confirmation token
         SignupEvent::dispatch($user -> email, $confirmation_token);
 
         return to_route("auth.login") -> with(
@@ -102,8 +102,8 @@ class AuthController extends Controller
      */
     public function confirm_mail(Users $user, string $confirmation_token) {
         
-        # Si le confirmation_token passé dans l'URL n'est pas le même que
-        # le confirmation token attribué au user lors de sa création
+        // Si le confirmation_token passé dans l'URL n'est pas le même que
+        // le confirmation token attribué au user lors de sa création
         if($user -> confirmation_token !== $confirmation_token)
             return abort(403);
         

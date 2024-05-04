@@ -19,10 +19,10 @@ class SettingsController extends Controller
      * @return Collection           The ORM response 
      */
     private function get_general_stats(int $id_user) {
-        # Disable the "ONLY_FULL_GROUP_BY" mode that is auto enabled on laravel
+        // Disable the "ONLY_FULL_GROUP_BY" mode that is auto enabled on laravel
         DB::statement("SET SQL_MODE=''");
                 
-        # Get stats from the "user_play" table and the "games" table
+        // Get stats from the "user_play" table and the "games" table
         return User_join::select("winner", "symbol") 
             -> join('games', 'games.gameid', '=', 'user_joins.gameid')
             -> where("player", $id_user) 
@@ -80,10 +80,10 @@ class SettingsController extends Controller
      */
     public function show(Users $user) {
 
-        # Get the ORM responde to the request
+        // Get the ORM responde to the request
         $statistics = $this -> get_general_stats($user -> id);
 
-        # Parse the ORM response to get usable stats
+        // Parse the ORM response to get usable stats
         $played_games = 0;
         $drawn_games = 0;
         $won_games = 0;
@@ -103,10 +103,10 @@ class SettingsController extends Controller
         }
         $lost_games = $played_games - $won_games - $drawn_games - $not_ended_games;
         
-        # Get an array that represents the history of played games of the user
+        // Get an array that represents the history of played games of the user
         $history = $this -> get_history($user -> id); 
 
-        # Return the profile page with all the needed parameters
+        // Return the profile page with all the needed parameters
         return view("app.settings.profile", [
             "won_games" => $won_games,
             "lost_games" => $lost_games,
@@ -115,7 +115,7 @@ class SettingsController extends Controller
             "name" => $user -> name,
             "history" => $history,
 
-            # diffForHumans -> 15 seconds ago, 2 months ago for example
+            // diffForHumans -> 15 seconds ago, 2 months ago for example
             "created_at" => Carbon::parse($user -> created_at) -> diffForHumans(),
         ]);
     }
