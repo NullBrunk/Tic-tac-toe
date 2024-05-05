@@ -16,7 +16,7 @@ return new class extends Migration
             $table -> string('email') -> unique();
             $table -> string('name') -> unique();
             $table -> string('password');
-            $table -> boolean("confirmation_token") -> nullable();
+            $table -> longText("confirmation_token") -> nullable();
             $table -> timestamps();
         });
     }
