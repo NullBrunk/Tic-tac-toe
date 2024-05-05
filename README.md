@@ -18,7 +18,7 @@ As always, I have created a Dockerfile as well as a docker-compose file if you w
 So you can simply do:
 
 ```bash
-git clone https://github.com/NullBrunk/E-Commerce && cd E-Commerce 
+git clone https://github.com/NullBrunk/L3T && cd L3T
 docker-compose up --build
 ```
 
