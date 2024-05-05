@@ -27,6 +27,7 @@
             </svg>
             <div class="blur"></div>
         </div>
+
         @include("layout.partials._header")
         <main role="main">
             @yield("body")

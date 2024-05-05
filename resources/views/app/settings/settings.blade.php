@@ -12,7 +12,7 @@
             ) }} 
         </div>
 
-        <div class="pro-cards w-100 mt-10" style="margin-top: 30px;" data-aos="fade-up" data-aos-duration="1000">
+        <div class="pro-cards w-100 mt-10 settings-div" style="margin-top: 30px;" data-aos="fade-up" data-aos-duration="1000">
 
             <div class="relative more-infos w-100 settings-container">
                 <div class="commentbar-top">
@@ -24,16 +24,19 @@
                     <hr style="background-color: #a14fd6; margin: 0px; height: 5px;">
                 </div>
             
-                <div class="content flex column">
+                <div id="settings-block" class="content flex column">
                     <div class="flex column h-100">
                         <div>
                             <button class="center glass-button">
+                                <span class="blur-round"></span>
+
                                 {{ strtoupper(
                                     __("app.settings.username")
                                 ) }} 
                             </button>
                             <br>
                             <button class="mt-10 center  glass-button">
+                                <span class="blur-round"></span>
                                 {{ strtoupper(
                                     __("app.settings.password")
                                 ) }} 

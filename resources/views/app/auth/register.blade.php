@@ -16,39 +16,39 @@
             </div>
 
             <div>
-                @error("name") <div class="error">{{ $message }}</div> @enderror 
                 <label for="name">
                     {{ ucfirst(
                         __("validation.attributes.name")
-                    ) }}:
+                        ) }}:
                 </label> <br>
                 <input type="text" name="name" id="name" value="{{ old("name") }}" placeholder="John Doe" class="@error("name") error-border @enderror input-form">
+                @error("name") <div class="error">{{ $message }}</div> @enderror 
             </div>
             
             <div>
-                @error("email") <div class="error">{{ $message }}</div> @enderror 
                 <label for="email">E-mail: </label> <br>
                 <input type="email" name="email" id="email" value="{{ old("email") }}" placeholder="john@doe.fr" class="@error("email") error-border @enderror input-form">
+                @error("email") <div class="error">{{ $message }}</div> @enderror 
             </div>
             
             <div>
-                @error("password") <div class="error">{{ $message }}</div> @enderror 
                 <label for="password">
                     {{ ucfirst(
                         __("validation.attributes.password")
-                    ) }}:
+                        ) }}:
                 </label> <br>
                 <input type="password" name="password" id="password" placeholder="••••••••" class="@error("password") error-border @enderror input-form">
+                @error("password") <div class="error">{{ $message }}</div> @enderror 
             </div>
             
             <div>
-                @error("password_confirmation") <div class="error">{{ $message }}</div> @enderror 
                 <label for="password_confirmation">
                     {{ ucfirst(
                         __("validation.attributes.password_confirmation")
-                    ) }}:
+                        ) }}:
                 </label> <br>
                 <input type="password" name="password_confirmation" id="password_confirmation" placeholder="••••••••" class="@error("password_confirmation") error-border @enderror input-form">
+                @error("password_confirmation") <div class="error">{{ $message }}</div> @enderror 
             </div>
 
             <div>

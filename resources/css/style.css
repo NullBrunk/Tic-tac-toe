@@ -11,6 +11,7 @@
     --green: #42e0ce;
     --purple: #b062e3;
     --red: #ee6677;
+    --error-red: #dc3545;
 
 
     --cyan: #0bb9cb;
@@ -18,7 +19,7 @@
     --orange: #e58133;
 
 
-    --grey: #75757d;
+    --grey: rgba(255, 255, 255, .25);
 }
 
 /***************************************************/
@@ -61,6 +62,19 @@ nav > div{
 
 /***************************************************/
 /*       Déclaration des classes utilitaires       */
+
+.blur-round {
+    opacity: 60%;
+    width: 100px;
+    height: 60px;
+    background-color: #6842ff;
+    border-radius: 100%;
+    filter: blur(20px);
+    position: absolute;
+    transition: all 0.2s ease;
+    background-color: #6842ff;
+}
+
 .flex-between {
     display: flex;
     justify-content: space-between;
@@ -75,11 +89,19 @@ nav > div{
 }
 
 .error-border {
-    border: 1px solid red;
+    border: 3px solid var(--error-red) !important;
+    border-color: #dc3545;
+    padding-right: calc(1.5em + .75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
 }
 
 .error {
-    color: red;
+    font-size: 12px;
+    color: var(--error-red);
+    margin-bottom: 10px;
 }
 
 .center {
@@ -173,6 +195,7 @@ nav > div{
 /* GÉNÉRALITÉS */
 
 
+
 .glass-button {
     display: inline-block;
     padding: 11px 19px;
@@ -181,9 +204,9 @@ nav > div{
     text-decoration: none;
     border-radius: 15px;
     background-color: rgba(30, 31, 48, 0.7);
-    border: 1px solid rgba(30, 31, 48, 0.7);
+    border: 1px solid var(--grey);
     backdrop-filter: blur(30px);
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 255, 255, 0.8);
     font-size: 22px;
     cursor: pointer;
     text-transform: uppercase;
@@ -191,7 +214,7 @@ nav > div{
 }
   
 .glass-button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .grid {
@@ -335,25 +358,46 @@ nav .dropdown-content {
     position: absolute;
     min-width: 200px;
     flex-direction: column;
-    left: -50px;
+    left: -150px;
     background-color: var(--primary);
     z-index: 1;
+
+    border: 1px solid var(--grey);
+    border-radius: 20px;
+    background-color: rgba(30, 31, 48, 0.30);
+    /* box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25); */
+    backdrop-filter: blur(15px);
 
     border-radius: 10px;
 }
 
 nav .dropdown-content a {
-    padding: 15px 30px;;
-    border-top: 1px solid var(--secondary);
+    padding: 15px 30px;
+    z-index: 999;
 }
 
 nav .dropdown-content a:hover {
-    background-color: var(--secondary);
+    background-color: var(--secondary) !important;
+    border-radius: 10px;
+}
+
+
+nav .blur-round {
+    margin-left: 30px;
+    margin-top: 10px;
+    width: 120px;
+    height: 80px;
+    animation: left-right 1.5s ease-in-out infinite alternate-reverse both;
 }
 
 nav .dropdown-content a span, 
 nav .dropdown-content a i {
     font-size: 18px;
+}
+
+nav .dropdown-content a span i {
+    font-size: 22px;
+    margin-right: 10px;
 }
 /**************************************************/
 
@@ -380,6 +424,16 @@ nav .dropdown-content a i {
     transform: translateY(-10px);
   }
 }
+
+@keyframes left-right {
+    0% {
+      transform: translateX(10px);
+    }
+  
+    100% {
+      transform: translateX(-10px);
+    }
+  }
 
 .up-down {
     animation: up-down 2s ease-in-out infinite alternate-reverse both;
@@ -595,7 +649,7 @@ nav .dropdown-content a i {
     padding: 20px;
     margin: auto;
 
-    border: 1px solid rgba(255, 255, 255, .25);
+    border: 1px solid var(--grey);
     border-radius: 20px;
     background-color: rgba(30, 31, 48, 0.30);
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
@@ -801,6 +855,16 @@ nav .dropdown-content a i {
     margin-left: 4vw
 }
 
+#settings .blur-round {
+    width: 65px;
+}
+
+#settings #settings-block .blur-round {
+    width: 350px;
+    height: 30px;
+    margin-left: -30px;
+}
+
 #settings .banner {
     position: relative;
     height: 19vh;
@@ -808,7 +872,7 @@ nav .dropdown-content a i {
     overflow: hidden;
     user-select: none;
     background: rgba(30, 31, 48, 0.7);
-    border: 1px solid rgba(255, 255, 255, .25);
+    border: 1px solid var(--grey);
 }
 
 #settings .informations {
@@ -822,7 +886,7 @@ nav .dropdown-content a i {
 
 #settings .profile-name {
     position: absolute;
-    border: 1px solid rgba(255, 255, 255, .25);
+    border: 1px solid var(--grey);
     color: #fff;
     background-color: #bababa;
     height: 160px;
@@ -885,7 +949,7 @@ nav .dropdown-content a i {
     padding: 10px;
     padding-top: 0px;
 
-    border: 1px solid rgba(255, 255, 255, .25);
+    border: 1px solid var(--grey);
     border-radius: 20px;
     background-color: rgba(30, 31, 48, 0.30);
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
@@ -894,7 +958,7 @@ nav .dropdown-content a i {
 }
 
 #settings .pro-cards .scrollable {
-    height: calc(35vh - 7vh);
+    height: 80%;
     overflow: scroll;
 }
 
@@ -1078,6 +1142,10 @@ nav .dropdown-content a i {
         height: fit-content;
     }
 
+    #settings .settings-div {
+        width: max-content !important;
+    }
+
     #settings .pro-cards .more-infos {
         width: calc(100% - 20px);
         margin-top: 20px;
@@ -1088,7 +1156,11 @@ nav .dropdown-content a i {
         flex-direction: column;
         overflow: scroll;
         overflow-x: hidden;
+        gap: 150px;
+    }
 
+    #settings .info .block-container {
+        width: 87%;
     }
 
     #settings .info .card {

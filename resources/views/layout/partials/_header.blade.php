@@ -14,18 +14,25 @@
                         <i class='bx bx-menu'></i>
                         
                         <div id="dropdown-content" class="dropdown-content">
+                            <span class="blur-round"></span>
                             <a class="flex" href="{{ route("settings.show", session("name")) }}">
-                                <span>
-                                    {{ ucfirst(
-                                        __("app.profile")
-                                    ) }}
+                                <span class="flex">
+                                    <i class='bx bx-user-circle m-auto' ></i>
+                                    <span class="ml-10">
+                                        {{ ucfirst(
+                                            __("app.profile")
+                                            ) }}
+                                    </span>
                                 </span>
                             </a>
                             <a class="flex" href="{{ route("auth.logout") }}">
-                                <span>
-                                    {{ ucfirst(
-                                        __("app.logout")
-                                    ) }}
+                                <span class="flex">
+                                    <i class='bx bx-log-out-circle m-auto'></i>
+                                    <span class="ml-10">
+                                        {{ ucfirst(
+                                            __("app.logout")
+                                        ) }}
+                                    </span>
                                 </span>
                             </a>
                         </div>

@@ -27,24 +27,23 @@
             @endif
 
             <div>
-                @error("email") <div class="error">{{ $message }}</div> @enderror 
                 <label for="email">E-mail: </label> <br>
-                <input type="email" name="email" id="email" placeholder="john@doe.fr" class="@error("email" || "loginerror" ) error-border @enderror input-form">
+                <input type="email" name="email" id="email" placeholder="john@doe.fr" class="@if($errors -> has("email") || $errors -> has("loginerror")) error-border @endif input-form">
+                @error("email") <div class="error">{{ $message }}</div> @enderror 
             </div>
             
             <div>
-                @error("password") <div class="error">{{ $message }}</div> @enderror 
                 <label for="password">
                     {{ ucfirst(
                         __("validation.attributes.password")
                     ) }}: 
                 </label> 
                 <br>
-                <input type="password" name="password" id="password" placeholder="••••••••" class="@error("password" || "loginerror") error-border @enderror input-form">
+                <input type="password" name="password" id="password" placeholder="••••••••" class="@if($errors -> has("password") || $errors -> has("loginerror")) error-border @endif input-form">
+                @error("password") <div class="error">{{ $message }}</div> @enderror 
             </div>
 
             <div>
-                @error("2fa_code") <div class="error">{{ $message }}</div> @enderror 
                 <label for="2fa_code">
                     {{ ucfirst(
                         __("validation.attributes.2fa")
@@ -57,7 +56,8 @@
                     ) }} 
                 </span>
                 <br>
-                <input type="number" name="2fa_code" id="2fa_code" placeholder="XXXXXX" class="@error("2fa_code" || "loginerror") error-border @enderror input-form">
+                <input type="text" name="2fa_code" id="2fa_code" placeholder="XXXXXX" class="@if($errors -> has("2fa_code") || $errors -> has("loginerror")) error-border @endif input-form">
+                @error("2fa_code") <div class="error">{{ $message }}</div> @enderror 
             </div>
             
             <span class="account-creation">

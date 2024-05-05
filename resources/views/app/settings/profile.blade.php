@@ -23,6 +23,7 @@
 
             @if($email === session("email"))
                 <div class="pro-buttons flex">
+                    <span class="blur-round"></span>
                     <a class="glass-button" style="height: 34px;" href="{{ route("settings.profile") }}"><i class="bx bx-cog"></i></a>
                 </div>
             @endif
