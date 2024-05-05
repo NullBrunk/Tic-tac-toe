@@ -30,26 +30,29 @@ Sorry for the low quality of the videos
 ### 🔐 Login
 
 ##### Without 2FA
-https://github.com/NullBrunk/L3T/assets/125673909/fb90ba56-cb5f-4b81-8afa-1b71fe102f59
+https://github.com/NullBrunk/L3T/assets/125673909/4e45c561-f96e-4cac-abd6-c36c21e59f8a
 
 
 ##### With 2FA
-https://github.com/NullBrunk/L3T/assets/125673909/1ad02f85-e953-481c-91f6-7d907afb55f0
+https://github.com/NullBrunk/L3T/assets/125673909/9f2c6736-50f9-430a-acf2-32e84edfed9f
+
 
 
 
 ### 🎮 Game
-https://github.com/NullBrunk/L3T/assets/125673909/0deb65e5-d4e8-4767-9d5e-66e07a7a369b
+https://github.com/NullBrunk/L3T/assets/125673909/5f2f5d09-5f43-4f88-a914-0beb7f21e110
+
 
 
 
 ### 👤 Profile
-https://github.com/NullBrunk/L3T/assets/125673909/2eec7b55-1826-4dc6-bf35-cb69a21ee21f
+https://github.com/NullBrunk/L3T/assets/125673909/34c88f92-5a71-4fc4-a4f4-ff60364aa4db
 
 
 
 ### 📱 Responsive
-https://github.com/NullBrunk/L3T/assets/125673909/404d207e-4c32-4dda-9ec8-bbb04e90e6d4
+https://github.com/NullBrunk/L3T/assets/125673909/48261adf-0760-405b-a9f4-ab905fcd627c
+
 
 
 
