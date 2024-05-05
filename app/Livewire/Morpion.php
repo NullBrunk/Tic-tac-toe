@@ -68,7 +68,7 @@ class Morpion extends Component
         # Check if you are alone or not
         if($this -> alone === true) $this -> is_alone();
 
-        $this -> ended = Game::where("gameid", $this -> id) -> get() -> first() -> winner;
+        $this -> ended = Game::where("gameid", $this -> id) -> first() -> winner;
 
         # Get the morpion from the model via the controller
         $this -> morpion = MorpionController::get_morpion($this -> id);
