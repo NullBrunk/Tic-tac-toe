@@ -644,6 +644,7 @@ nav .dropdown-content a i {
     margin: 20px 0px;
 }
 
+
 #auth .icon span {
     background-color: var(--primary);
     padding: 7px 19px;
@@ -657,6 +658,59 @@ nav .dropdown-content a i {
 #auth .account-creation a {
     color: var(--primary);
 }
+
+#auth .checkbox-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+#auth .checkbox-wrapper .checkbox {
+    appearance: none;
+    background-color: var(--grey);
+    border-radius: 72px;
+    border-style: none;
+    height: 20px;
+    margin: 0;
+    position: relative;
+    width: 30px;
+}
+
+#auth .checkbox-wrapper .checkbox,
+#auth .checkbox-wrapper .checkbox::after {
+    transition: all 100ms ease-out;
+}
+
+#auth .checkbox-wrapper .checkbox::after {
+    background-color: var(--fg-color);
+    border-radius: 50%;
+    content: "";
+    height: 14px;
+    left: 3px;
+    position: absolute;
+    top: 3px;
+    width: 14px;
+}
+
+#auth .checkbox-wrapper .checkbox:checked::after {
+    background-color: var(--fg-color);
+    left: 13px;
+}
+
+#auth .checkbox-wrapper :focus:not(.focus-visible) {
+    outline: 0;
+}
+
+#auth .checkbox-wrapper .checkbox:checked {
+    background-color: var(--primary);
+}
+
+#auth .fa-explanation {
+    color: var(--grey); 
+    font-style: italic; 
+    font-size: 14px;
+}
+
+
 /***************************************************/
 
 

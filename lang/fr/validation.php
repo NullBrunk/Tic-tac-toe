@@ -183,6 +183,16 @@ return [
         "name" => "nom",
         "password" => "mot de passe",
         "password_confirmation" => "confirmation du mot de passe",
+        "2fa_token" => "activer l'authentification à deux facteurs ?",
+        "2fa_explanation" => "Laissez vide si vous n'avez pas activé l'A2F à l'inscription",
+        "2fa" => "Code A2F",
+        "empty_2fa" => "Ce champs est obligatoire.",
+        "invalid_2fa" => "Le code A2F est invalide.",
+
+        "2fa_body" => "Merci de scanner le QRCode ci-dessous avec votre client TOTP favori (FreeOTP, Aegis, Google Authenticator, Authly ...)",
+    
+        "2fa_or_secret" => "Ou entrez ce secret: ",
+        "2fa_then_go" => "puis rendez-vous sur la page de connexion",
     ],
 
 ];

@@ -12,33 +12,35 @@ class SettingsController extends Controller
 {
 
     /**
-     * Eloquent request to get the general stats (played games, winned games, lost games etc) of a given user
-     *
-     * @param integer $id_user      The id of the user to query
+     * Récupérer des informations généralistes à propos d'un donné (games jouée, gagnée, perdues ...) 
      * 
-     * @return Collection           The ORM response 
+     *
+     * @param integer $userid        L'id de l'utilisateur en question
+     * 
+     * @return Collection            La réponse de l'ORM
      */
-    private function get_general_stats(int $id_user) {
-        // Disable the "ONLY_FULL_GROUP_BY" mode that is auto enabled on laravel
+    private function get_general_stats(int $userid) {
+        // On désactive le mode "ONLY_FULL_GROUP_BY" qui est activé par défaut avec Laravel
         DB::statement("SET SQL_MODE=''");
                 
-        // Get stats from the "user_play" table and the "games" table
+        // On fait un inner join entre la table user_play et la tabke games pour récupérer les informations
+        // qui nous intéressent
         return User_join::select("winner", "symbol") 
             -> join('games', 'games.gameid', '=', 'user_joins.gameid')
-            -> where("player", $id_user) 
+            -> where("player", $userid) 
             -> where("winner", "!=", null)
             -> get();
     }
 
 
     /**
-     * Get the history of played games (player, his opponent, winner, and the date)
+     * Récupérer l'historique des parties jouées (joueur1, joueur2, vainqueur ...)
      *
-     * @param integer $id       The id of the user to query
+     * @param integer $userid        L'id de l'utilisateur en question
      * 
-     * @return array            The ORM response 
+     * @return array                 La réponse de l'ORM 
      */
-    private function get_history(int $id) {
+    private function get_history(int $userid) {
         return User_join::select(
             "users.email AS email_p1", 
             "users.name AS name_p1",
@@ -60,9 +62,9 @@ class SettingsController extends Controller
         -> where("games.winner", "<>", null) 
         -> where("games.winner", "<>", "")
         -> where("users.email", "<>", DB::raw("`users2`.`email`"))
-        -> where(function ($query) use ($id) {
-            $query -> where('users.id', $id)
-                   -> orWhere('users2.id', $id);
+        -> where(function ($query) use ($userid) {
+            $query -> where('users.id', $userid)
+                   -> orWhere('users2.id', $userid);
         })
         -> groupBy("games.gameid")
         -> orderBy("games.created_at", "DESC")
@@ -72,11 +74,11 @@ class SettingsController extends Controller
 
 
     /**
-     * Show the profile of a given user
+     * Afficher le profil d'un utilisateur donné (un utilisateur peu afficher le profil de n'importe quel utilisateur)
      *
-     * @param User $user       The user through model binding
+     * @param User $user        L'utilisateur par Model Binding
      * 
-     * @return void
+     * @return view             La vue affichant le profil
      */
     public function show(User $user) {
 
@@ -101,6 +103,7 @@ class SettingsController extends Controller
             }
             $played_games++;
         }
+
         $lost_games = $played_games - $won_games - $drawn_games - $not_ended_games;
         
         // Get an array that represents the history of played games of the user

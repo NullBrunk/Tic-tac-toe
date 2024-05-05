@@ -190,6 +190,16 @@ return [
         "password" => "password",
         "password_confirmation" => "password confirmation",
         "name" => "name",
+        "2fa_token" => "Enable two factor authentification ?",
+        "2fa_explanation" => "Leave empty if you have not enabled 2FA at signup",
+        "2fa" => "2FA Code",
+        "empty_2fa" => "This field is required.",
+        "invalid_2fa" => "Invalid 2FA code.",
+
+        "2fa_body" => "Please scan the QRCode below with your favourite TOTP client (FreeOTP, Aegis, Google Authenticator, Authly ...)",
+    
+        "2fa_or_secret" => "Or enter this secret: ",
+        "2fa_then_go" => "then go to the login page",
     ],
 
 ];

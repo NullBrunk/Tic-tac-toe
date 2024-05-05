@@ -34,10 +34,10 @@ class GamesController extends Controller
     /**
      * Rejoindre une partie
      *
-     * @param string $id        L'ID unique de la Game sur 4 caractères
+     * @param string $id           L'ID unique de la Game sur 4 caractères
      * 
-     * @return view|403|404      Une vue affichant le morpion ou une 403 si on n'a pas le droit
-     *                           de rejoindre cette partie, ou une 404 si la partie n'existe pas          
+     * @return view|403|404        Une vue affichant le morpion ou une 403 si on n'a pas le droit
+     *                             de rejoindre cette partie, ou une 404 si la partie n'existe pas          
      */
     public function join(string $id) {
         // Vérifier que la game existe
@@ -89,11 +89,11 @@ class GamesController extends Controller
     /**
      * Check if the placed pawn led to a win or a draw or nothing
      *
-     * @param array $morpion        The morpion
-     * @param integer $position     The position of the placed pawn (from 0 to 8)
-     * @param string $id            The unique ID of the game
+     * @param array $morpion           The morpion
+     * @param integer $position        The position of the placed pawn (from 0 to 8)
+     * @param string $id               The unique ID of the game
      * 
-     * @return void                 Update the database "winner" row
+     * @return void                    Update the database "winner" row
      */
     public static function check_win(array $morpion, int $position, string $id) {
 
@@ -121,9 +121,9 @@ class GamesController extends Controller
     /**
      * Permet à l'utilisateur de jouer un coup en enregistrant ce dernier dans la base de donnée
      * 
-     *  @param string $id           L'id unique de la game
-     *  @param int $case            La position (int de 0 à 8) de la case sur laquelle 
-     *                              l'utilisateur à cliqué
+     *  @param string $id        L'id unique de la game
+     *  @param int $case         La position (int de 0 à 8) de la case sur laquelle 
+     *                           l'utilisateur à cliqué
      * 
      * 
      */

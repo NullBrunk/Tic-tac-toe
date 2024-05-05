@@ -51,6 +51,19 @@
                 <input type="password" name="password_confirmation" id="password_confirmation" placeholder="••••••••" class="@error("password_confirmation") error-border @enderror input-form">
             </div>
 
+            <div>
+                <span class="checkbox-wrapper">
+                    <label for="2fa_token">
+                        {{ ucfirst(
+                            __("validation.attributes.2fa_token")
+                        ) }}
+                    </label>
+                    <input class="checkbox" type="checkbox" name="2fa_token" id="2fa_token">
+                </span>
+                </div>
+            </div>
+            <br>
+
              <span class="account-creation">
                 {{ ucfirst(__("app.login_message")) }} 
                 <a href="{{ route("auth.login") }}">
