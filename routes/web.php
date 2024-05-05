@@ -62,11 +62,10 @@ Route::name("games.") -> middleware("auth") -> controller(GamesController::class
 */
 
 Route::name("settings.") -> middleware(["auth", "no-cache"]) -> controller(SettingsController::class) -> group(function () {
-
     Route::get("settings",  "show_settings") -> name("profile");
-    Route::get("p/{user:name}",  "show") -> name("show");
-
 });
+
+Route::get("p/{user:name}",  [ SettingsController::class, "show" ]) -> name("settings.show");
 
 /*
 # Test the mail

@@ -42,7 +42,7 @@
                 </div>
                 
                 <div class="scrollable">
-                    @foreach($history as $battle)
+                    @forelse($history as $battle)
                     
                         @if($battle["winner"] === "draw")                    
                             @php($class = "transfer")
@@ -79,7 +79,10 @@
 
                         </div>
 
-                    @endforeach
+                    @empty
+                        <br>
+                        <div>This user hasn't played any games yet.</div>
+                    @endforelse
                 </div>
             </div>
 
