@@ -2,9 +2,23 @@
     padding: 0;
     margin: 0;
 
-    --bg-color: #0c0d14;
+    --background: #0c0d14;
+    --primary: #6842ff;
     --fg-color: #ffffff;
-    --purple: #6842ff;
+    --secondary: #1e1f30;
+
+
+    --green: #42e0ce;
+    --purple: #b062e3;
+    --red: #ee6677;
+
+
+    --cyan: #0bb9cb;
+    --blue: #01beff;
+    --orange: #e58133;
+
+
+    --grey: #75757d;
 }
 
 /***************************************************/
@@ -13,7 +27,7 @@ body {
     font-family: "Open Sans", sans-serif;
     font-size: 17px;
     
-    background-color: var(--bg-color);
+    background-color: var(--background);
     color: var(--fg-color);
     
     scroll-behavior: smooth;
@@ -114,27 +128,27 @@ nav > div{
 }
 
 .bg-green {
-    background-color: #42e0ce;
+    background-color: var(--green);
 }
 
 .bg-red {
-    background-color: #ee6677;
+    background-color: var(--red);
 }
 
 .X {
-    background-color: #b062e3;
+    background-color: var(--purple);
 }
 
 .fg-O {
-    color: #18bc9c !important;
+    color: var(--green) !important;
 }
 
 .fg-X {
-    color: #ee6677 !important;
+    color: var(--red) !important;
 }
 
 .fg {
-    color: #75757d;
+    color: var(--grey);
 }
 
 .bolder {
@@ -194,7 +208,7 @@ nav > div{
 .blur {
     height: 12rem;
     width: 12rem;
-    background-color: var(--purple);
+    background-color: var(--primary);
     filter: blur(100px);
     border-radius: 100px;
     z-index: 0;
@@ -237,7 +251,7 @@ button i {
 /**************************************************/
 /*            Stylisation de la navbar            */
 nav {
-    background-color: #1e1f30;
+    background-color: var(--secondary);
 }
 
 nav .header {
@@ -269,7 +283,7 @@ nav .title a {
 nav .link {
     text-decoration: none;
     color: #f9faff;
-    background-color: var(--purple);
+    background-color: var(--primary);
     padding: 10px 20px;
     border-radius: 15px;
     font-weight: 700;
@@ -280,7 +294,7 @@ nav .profile-button {
 }
 
 nav .profile-button:hover {
-    color: var(--purple);
+    color: var(--primary);
     transition: all 0.5s;
 }
 
@@ -302,7 +316,7 @@ nav .header-login-button span {
 }
 
 nav .header-login-button:hover span {
-    color: var(--purple);
+    color: var(--primary);
     transition: all 0.2s;
 }
 
@@ -322,7 +336,7 @@ nav .dropdown-content {
     min-width: 200px;
     flex-direction: column;
     left: -50px;
-    background-color: var(--purple);
+    background-color: var(--primary);
     z-index: 1;
 
     border-radius: 10px;
@@ -330,11 +344,11 @@ nav .dropdown-content {
 
 nav .dropdown-content a {
     padding: 15px 30px;;
-    border-top: 1px solid #1e1f30;
+    border-top: 1px solid var(--secondary);
 }
 
 nav .dropdown-content a:hover {
-    background-color: #1e1f30;
+    background-color: var(--secondary);
 }
 
 nav .dropdown-content a span, 
@@ -391,7 +405,7 @@ nav .dropdown-content a i {
     width: 100%;
     height: 100%;
     left: 0;
-    color: #fff;
+    color: var(--fg-color);
 }
 
 .text, .play-icon {
@@ -399,7 +413,7 @@ nav .dropdown-content a i {
 }
 
 .play-icon {
-    color: #fff;
+    color: var(--fg-color);
     top: 100%;
     display: flex;
     align-items: center;
@@ -414,10 +428,10 @@ nav .dropdown-content a i {
     --tooltip-width: 90px;
     --gap-between-tooltip-to-button: 18px;
     --button-color: #222;
-    --tooltip-color: #fff;
+    --tooltip-color: var(--fg-color);
     width: var(--width);
     height: var(--height);
-    background: var(--purple);
+    background: var(--primary);
     position: relative;
     text-align: center;
     border-radius: 0.45em;
@@ -436,7 +450,7 @@ nav .dropdown-content a i {
     height: var(--tooltip-height);
     background-color: #555;
     font-size: 0.9rem;
-    color: #fff;
+    color: var(--fg-color);
     line-height: var(--tooltip-height);
     bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) + 10px);
     left: calc(50% - var(--tooltip-width) / 2);
@@ -473,7 +487,7 @@ nav .dropdown-content a i {
     width: 100%;
     height: 100%;
     left: 0;
-    color: #fff;
+    color: var(--fg-color);
 }
   
 .text {
@@ -485,7 +499,7 @@ nav .dropdown-content a i {
 }
   
 .game-icon {
-    color: #fff;
+    color: var(--fg-color);
     top: 100%;
     display: flex;
     align-items: center;
@@ -498,7 +512,7 @@ nav .dropdown-content a i {
 }
   
 .index-button:hover {
-    background: #1e1f30;
+    background: var(--secondary);
 }
   
 .index-button:hover .text {
@@ -576,7 +590,7 @@ nav .dropdown-content a i {
 #auth form {
     transition: all .3s;
 
-    color: white;
+    color:var(--fg-color);
     font-weight: 700;
     padding: 20px;
     margin: auto;
@@ -590,26 +604,26 @@ nav .dropdown-content a i {
 }
 
 #auth .input-form {
-    border: 3px solid var(--purple);
+    border: 3px solid var(--primary);
     width: 40vw;
     height: 40px;
     border-radius: 7px;
     padding: 5px 10px;
     margin: 10px 2px;
-    background-color: #0c0d14;
-    color: white;
+    background-color: var(--background);
+    color: var(--fg-color);
 
     font-size: 16px;
 }
 
 #auth .input-form:focus {
-    border: 3px solid white;
+    border: 3px solid var(--fg-color);
 }
 
 #auth button {
-    border: 3px solid var(--purple);
+    border: 3px solid var(--primary);
     background-color: rgba(0,0,0,0);
-    color: white;
+    color: var(--fg-color);
     width: 100%;
     justify-content: center;
     margin-top: 25px;
@@ -620,7 +634,7 @@ nav .dropdown-content a i {
 }
 
 #auth button:hover {
-    background-color: var(--purple);
+    background-color: var(--primary);
 }
 
 #auth .icon {
@@ -631,7 +645,7 @@ nav .dropdown-content a i {
 }
 
 #auth .icon span {
-    background-color: var(--purple);
+    background-color: var(--primary);
     padding: 7px 19px;
     border-radius: 100%;
 }
@@ -641,7 +655,7 @@ nav .dropdown-content a i {
 }
 
 #auth .account-creation a {
-    color: var(--purple);
+    color: var(--primary);
 }
 /***************************************************/
 
@@ -683,7 +697,7 @@ nav .dropdown-content a i {
 #morpion .loader {
     width: 13px;
     height: 13px;
-    border: 3px solid #FFF;
+    border: 3px solid var(--fg-color);
     border-bottom-color: transparent;
     border-radius: 50%;
     display: inline-block;
@@ -719,7 +733,7 @@ nav .dropdown-content a i {
 } 
 
 #morpion .border-all {
-    border: 5px solid var(--purple);
+    border: 5px solid var(--primary);
 } 
 /******************************************************/
 
@@ -772,7 +786,7 @@ nav .dropdown-content a i {
 
 #settings .profile-info {
     margin-left: 190px;
-    color: #fff;
+    color: var(--fg-color);
 }
 
 #settings .mail {
@@ -788,16 +802,6 @@ nav .dropdown-content a i {
 #settings .pro-buttons {
     margin-left: auto;
     margin-top: 15px;
-}
-
-#settings .pro-buttons .button {
-    background-color: #a14fd6;
-    color: #fff;
-    border-radius: 7px;
-    padding: 10px;
-    border: none;
-    height: 23px;
-    width: 23px;
 }
 
 #settings .pro-cards {
@@ -840,14 +844,6 @@ nav .dropdown-content a i {
     overflow: scroll;
 }
 
-#settings .pro-cards .more-infos p {
-    padding: 10px;
-    margin: 10px;
-    border-radius: 8px;
-    height: 100%;
-    color: #161618;
-}
-
 #settings .info {
     padding: 25px;
     height: 65%;
@@ -871,13 +867,13 @@ nav .dropdown-content a i {
 
 
 #settings .bx-trophy {
-    color: #0bb9cb !important;
+    color: var(--cyan) !important;
 }
 #settings .bx-transfer {
-    color: #01beff !important;
+    color: var(--blue) !important;
 }
 #settings .bx-x-circle {
-    color: #e58133 !important;
+    color: var(--orange) !important;
 }
 
 #settings .info .block-container {
@@ -901,17 +897,17 @@ nav .dropdown-content a i {
     transform-origin: bottom right;
     transform: rotateZ(8deg);
     will-change: transform;
-    box-shadow: 2px 0 4px #e4e4e4;
+    box-shadow: 2px 0 4px var(--grey);
 }
 
 #settings .block-container .btn-back-1 {
-    background: linear-gradient(135deg, #18bc9c -20%, #01beff 120%);
+    background: linear-gradient(135deg, var(--green) -20%, var(--blue) 120%);
 }
 #settings .block-container .btn-back-2 {
-    background: linear-gradient(135deg, #5c46eb -20%, #01beff 120%);
+    background: linear-gradient(135deg, var(--blue) -20%, var(--cyan) 120%);
 }
 #settings .block-container .btn-back-3 {
-    background: linear-gradient(135deg, #ee6677 -20%, #ffac01 120%);
+    background: linear-gradient(135deg, var(--red) -20%, var(--orange) 120%);
 }
 
 #settings .block-container .btn-front {
@@ -966,7 +962,7 @@ nav .dropdown-content a i {
 }
 
 #settings .battle {
-    background-color: #22cebe;
+    background-color: var(--cyan);
     display: flex;
     padding: 15px;
     margin: 15px 10px;
@@ -975,7 +971,7 @@ nav .dropdown-content a i {
 
 #settings .profile-link {
     font-weight: 700;
-    color: white;
+    color: var(--fg-color);
 }
 
 /* settings page  */
@@ -998,18 +994,18 @@ nav .dropdown-content a i {
 
 #settings .settings-container .content button {
     font-weight: 800;
-    color: white;
+    color: var(--fg-color);
     min-width: fit-content;
     width: 400px;
 }
 
 #settings .bg-red {
     border-radius: 15px;
-    background-color: rgba(238, 102, 119, 0.2);
+    background-color: var(--red);
 }
 #settings .bg-red:hover {
     background-color: rgba(238, 102, 119, 0.4);
-    transition: all 0.5s;
+    transition: all 1s;
 }
 
 @media(max-width: 1000px) {

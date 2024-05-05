@@ -6,7 +6,7 @@ use App\Events\SignupEvent;
 use App\Http\Requests\LoginReq;
 use App\Http\Requests\RegisterReq;
 use Illuminate\Support\Str;
-use App\Models\Users;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -33,7 +33,7 @@ class AuthController extends Controller
     public function login(LoginReq $request) {
 
         // Search for the username & password combination in the users table
-        $data = Users::where("email", $request["email"])
+        $data = User::where("email", $request["email"])
                 -> where("password", self::hash($request["password"]))
                 -> get() 
                 -> toArray();
@@ -74,7 +74,7 @@ class AuthController extends Controller
 
         // Since the validation of the request include the fact that the name is unique in
         // the table, we can create the user without any validation at this level
-        $user = Users::create([
+        $user = User::create([
             "name" => $request["name"],
             "email" => $request["email"],
             "confirmation_token" => $confirmation_token,
@@ -95,12 +95,12 @@ class AuthController extends Controller
     /**
      * Validate a user by confirming his mail
      *
-     * @param Users $user           The user through model binding
+     * @param User $user           The user through model binding
      * @param string $checksum      Random UUID generated to check the mail
      * 
      * @return route|403            Returns either to /login either to a 403 page
      */
-    public function confirm_mail(Users $user, string $confirmation_token) {
+    public function confirm_mail(User $user, string $confirmation_token) {
         
         // Si le confirmation_token passé dans l'URL n'est pas le même que
         // le confirmation token attribué au user lors de sa création

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User_join;
-use App\Models\Users;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -74,11 +74,11 @@ class SettingsController extends Controller
     /**
      * Show the profile of a given user
      *
-     * @param Users $user       The user through model binding
+     * @param User $user       The user through model binding
      * 
      * @return void
      */
-    public function show(Users $user) {
+    public function show(User $user) {
 
         // Get the ORM responde to the request
         $statistics = $this -> get_general_stats($user -> id);
