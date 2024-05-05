@@ -27,13 +27,29 @@ docker-compose up --build
 # 📚 Deep overview
 
 ### 🔐 Login
-https://github.com/NullBrunk/L3T/assets/125673909/40b49521-a41a-461f-84d5-cc5afc80548a
+
+##### Without 2FA
+https://github.com/NullBrunk/L3T/assets/125673909/fb90ba56-cb5f-4b81-8afa-1b71fe102f59
+
+
+##### With 2FA
+https://github.com/NullBrunk/L3T/assets/125673909/1ad02f85-e953-481c-91f6-7d907afb55f0
+
+
 
 ### 🎮 Game
-https://github.com/NullBrunk/L3T/assets/125673909/36b9744f-9cc4-4b43-a498-6d57776c94d8
+https://github.com/NullBrunk/L3T/assets/125673909/0deb65e5-d4e8-4767-9d5e-66e07a7a369b
+
+
 
 ### 👤 Profile
-https://github.com/NullBrunk/L3T/assets/125673909/5f220014-9120-4f12-84a0-4b60636b99b3
+https://github.com/NullBrunk/L3T/assets/125673909/2eec7b55-1826-4dc6-bf35-cb69a21ee21f
+
+
+
+### 📱 Responsive
+https://github.com/NullBrunk/L3T/assets/125673909/404d207e-4c32-4dda-9ec8-bbb04e90e6d4
+
 
 
 
