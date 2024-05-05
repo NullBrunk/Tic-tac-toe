@@ -81,9 +81,7 @@ class Morpion extends Component
     }
 
 
-    public function render()
-    {
-            
+    public function render() {
         $this -> update_morpion();        
         return view('livewire.morpion');
     }
