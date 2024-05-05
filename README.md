@@ -25,7 +25,6 @@ docker-compose up --build
 
 
 # 📚 Deep overview
-Sorry for the low quality of the videos
 
 ### 🔐 Login
 
