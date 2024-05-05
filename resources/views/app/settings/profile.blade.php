@@ -10,7 +10,7 @@
         
         <div class="absolute informations flex" data-aos="fade-in" data-aos-duration="1000">
             <div class="profile-name flex">
-                <img src="https://ui-avatars.com/api/?background=a14fd6&color=fff&amp;size=300&amp;rounded=true&amp;length=1&amp;name={{ $name }}" alt="Profile picture">
+                <img src="https://ui-avatars.com/api/?background=1e1f30&color=fff&amp;size=300&amp;rounded=true&amp;length=1&amp;name={{ $name }}" alt="Profile picture">
             </div>
             <div class="profile-info">
                 <p class="mail">
@@ -23,7 +23,7 @@
 
             @if($email === session("email"))
                 <div class="pro-buttons flex">
-                    <a class="button" href="{{ route("settings.profile") }}"><i class="bx bx-cog"></i></a>
+                    <a class="glass-button" style="height: 34px;" href="{{ route("settings.profile") }}"><i class="bx bx-cog"></i></a>
                 </div>
             @endif
         </div>
@@ -32,7 +32,7 @@
 
             <div class="relative more-infos">
                 <div class="commentbar-top">
-                    <h5 class="patch-approximatif">
+                    <h5>
                         {{ ucfirst(
                             __("app.settings.game_history")
                         ) }} 
@@ -40,7 +40,7 @@
                     <hr style="background-color: #a14fd6; margin: 0px; height: 5px;">
                 </div>
                 
-                <div>
+                <div class="scrollable">
                     @foreach($history as $battle)
                     
                         @if($battle["winner"] === "draw")                    
@@ -91,36 +91,48 @@
                 <hr style="background-color: #a14fd6; margin: 0px; height: 5px;">
 
                 <div class="flex info">
-                    <div class="card trophy">
-                        <span>
-                            <i class='bx bx-trophy'></i>
-                            {{ mb_strtoupper(
-                                __("app.settings.won")
-                            ) }} 
-                        </span>
-                        <span id="won" data-stat="{{ $won_games }}" class="stats">
-                    </div>
-                    <div class="card x-circle">
-                        <span>
-                            <i class='bx bx-x-circle'></i>
-                            {{ mb_strtoupper(
-                                __("app.settings.lost")
-                            ) }}
-                        </span>
-                        <span id="lost" data-stat="{{ $lost_games }}" class="stats">
 
-                    </div>
-                    <div class="card transfer">
-                        <span>
-                            <i class='bx bx-transfer'></i>
-                            {{ mb_strtoupper(
-                                __("app.settings.drawn")
-                            ) }}
-                        </span>
-                        <span id="drawn" data-stat="{{ $drawn_games }}" class="stats">
-                            
-                        </span>
-                    </div>
+
+                    <div class="block-container">
+                        <div class="btn-back btn-back-1"></div>
+                        <div class="btn-front">
+                            <span style="color: #0bb9cb">
+                                <i class='bx bx-trophy'></i>
+                                {{ mb_strtoupper(
+                                    __("app.settings.won")
+                                    ) }} 
+                            </span>
+                            <span id="won" data-stat="{{ $won_games }}" class="stats">
+                        </div>
+                      </div>
+
+                      <div class="block-container">
+                        <div class="btn-back btn-back-2"></div>
+                        <div class="btn-front">
+                            <span style="color: #01beff;">
+                                <i class='bx bx-transfer'></i>
+                                {{ mb_strtoupper(
+                                    __("app.settings.drawn")
+                                ) }}
+                            </span>
+                            <span id="drawn" data-stat="{{ $drawn_games }}" class="stats">
+                        </div>
+                      </div>
+
+                      <div class="block-container">
+                        <div class="btn-back btn-back-3"></div>
+                        <div class="btn-front">
+                            <span style="color: #e58133;">
+                                <i class='bx bx-x-circle'></i>
+                                {{ mb_strtoupper(
+                                    __("app.settings.lost")
+                                ) }}
+                            </span>
+                            <span id="lost" data-stat="{{ $lost_games }}" class="stats">
+                        </div>
+                      </div>
+                    
+                    
                 </div>
 
             </div>

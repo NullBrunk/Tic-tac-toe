@@ -16,7 +16,7 @@
 
             <div class="relative more-infos w-100 settings-container">
                 <div class="commentbar-top">
-                    <h5 class="patch-approximatif">
+                    <h5>
                         {{ mb_strtoupper(
                             __("app.settings.settings")
                         ) }} 
@@ -27,13 +27,13 @@
                 <div class="content flex column">
                     <div class="flex column h-100">
                         <div>
-                            <button class="center X">
+                            <button class="center glass-button">
                                 {{ strtoupper(
                                     __("app.settings.username")
                                 ) }} 
                             </button>
-
-                            <button class="mt-10 center X">
+                            <br>
+                            <button class="mt-10 center  glass-button">
                                 {{ strtoupper(
                                     __("app.settings.password")
                                 ) }} 

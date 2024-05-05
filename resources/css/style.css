@@ -137,7 +137,7 @@ nav > div{
 }
 
 .fg {
-    color: #161618;
+    color: #75757d;
 }
 
 .bolder {
@@ -151,6 +151,7 @@ nav > div{
 .relative {
     position: relative;
 }
+
 /***************************************************/
 
 
@@ -159,6 +160,28 @@ nav > div{
 /*          Définitions des classes CSS           */
 
 /* GÉNÉRALITÉS */
+
+
+.glass-button {
+    display: inline-block;
+    padding: 11px 19px;
+    padding-top: 14px;
+    border: 0;
+    text-decoration: none;
+    border-radius: 15px;
+    background-color: rgba(30, 31, 48, 0.7);
+    border: 1px solid rgba(30, 31, 48, 0.7);
+    backdrop-filter: blur(30px);
+    color: rgba(255,255,255,0.8);
+    font-size: 22px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.5s
+}
+  
+.glass-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
 
 .grid {
     position: absolute;
@@ -554,15 +577,19 @@ nav .dropdown-content a i {
 }
 
 #auth form {
-    margin: auto;
-    border: 1px solid black; 
     transition: all .3s;
-    padding: 20px;
-    border-radius: 5px;
 
     color: white;
     font-weight: 700;
-    background-color: #1e1f30;
+    padding: 20px;
+    margin: auto;
+
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 20px;
+    background-color: rgba(30, 31, 48, 0.30);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(15px);
 }
 
 #auth .input-form {
@@ -631,7 +658,7 @@ nav .dropdown-content a i {
 }
 
 #morpion .col .case {    
-    background-color: #0c0d14;
+    background-color: rgba(0, 0, 0, 0);
     font-weight: 900;
     text-align: center;
     padding: 7vh 7vw;
@@ -715,7 +742,8 @@ nav .dropdown-content a i {
     border-radius: 8px;
     overflow: hidden;
     user-select: none;
-    background: linear-gradient(315deg, hsl(276, 79%, 69%) 25%, hsl(173, 75%, 47%));
+    background: rgba(30, 31, 48, 0.7);
+    border: 1px solid rgba(255, 255, 255, .25);
 }
 
 #settings .informations {
@@ -729,7 +757,7 @@ nav .dropdown-content a i {
 
 #settings .profile-name {
     position: absolute;
-    border: 5px solid #fff;
+    border: 1px solid rgba(255, 255, 255, .25);
     color: #fff;
     background-color: #bababa;
     height: 160px;
@@ -791,21 +819,27 @@ nav .dropdown-content a i {
     padding-top: 14px;
 }
 
-#settings .pro-cards .commentbar-top {
-    position: sticky;
-    top: 0;
-    background-color: #161618;
-    z-index: 2;
-}
 
 #settings .pro-cards .more-infos {
-    box-shadow: rgba(161, 79, 214, 0.2) 0px 0px 0px 3px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 3px;
+    /* box-shadow: rgba(161, 79, 214, 0.2) 0px 0px 0px 3px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 3px;
     background-color: #161618;
+    border-radius: 8px;
+    */
     width: 47%;
     height: 35vh;
-    border-radius: 8px;
     padding: 10px;
     padding-top: 0px;
+
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 20px;
+    background-color: rgba(30, 31, 48, 0.30);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(15px);
+}
+
+#settings .pro-cards .scrollable {
+    height: calc(35vh - 7vh);
     overflow: scroll;
 }
 
@@ -822,26 +856,116 @@ nav .dropdown-content a i {
     height: 65%;
 }
 
-#settings .info .card {
-    width: 33%;
-    text-align: center;
-    background-color: #22cebe;
-    border-radius: 5px;
-    padding: 20px;
-    margin: 5px;
+#settings .trophy {
+    /* background: linear-gradient(135deg, #18bc9c -20%, #01beff 120%); */
+    background-color: rgba(28, 45, 63, 0.5) !important;
+}
+
+#settings .transfer {
+    /* background: linear-gradient(135deg, #5c46eb -20%, #01beff 120%); */
+    background-color: rgba(32, 39, 67, 1) !important;
+
+}
+
+#settings .x-circle {
+    background-color: rgba(51, 40, 49, 0.5) !important;
+}
+
+
+
+#settings .bx-trophy {
+    color: #0bb9cb !important;
+}
+#settings .bx-transfer {
+    color: #01beff !important;
+}
+#settings .bx-x-circle {
+    color: #e58133 !important;
+}
+
+#settings .info .block-container {
+    transition: 250ms;
+    perspective: 500px;
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 32px 45px;
+}
+
+#settings .block-container .btn-back {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: inherit;
+    height: inherit;
+    border-radius: 32px;
+    transition: 250ms;
+    transform-style: preserve-3d;
+    transform-origin: bottom right;
+    transform: rotateZ(8deg);
+    will-change: transform;
+    box-shadow: 2px 0 4px #e4e4e4;
+}
+
+#settings .block-container .btn-back-1 {
+    background: linear-gradient(135deg, #18bc9c -20%, #01beff 120%);
+}
+#settings .block-container .btn-back-2 {
+    background: linear-gradient(135deg, #5c46eb -20%, #01beff 120%);
+}
+#settings .block-container .btn-back-3 {
+    background: linear-gradient(135deg, #ee6677 -20%, #ffac01 120%);
+}
+
+#settings .block-container .btn-front {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: inherit;
+    height: inherit;
+    border-radius: 32px;
+    background-color: rgba(30, 31, 48, 0.90);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+    transition: 250ms;
+    transform-style: preserve-3d;
+    transform-origin: top left;
+    overflow: hidden;
+
     display: flex;
+    justify-content: center;
     flex-direction: column;
 }
 
-#settings .info .card span {
-    font-weight: 700;
-    color: #161618;
+#settings .block-container .btn-front span {
+    text-align: center;
+}
+
+#settings .block-container .btn-front svg.frame {
+    width: inherit;
+    height: inherit;
+}
+#settings .block-container .btn-front svg.frame rect {
+    width: inherit;
+    height: inherit;
+    fill: none;
+    stroke-width: 4;
+}
+#settings .block-container .btn-front svg.icon {
+    position: absolute;
+    inset: 50% 0 0 50%;
+    transform: translate(-50%, -50%);
+}
+#settings .block-container:hover > .btn-back {
+    transform: translateZ(20px) rotateZ(15deg) rotateX(-20deg) rotateY(-20deg);
+}
+#settings .block-container:hover > .btn-front {
+    transform: translateZ(80px) translateY(-5px) rotateX(15deg) rotateY(15deg);
 }
 
 #settings .stats {
     font-weight: 900 !important;
     font-size: 75px;
-    margin: auto;
 }
 
 #settings .battle {
@@ -850,18 +974,6 @@ nav .dropdown-content a i {
     padding: 15px;
     margin: 15px 10px;
     border-radius: 5px;
-}
-
-#settings .trophy {
-    background-color: #18bc9c !important;
-}
-
-#settings .x-circle {
-    background-color: #ee6677 !important;
-}
-
-#settings .transfer {
-    background-color: #a14fd6 !important;
 }
 
 #settings .profile-link {
@@ -877,13 +989,6 @@ nav .dropdown-content a i {
     align-items: center; 
     padding-left: 70px;
 } 
-
-#settings .patch-approximatif {
-    border: 3px solid rgba(161,79,214,.2);
-    border-bottom: 0;
-    border-right: 0;
-    border-left: 0;
-}
 
 #settings .settings-container {
     height: 51vh !important;
@@ -901,13 +1006,12 @@ nav .dropdown-content a i {
     width: 400px;
 }
 
-#settings .X:hover {
-    background-color: #cc97ee;
-    transition: all 0.5s;
+#settings .bg-red {
+    border-radius: 15px;
+    background-color: rgba(238, 102, 119, 0.2);
 }
-
 #settings .bg-red:hover {
-    background-color: #d9828d;
+    background-color: rgba(238, 102, 119, 0.4);
     transition: all 0.5s;
 }
 
