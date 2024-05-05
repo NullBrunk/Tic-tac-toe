@@ -11,7 +11,7 @@
                 __("app.settings.settings")
             ) }} 
         </div>
-        
+
         <div class="pro-cards w-100 mt-10" style="margin-top: 30px;" data-aos="fade-up" data-aos-duration="1000">
 
             <div class="relative more-infos w-100 settings-container">
