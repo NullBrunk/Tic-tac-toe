@@ -48,6 +48,8 @@ class Morpion extends Component
      * @return void
      */
     public function is_alone() {
+        if(!($this -> alone)) return;
+        
         $joined_players = User_join::where("gameid", $this -> id) -> count();
         
         if($joined_players !== 1) {
