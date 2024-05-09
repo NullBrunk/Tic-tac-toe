@@ -11,17 +11,17 @@ use Illuminate\Support\Str;
 class GamesController extends Controller
 {
     /**
-     * Génère un ID sur 4 caractère pour identifer une Game de manière unique
-     * ainsi que de créé la game avec cet identifiant
+     * Generate a 4 char random ID to uniqely identify a game, and creates the 
+     * game with this id in the table
      *
-     * @return route        Route permettant de rejoindre cette Game créé
+     * @return route        Return to the "join game" route
      */
     public function create() {
         
         // Génère l'ID unique sur 4 caractères
         $uuid = Str::random(4);
     
-        // Créé la game en base de donnée à l'aide du Model
+        // Créé la game ayant cet ID dans la table DB
         Game::create([
             "gameid" => $uuid,
             "winner" => null
@@ -32,12 +32,12 @@ class GamesController extends Controller
     }
 
     /**
-     * Rejoindre une partie
+     * Join a
      *
-     * @param string $id           L'ID unique de la Game sur 4 caractères
+     * @param string $id           The ID of the game to join
      * 
-     * @return view|403|404        Une vue affichant le morpion ou une 403 si on n'a pas le droit
-     *                             de rejoindre cette partie, ou une 404 si la partie n'existe pas          
+     * @return view|403|404        A view displaying the morpion, or a 403 if we are not
+     *                             authorized to join the game, or a 404 if the game doesn't exists
      */
     public function join(string $id) {
         // Vérifier que la game existe
@@ -97,35 +97,41 @@ class GamesController extends Controller
      */
     public static function check_win(array $morpion, int $position, string $id) {
 
+        // Si la game est déjà finie, on quitte la fonction
         if(Game::where("gameid", $id) -> first() -> winner !== null) {
             return;
         }
 
+        // On converti un nombre de 0 à 8 en sa position dans un tableau 2D
         $x = $position / 3;
         $y = $position % 3;
         $pion = $morpion[$x][$y];
 
+        // Si on gagne
         if(MorpionController::check_win($morpion, $x, $y)) {
+            // Update la table pour indiquer qui a gagné
             Game::where("gameid", $id) -> update([
                 "winner" => $pion
             ]);
             return;
         }
+        // Sinon si c'est le 9ème coup
         else if(User_play::where("gameid", $id) -> get() -> count() === 9) {
+            // Update la table pour indiquer que c'est un match nul
             Game::where("gameid", $id) -> update([
                 "winner" => "draw"
             ]);
         }
     }
     
+
     /**
-     * Permet à l'utilisateur de jouer un coup en enregistrant ce dernier dans la base de donnée
+     * Play a turn by placing a pawn on a given case (0 to 8)
      * 
-     *  @param string $id        L'id unique de la game
-     *  @param int $case         La position (int de 0 à 8) de la case sur laquelle 
-     *                           l'utilisateur à cliqué
+     * @param string $id        The unique ID of the game
+     * @param int $case         The position of the pawn 
      * 
-     * 
+     * @return null|void
      */
     public static function store(string $id, int $position) {
 

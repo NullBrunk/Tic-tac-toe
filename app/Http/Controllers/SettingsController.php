@@ -12,12 +12,11 @@ class SettingsController extends Controller
 {
 
     /**
-     * Récupérer des informations généralistes à propos d'un donné (games jouée, gagnée, perdues ...) 
-     * 
+     * Get several informations about a given user (played/won/lost games... )
      *
-     * @param integer $userid        L'id de l'utilisateur en question
+     * @param integer $userid        The user id
      * 
-     * @return Collection            La réponse de l'ORM
+     * @return Collection            The ORM response
      */
     private function get_general_stats(int $userid) {
         // On désactive le mode "ONLY_FULL_GROUP_BY" qui est activé par défaut avec Laravel
@@ -34,11 +33,11 @@ class SettingsController extends Controller
 
 
     /**
-     * Récupérer l'historique des parties jouées (joueur1, joueur2, vainqueur ...)
+     * Get the history of played games (player1, player2, winner)
      *
-     * @param integer $userid        L'id de l'utilisateur en question
+     * @param integer $userid        Id of the user to query
      * 
-     * @return array                 La réponse de l'ORM 
+     * @return array                 The ORM response
      */
     private function get_history(int $userid) {
         return User_join::select(
@@ -74,18 +73,18 @@ class SettingsController extends Controller
 
 
     /**
-     * Afficher le profil d'un utilisateur donné (un utilisateur peu afficher le profil de n'importe quel utilisateur)
+     * Show the profil of a given user
      *
-     * @param User $user        L'utilisateur par Model Binding
+     * @param User $user        The User through Model Binding
      * 
-     * @return view             La vue affichant le profil
+     * @return view             The profile page view
      */
     public function show(User $user) {
 
-        // Get the ORM responde to the request
+        // On recupère des statistiques générale (nombre de games jouées, gagnées et perdues)
         $statistics = $this -> get_general_stats($user -> id);
 
-        // Parse the ORM response to get usable stats
+        // On parse la réponse de l'ORM pour récuperer les informations qui nous intéressent
         $played_games = 0;
         $drawn_games = 0;
         $won_games = 0;
@@ -106,10 +105,10 @@ class SettingsController extends Controller
 
         $lost_games = $played_games - $won_games - $drawn_games - $not_ended_games;
         
-        // Get an array that represents the history of played games of the user
+        // On recupère un array contenant l'historique des games jouées
         $history = $this -> get_history($user -> id); 
 
-        // Return the profile page with all the needed parameters
+        // Enfin on retourne la vue de la profile page
         return view("app.settings.profile", [
             "won_games" => $won_games,
             "lost_games" => $lost_games,

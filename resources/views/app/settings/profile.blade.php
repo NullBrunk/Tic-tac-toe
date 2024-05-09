@@ -74,7 +74,7 @@
                             </div>
 
                             <div style="margin-left: auto;">
-                                {{ \Carbon\Carbon::parse($battle["created_at"]) -> diffForHumans() }}
+                                @human_diff($battle["created_at"])
                             </div>
 
                         </div>

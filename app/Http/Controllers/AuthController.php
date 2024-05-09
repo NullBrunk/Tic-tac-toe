@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Events\SignupEvent;
 use Illuminate\Support\Str;
+
+// Form requests
 use App\Http\Requests\LoginReq;
-use RobThree\Auth\TwoFactorAuth;
 use App\Http\Requests\RegisterReq;
+
+// Manage 2FA  
+use RobThree\Auth\TwoFactorAuth;
 use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
 
 class AuthController extends Controller
@@ -28,19 +32,19 @@ class AuthController extends Controller
     /**
      * Log in a user
      *
-     * @param LoginReq $request        The validated request
+     * @param LoginReq $request        The Form Request
      *
      * @return redirect                Redirection to / or to /login with errors
      */
     public function login(LoginReq $request) {
 
-        // Search for the username & password combination in the users table
+        // On cherche la combinaison email:password dans la table User
         $data = User::where("email", $request["email"])
                 -> where("password", self::hash($request["password"]))
                 -> get() 
                 -> toArray();
 
-        // If there is no such combination in the table, return to previous page with error
+        // Si on ne trouve rien
         if(empty($data)) {
             return to_route("auth.login") -> withErrors([
                 "loginerror" => "Invalid username or password"
@@ -107,24 +111,27 @@ class AuthController extends Controller
     /**
      * Register a user
      *
-     * @param RegisterReq $request        The validated request
+     * @param RegisterReq $request        The Register form request
      * 
      * @return redirect                   Redirection to the login page with a success message 
      */
     public function register(RegisterReq $request) {
 
 
-        // Create the validation unique token
+        // On créé le token unique qui sera envoyé à l'utilisateur par mail
         $confirmation_token = Str::uuid();
 
-        // Since the validation of the request include the fact that the name is unique in
-        // the table, we can create the user without any validation at this level
+        // La form RegisterReq form request vérifie déjà que le mail et le name choisi sont unique
+        // dans al table User. Nous n'avons donc pas besoin de faire ces validations après coup.
+        // Ici nous nous contentons donc d'ajouter l'utilisateur dans la table User.
         $user = User::create([
             "name" => $request["name"],
             "email" => $request["email"],
             "confirmation_token" => $confirmation_token,
             "password" => self::hash($request["password"]),
-            // Par défaut le secret totp vaut null, ce qui signifie que l'utilisateur n'a pas l'A2F activée
+
+            // Par défaut le secret totp (2FA) vaut null
+            // ce qui signifie que l'utilisateur n'a pas l'A2F activée
             "secret" => null,
         ]);
 
@@ -141,20 +148,20 @@ class AuthController extends Controller
         }
 
         // Si on est arrivé ici, c'est que l'utilisateur souhaite bénéficier de l'A2F. 
-        // On va donc lui proposer une page lui permettant de scanner un QRCode sur 
-        // son app de TOTP
-
+        // On va donc le renvoyer vers une page lui permettant de scanner un QRCode ou 
+        // d'ajouter un code secret sur son app de TOTP
         $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
         $secret = $tfa -> createSecret();
         $qrcode = $tfa -> getQRCodeImageAsDataUri($request["email"], $secret);
 
+    
         $user -> update([
             // On update le secret pour annoncer que l'utilisateur utilise l'A2F
             "secret" => $secret,
         ]);
         
-        // On ne va pas a la page de login, mais à une page qui contient le QRCode que l'utilisateur devra scanner
-        return view("app.auth.validate", [
+        // On ne va pas a la page de login, mais a la page contenant le QRCode et le secret
+        return view("app.auth.2fa", [
             "secret" => $secret,
             "qrcode" => $qrcode,
         ]);
@@ -179,8 +186,7 @@ class AuthController extends Controller
         $user -> update([ "confirmation_token" => null ]);
 
         return to_route("auth.login") -> with(
-            "success", 
-            "Your mail have been confirmed, you can log-in now"
+            "success", "Your mail have been confirmed, you can log-in now"
         );
     }
 }

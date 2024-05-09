@@ -6,15 +6,22 @@ use App\Http\Controllers\GamesController;
 
 use Illuminate\Support\Facades\Route;
 
-// If you want to test the support for fr
-// app() ->setLocale("fr");
+// If you want to test the support for localization :
+// app() -> setLocale("fr");
+
+
+// If you want to test the mail :
+// use App\Mail\ConfirmationMail;
+// Route::get("/mail", function() {
+//     return new ConfirmationMail("a@a.a", "idididid");
+// });
 
 Route::view("/", "app.index") -> name("index");
 
 
 /*
 |--------------------------------------------------------------------------
-| Authentication / Logout
+| Authentication routing
 |--------------------------------------------------------------------------
 | 
 */
@@ -56,7 +63,7 @@ Route::name("games.") -> middleware("auth") -> controller(GamesController::class
 
 /*
 |--------------------------------------------------------------------------
-| Profile routing
+| Profile/Settings routing
 |--------------------------------------------------------------------------
 | 
 */
@@ -67,10 +74,4 @@ Route::name("settings.") -> middleware(["auth", "no-cache"]) -> controller(Setti
 
 Route::get("p/{user:name}",  [ SettingsController::class, "show" ]) -> name("settings.show");
 
-/*
-# Test the mail
-use App\Mail\ConfirmationMail;
-Route::get("/mail", function() {
-    return new ConfirmationMail("a@a.a", "idididid");
-});
-*/
+
