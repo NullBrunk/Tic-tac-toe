@@ -25,10 +25,10 @@ class SettingsController extends Controller
         // On fait un inner join entre la table user_play et la tabke games pour récupérer les informations
         // qui nous intéressent
         return User_join::select("winner", "symbol") 
-            -> join('games', 'games.gameid', '=', 'user_joins.gameid')
-            -> where("player", $userid) 
-            -> where("winner", "!=", null)
-            -> get();
+           ->join('games', 'games.gameid', '=', 'user_joins.gameid')
+           ->where("player", $userid) 
+           ->where("winner", "!=", null)
+           ->get();
     }
 
 
@@ -50,25 +50,25 @@ class SettingsController extends Controller
             "games.winner",
             "games.created_at",
         ) 
-        -> join('user_joins as user_joins2', 
+       ->join('user_joins as user_joins2', 
             function ($join) {
-                $join -> on('user_joins.gameid', '=', DB::raw("`user_joins2`.`gameid`"))
-                      -> where('user_joins.player', '<>', DB::raw("`user_joins2`.`player`"));
+                $join->on('user_joins.gameid', '=', DB::raw("`user_joins2`.`gameid`"))
+                     ->where('user_joins.player', '<>', DB::raw("`user_joins2`.`player`"));
             })
-        -> join('users', 'user_joins.player', '=', 'users.id')
-        -> join('users as users2', 'user_joins2.player', '=', 'users2.id')
-        -> join('games', 'user_joins.gameid', '=', 'games.gameid')
-        -> where("games.winner", "<>", null) 
-        -> where("games.winner", "<>", "")
-        -> where("users.email", "<>", DB::raw("`users2`.`email`"))
-        -> where(function ($query) use ($userid) {
-            $query -> where('users.id', $userid)
-                   -> orWhere('users2.id', $userid);
+       ->join('users', 'user_joins.player', '=', 'users.id')
+       ->join('users as users2', 'user_joins2.player', '=', 'users2.id')
+       ->join('games', 'user_joins.gameid', '=', 'games.gameid')
+       ->where("games.winner", "<>", null) 
+       ->where("games.winner", "<>", "")
+       ->where("users.email", "<>", DB::raw("`users2`.`email`"))
+       ->where(function ($query) use ($userid) {
+            $query->where('users.id', $userid)
+                  ->orWhere('users2.id', $userid);
         })
-        -> groupBy("games.gameid")
-        -> orderBy("games.created_at", "DESC")
-        -> get()
-        -> toArray();
+       ->groupBy("games.gameid")
+       ->orderBy("games.created_at", "DESC")
+       ->get()
+       ->toArray();
     } 
 
 
@@ -82,7 +82,7 @@ class SettingsController extends Controller
     public function show(User $user) {
 
         // On recupère des statistiques générale (nombre de games jouées, gagnées et perdues)
-        $statistics = $this -> get_general_stats($user -> id);
+        $statistics = $this->get_general_stats($user->id);
 
         // On parse la réponse de l'ORM pour récuperer les informations qui nous intéressent
         $played_games = 0;
@@ -91,13 +91,13 @@ class SettingsController extends Controller
         $not_ended_games = 0;
 
         foreach($statistics as $game) {
-            if($game -> winner === $game -> symbol) {
+            if($game->winner === $game->symbol) {
                 $won_games++;
             }
-            if($game -> winner === "draw") {
+            if($game->winner === "draw") {
                 $drawn_games++;
             }
-            if($game -> winner === null) {
+            if($game->winner === null) {
                 $not_ended_games++;
             }
             $played_games++;
@@ -106,19 +106,19 @@ class SettingsController extends Controller
         $lost_games = $played_games - $won_games - $drawn_games - $not_ended_games;
         
         // On recupère un array contenant l'historique des games jouées
-        $history = $this -> get_history($user -> id); 
+        $history = $this->get_history($user->id); 
 
         // Enfin on retourne la vue de la profile page
         return view("app.settings.profile", [
             "won_games" => $won_games,
             "lost_games" => $lost_games,
             "drawn_games" => $drawn_games,
-            "email" => $user -> email,
-            "name" => $user -> name,
+            "email" => $user->email,
+            "name" => $user->name,
             "history" => $history,
 
-            // diffForHumans -> 15 seconds ago, 2 months ago for example
-            "created_at" => Carbon::parse($user -> created_at) -> diffForHumans(),
+            // diffForHumans->15 seconds ago, 2 months ago for example
+            "created_at" => Carbon::parse($user->created_at)->diffForHumans(),
         ]);
     }
 

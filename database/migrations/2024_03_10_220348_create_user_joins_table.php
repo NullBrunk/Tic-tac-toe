@@ -12,19 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_joins', function (Blueprint $table) {
-            $table -> unsignedBigInteger('player');
-            $table -> foreign('player') 
-                   -> references('id') 
-                   -> on('users')
-                   -> onUpdate('cascade');
+            $table->unsignedBigInteger('player');
+            $table->foreign('player') 
+                  ->references('id') 
+                  ->on('users')
+                  ->onUpdate('cascade');
 
-            $table -> string('gameid');
-            $table -> foreign('gameid') 
-                    -> references('gameid') 
-                    -> on('games')
-                    -> onUpdate('cascade');
+            $table->string('gameid');
+            $table->foreign('gameid') 
+                   ->references('gameid') 
+                   ->on('games')
+                   ->onUpdate('cascade');
 
-            $table -> string("symbol");
+            $table->string("symbol");
 
          
 

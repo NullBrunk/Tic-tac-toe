@@ -41,19 +41,19 @@ class GamesController extends Controller
      */
     public function join(string $id) {
         // Vérifier que la game existe
-        Game::where("gameid", $id) -> firstorfail();
+        Game::where("gameid", $id)->firstorfail();
         
         // On recupère tous les utilisateurs qui ont rejoint la Game
         $joined_user = User_join::where("gameid", $id);
 
         // On les compte
-        $count = $joined_user -> count();
+        $count = $joined_user->count();
         
         // Si cette variable vaut true, ca veut dire que l'utilisateur actuel n'a pas rejoint la game
         // sinon l'utilisateur a déja rejoint la game
 
-        $user_has_not_join = $joined_user -> where("player", session("id")) 
-                             -> count() === 0;
+        $user_has_not_join = $joined_user->where("player", session("id")) 
+                            ->count() === 0;
         
         // Si deux utilisateurs ont déja rejoint la partie et que l'utilisateur qui fait la requete
         // ne l'a pas rejoint
@@ -98,7 +98,7 @@ class GamesController extends Controller
     public static function check_win(array $morpion, int $position, string $id) {
 
         // Si la game est déjà finie, on quitte la fonction
-        if(Game::where("gameid", $id) -> first() -> winner !== null) {
+        if(Game::where("gameid", $id)->first()->winner !== null) {
             return;
         }
 
@@ -110,15 +110,15 @@ class GamesController extends Controller
         // Si on gagne
         if(MorpionController::check_win($morpion, $x, $y)) {
             // Update la table pour indiquer qui a gagné
-            Game::where("gameid", $id) -> update([
+            Game::where("gameid", $id)->update([
                 "winner" => $pion
             ]);
             return;
         }
         // Sinon si c'est le 9ème coup
-        else if(User_play::where("gameid", $id) -> get() -> count() === 9) {
+        else if(User_play::where("gameid", $id)->get()->count() === 9) {
             // Update la table pour indiquer que c'est un match nul
-            Game::where("gameid", $id) -> update([
+            Game::where("gameid", $id)->update([
                 "winner" => "draw"
             ]);
         }
@@ -142,18 +142,18 @@ class GamesController extends Controller
         $game_coups = User_play::where("gameid", $id);
         
         // Recupère le dernier coup joué
-        $last_turn = $game_coups -> get() -> last();
+        $last_turn = $game_coups->get()->last();
         
         // Test tout ce qui rend interdit au joueur de jouer un coup à cet endroit
         if(
             // La partie est finie
-            Game::where("gameid", $id) -> get() -> first() -> winner !== null
+            Game::where("gameid", $id)->get()->first()->winner !== null
             
             // Ou alors la partie n'a pas encore commencé
-            || $players -> get() -> count() !== 2
+            || $players->get()->count() !== 2
 
             // Ou alors le joueur essaye de jouer deux fois d'affilé
-            || isset($last_turn) && $last_turn -> userid === session("id") 
+            || isset($last_turn) && $last_turn->userid === session("id") 
         ) {
             return;
         }
@@ -164,17 +164,17 @@ class GamesController extends Controller
         
         // Cette ligne est la pour être sur que ce genre de chose ne se produise pas
         $symbol = $players 
-                -> where("player", session("id")) 
-                -> get() 
-                -> first() 
-                -> symbol;
+               ->where("player", session("id")) 
+               ->get() 
+               ->first() 
+               ->symbol;
         session(["symbol" => $symbol]);
 
         // Si il n'y a pas déja un symbole placé ici
         if(sizeof(
-                $game_coups -> where("position", $position) 
-                -> get() 
-                -> toArray()
+                $game_coups->where("position", $position) 
+               ->get() 
+               ->toArray()
             ) === 0
         ) {
             // Si il n'y en a pas, on place le symbole

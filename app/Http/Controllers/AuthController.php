@@ -40,13 +40,13 @@ class AuthController extends Controller
 
         // On cherche la combinaison email:password dans la table User
         $data = User::where("email", $request["email"])
-                -> where("password", self::hash($request["password"]))
-                -> get() 
-                -> toArray();
+               ->where("password", self::hash($request["password"]))
+               ->get() 
+               ->toArray();
 
         // Si on ne trouve rien
         if(empty($data)) {
-            return to_route("auth.login") -> withErrors([
+            return to_route("auth.login")->withErrors([
                 "loginerror" => "Invalid username or password"
             ]);
         }
@@ -57,7 +57,7 @@ class AuthController extends Controller
         // Si le champs confirmation token ne vaut pas null, c'est que le mail 
         // n'a pas encore été validé
         if($data["confirmation_token"] !== null) {
-            return to_route("auth.login") -> withErrors([
+            return to_route("auth.login")->withErrors([
                 "loginerror" => "You need to verify your mail address"
             ]);
         }
@@ -68,7 +68,7 @@ class AuthController extends Controller
             if($request["2fa_code"] === null) {
                 // On lui indique qu'il a activé l'A2F, et qu'il doit donc l'utiliser
                 // en remplissant le champs "code A2F" dans le formulaire
-                return to_route("auth.login") -> withErrors([
+                return to_route("auth.login")->withErrors([
                     "2fa_code" => __("validation.attributes.empty_2fa"),
                 ]);
             }
@@ -79,7 +79,7 @@ class AuthController extends Controller
             $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
             // On check la validité à partir du secret récupéré dans la BDD, et du code fourni par 
             // l'utilisateur 
-            if($tfa -> verifyCode($data["secret"], $request["2fa_code"])) {
+            if($tfa->verifyCode($data["secret"], $request["2fa_code"])) {
                 // On accepte de logger l'utilisateur et de le rediriger à la page /
 
                 // On rajoute la row retourné par la BDD dans la session
@@ -90,7 +90,7 @@ class AuthController extends Controller
             } else {
                 // Le code A2F fourni par l'utilisateur n'est pas valide, on redirige 
                 // à la page login avec une erreur
-                return to_route("auth.login") -> withErrors([
+                return to_route("auth.login")->withErrors([
                     "2fa_code" => __("validation.attributes.invalid_2fa"),
                 ]);
             }
@@ -137,13 +137,13 @@ class AuthController extends Controller
 
         // On envoie un événement SignupEvent qui sera capturé par le
         // SignupListener qui enverra un mail contenant le confirmation token
-        SignupEvent::dispatch($user -> email, $confirmation_token);
+        SignupEvent::dispatch($user->email, $confirmation_token);
 
         // Si l'utilisateur ne souhaite pas bénéficier de l'authentification à deux facteurs,
-        if(!($request -> has("2fa_token"))) {
-            return to_route("auth.login") -> with(
+        if(!($request->has("2fa_token"))) {
+            return to_route("auth.login")->with(
                 "success", 
-                "User " . $user -> name . " has been created, please check your inbox !"
+                "User " . $user->name . " has been created, please check your inbox !"
             );
         }
 
@@ -151,11 +151,11 @@ class AuthController extends Controller
         // On va donc le renvoyer vers une page lui permettant de scanner un QRCode ou 
         // d'ajouter un code secret sur son app de TOTP
         $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
-        $secret = $tfa -> createSecret();
-        $qrcode = $tfa -> getQRCodeImageAsDataUri($request["email"], $secret);
+        $secret = $tfa->createSecret();
+        $qrcode = $tfa->getQRCodeImageAsDataUri($request["email"], $secret);
 
     
-        $user -> update([
+        $user->update([
             // On update le secret pour annoncer que l'utilisateur utilise l'A2F
             "secret" => $secret,
         ]);
@@ -180,12 +180,12 @@ class AuthController extends Controller
         
         // Si le confirmation_token passé dans l'URL n'est pas le même que
         // le confirmation token attribué au user lors de sa création
-        if($user -> confirmation_token !== $confirmation_token)
+        if($user->confirmation_token !== $confirmation_token)
             return abort(403);
         
-        $user -> update([ "confirmation_token" => null ]);
+        $user->update([ "confirmation_token" => null ]);
 
-        return to_route("auth.login") -> with(
+        return to_route("auth.login")->with(
             "success", "Your mail have been confirmed, you can log-in now"
         );
     }

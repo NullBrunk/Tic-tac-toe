@@ -13,20 +13,20 @@ return new class extends Migration
     {
         Schema::create('user_plays', function (Blueprint $table) {
             
-            $table -> string('gameid');
-            $table -> foreign('gameid') 
-                   -> references('gameid') 
-                   -> on('games')
-                   -> onUpdate('cascade');
+            $table->string('gameid');
+            $table->foreign('gameid') 
+                  ->references('gameid') 
+                  ->on('games')
+                  ->onUpdate('cascade');
 
             $table->bigInteger('userid')->unsigned();
-            $table -> foreign('userid') 
-                   -> references('id') 
-                   -> on('users')
-                   -> onUpdate('cascade');
+            $table->foreign('userid') 
+                  ->references('id') 
+                  ->on('users')
+                  ->onUpdate('cascade');
             
-            $table -> string('symbol');
-            $table -> string('position');
+            $table->string('symbol');
+            $table->string('position');
         });
     }
 

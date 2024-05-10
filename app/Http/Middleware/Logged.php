@@ -15,7 +15,7 @@ class Logged
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!(session() -> has("id")))
+        if(!(session()->has("id")))
             return to_route("auth.login");
         
         return $next($request);

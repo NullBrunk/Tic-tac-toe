@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('games', function (Blueprint $table) {
-            $table -> string('gameid') -> primary();
-            $table -> string("winner") -> nullable();
+            $table->string('gameid')->primary();
+            $table->string("winner")->nullable();
             $table->timestamps();
         });
     }

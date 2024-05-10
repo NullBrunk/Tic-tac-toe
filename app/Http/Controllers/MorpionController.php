@@ -138,13 +138,13 @@ class MorpionController extends Controller
      * @return array            Un morpion sous forme d'un tableau 2D
      */
     public static function get_morpion(string $id): array {
-        $coups = User_play::where("gameid", $id) -> get();
+        $coups = User_play::where("gameid", $id)->get();
         $morpion = [["", "", ""],["", "", ""],["", "", ""]];
 
         foreach($coups as $coup) {
-            $pos = $coup -> position;
+            $pos = $coup->position;
             
-            $morpion[floor($pos/3)][$pos%3] = $coup -> symbol;
+            $morpion[floor($pos/3)][$pos%3] = $coup->symbol;
         }
         
         return $morpion;

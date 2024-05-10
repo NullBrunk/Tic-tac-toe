@@ -26,7 +26,7 @@ class ConfirmationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            to: $this -> mail,
+            to: $this->mail,
             subject: 'Please confirm your e-mail address',
         );
     }

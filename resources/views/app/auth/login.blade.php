@@ -20,7 +20,7 @@
                 </div> 
             @enderror
 
-            @if(session() -> has("success"))
+            @if(session()->has("success"))
                 <div class="bg-green msg-box">
                     {{ session("success") }}
                 </div>    
@@ -28,7 +28,7 @@
 
             <div>
                 <label for="email">E-mail: </label> <br>
-                <input type="email" name="email" id="email" placeholder="john@doe.fr" class="@if($errors -> has("email") || $errors -> has("loginerror")) error-border @endif input-form">
+                <input type="email" name="email" id="email" placeholder="john@doe.fr" class="@if($errors->has("email") || $errors->has("loginerror")) error-border @endif input-form">
                 @error("email") <div class="error">{{ $message }}</div> @enderror 
             </div>
             
@@ -39,7 +39,7 @@
                     ) }}: 
                 </label> 
                 <br>
-                <input type="password" name="password" id="password" placeholder="••••••••" class="@if($errors -> has("password") || $errors -> has("loginerror")) error-border @endif input-form">
+                <input type="password" name="password" id="password" placeholder="••••••••" class="@if($errors->has("password") || $errors->has("loginerror")) error-border @endif input-form">
                 @error("password") <div class="error">{{ $message }}</div> @enderror 
             </div>
 
@@ -56,7 +56,7 @@
                     ) }} 
                 </span>
                 <br>
-                <input type="text" name="2fa_code" id="2fa_code" placeholder="XXXXXX" class="@if($errors -> has("2fa_code") || $errors -> has("loginerror")) error-border @endif input-form">
+                <input type="text" name="2fa_code" id="2fa_code" placeholder="XXXXXX" class="@if($errors->has("2fa_code") || $errors->has("loginerror")) error-border @endif input-form">
                 @error("2fa_code") <div class="error">{{ $message }}</div> @enderror 
             </div>
             

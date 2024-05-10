@@ -7,7 +7,7 @@ use App\Http\Controllers\GamesController;
 use Illuminate\Support\Facades\Route;
 
 // If you want to test the support for localization :
-// app() -> setLocale("fr");
+// app()->setLocale("fr");
 
 
 // If you want to test the mail :
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 //     return new ConfirmationMail("a@a.a", "idididid");
 // });
 
-Route::view("/", "app.index") -> name("index");
+Route::view("/", "app.index")->name("index");
 
 
 /*
@@ -26,24 +26,24 @@ Route::view("/", "app.index") -> name("index");
 | 
 */
 
-Route::middleware("guest") -> name("auth.") -> controller(AuthController::class) -> group( function () {
-    Route::view("/login", "app.auth.login") -> name("login");
+Route::middleware("guest")->name("auth.")->controller(AuthController::class)->group( function () {
+    Route::view("/login", "app.auth.login")->name("login");
     Route::post("/login", "login");
     
-    Route::view("/register", "app.auth.register") -> name("register");
+    Route::view("/register", "app.auth.register")->name("register");
     Route::post("/register", "register");
 
-    Route::get("/verify/{user:email}/{confirmation_token}", "confirm_mail") -> name("confirm_mail");
+    Route::get("/verify/{user:email}/{confirmation_token}", "confirm_mail")->name("confirm_mail");
 });
 
 
 Route::get("logout", function () {
     # Clean the session
-    session() -> flush();
+    session()->flush();
 
     # Redirect to /
     return to_route("index");
-}) -> name("auth.logout") -> middleware("auth");
+})->name("auth.logout")->middleware("auth");
 
 
 /*
@@ -53,11 +53,11 @@ Route::get("logout", function () {
 | 
 */
 
-Route::name("games.") -> middleware("auth") -> controller(GamesController::class) -> group(function () {
-    Route::get("/create",  "create") -> name("create");
+Route::name("games.")->middleware("auth")->controller(GamesController::class)->group(function () {
+    Route::get("/create",  "create")->name("create");
 
-    Route::get("/play/{id}", "join") -> name("join");
-    Route::get("/move/{id}/{position}", "users_plays") -> name("play");
+    Route::get("/play/{id}", "join")->name("join");
+    Route::get("/move/{id}/{position}", "users_plays")->name("play");
 });
 
 
@@ -68,10 +68,10 @@ Route::name("games.") -> middleware("auth") -> controller(GamesController::class
 | 
 */
 
-Route::name("settings.") -> middleware(["auth", "no-cache"]) -> controller(SettingsController::class) -> group(function () {
-    Route::get("settings",  "show_settings") -> name("profile");
+Route::name("settings.")->middleware(["auth", "no-cache"])->controller(SettingsController::class)->group(function () {
+    Route::get("settings",  "show_settings")->name("profile");
 });
 
-Route::get("p/{user:name}",  [ SettingsController::class, "show" ]) -> name("settings.show");
+Route::get("p/{user:name}",  [ SettingsController::class, "show" ])->name("settings.show");
 
 

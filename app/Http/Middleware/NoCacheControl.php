@@ -19,7 +19,7 @@ class NoCacheControl
 
         # Ne pas mettre en cache pour éviter l'accès à des données sensible via le
         # cache du navigateur meme après la déconnexion d'un utilisateur
-        $response -> header("Cache-control", "no-cache, no-store, max-age=0, must-revalidate");
+        $response->header("Cache-control", "no-cache, no-store, max-age=0, must-revalidate");
 
         return $response;
     }

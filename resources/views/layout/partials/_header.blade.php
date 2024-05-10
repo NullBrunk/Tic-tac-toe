@@ -8,7 +8,7 @@
        </div>
 
        <ul class="navbar">            
-            @if(session() -> has("id"))
+            @if(session()->has("id"))
                 <li>
                     <div class="profile-button dropdown" id="dropdown">
                         <i class='bx bx-menu'></i>
