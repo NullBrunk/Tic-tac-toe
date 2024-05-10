@@ -28,16 +28,16 @@ class Morpion extends Component
      * @return void
      */
     public function play(int $position) {
-        # If the game is ended do not play
+        // If the game is ended do not play
         if($this->ended !== null) return;
         
-        # Stock the position in an attribute
+        // Stock the position in an attribute
         $this->position = $position;
 
-        # Play the turn of the player
+        // Play the turn of the player
         GamesController::store(Game::findOrFail($this->id), $this->position);
         
-        # Update the morpion
+        // Update the morpion
         $this->update_morpion();
     }
 
@@ -62,21 +62,21 @@ class Morpion extends Component
      * @return void
      */
     public function update_morpion() {
-        # If the game is ended do not reload anything
+        // If the game is ended do not reload anything
         if($this->ended !== null) return;
 
-        # Check if you are alone or not
+        // Check if you are alone or not
         if($this->alone === true) $this->is_alone();
 
         $this->ended = Game::where("id", $this->id)->first()->winner;
 
-        # Get the morpion from the model via the controller
+        // Get the morpion from the model via the controller
         $this->morpion = MorpionController::get_morpion($this->id);
         
-        # Si la variable position n'existe pas, alors le joueur n'a pas encore joué, donc pas besoin de 
-        # vérifier si quelqu'un a gagné
+        // Si la variable position n'existe pas, alors le joueur n'a pas encore joué, donc pas besoin de 
+        // vérifier si quelqu'un a gagné
         if($this->position !== null)
-            # Check if someone has winned
+            // Check if someone has winned
             GamesController::check_win($this->morpion, $this->position, $this->id);
     }
 
