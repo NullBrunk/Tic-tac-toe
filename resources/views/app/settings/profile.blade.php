@@ -17,7 +17,7 @@
                     {{ mb_strtoupper($name) }}
                 </p>
                 <p class="joined" id="joined">
-                    {{ $created_at }}
+                    {{ $created_at->diffForHumans() }}
                 </p>
             </div>    
 

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\MorpionController;
 use App\Models\Game;
 use App\Models\User_join;
 use App\Models\User_play;
 use Illuminate\Support\Str;
+use App\Http\Controllers\MorpionController;
+
+// for type declaration
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class GamesController extends Controller
 {
@@ -14,9 +18,9 @@ class GamesController extends Controller
      * Generate a 4 char random ID to uniqely identify a game, and creates the 
      * game with this id in the table
      *
-     * @return route        Return to the "join game" route
+     * @return \Illuminate\Http\RedirectResponse        Return to the "join game" route
      */
-    public function create() {
+    public function create(): RedirectResponse {
         
         // Génère l'ID unique sur 4 caractères
         $uuid = Str::random(4);
@@ -34,12 +38,12 @@ class GamesController extends Controller
     /**
      * Join a
      *
-     * @param string $id           The ID of the game to join
+     * @param string $id                    The ID of the game to join
      * 
-     * @return view|403|404        A view displaying the morpion, or a 403 if we are not
-     *                             authorized to join the game, or a 404 if the game doesn't exists
+     * @return \Illuminate\View\View        A view displaying the morpion, or a 403 if we are not
+     *                                      authorized to join the game, or a 404 if the game doesn't exists
      */
-    public function join(string $id) {
+    public function join(string $id): View {
         // Vérifier que la game existe
         Game::where("gameid", $id)->firstorfail();
         
@@ -93,13 +97,13 @@ class GamesController extends Controller
      * @param integer $position        The position of the placed pawn (from 0 to 8)
      * @param string $id               The unique ID of the game
      * 
-     * @return void                    Update the database "winner" row
+     * @return null                    Update the database "winner" row
      */
-    public static function check_win(array $morpion, int $position, string $id) {
+    public static function check_win(array $morpion, int $position, string $id): null {
 
         // Si la game est déjà finie, on quitte la fonction
         if(Game::where("gameid", $id)->first()->winner !== null) {
-            return;
+            return null;
         }
 
         // On converti un nombre de 0 à 8 en sa position dans un tableau 2D
@@ -113,7 +117,7 @@ class GamesController extends Controller
             Game::where("gameid", $id)->update([
                 "winner" => $pion
             ]);
-            return;
+            return null;
         }
         // Sinon si c'est le 9ème coup
         else if(User_play::where("gameid", $id)->get()->count() === 9) {
@@ -122,6 +126,8 @@ class GamesController extends Controller
                 "winner" => "draw"
             ]);
         }
+
+        return null;
     }
     
 
@@ -131,9 +137,9 @@ class GamesController extends Controller
      * @param string $id        The unique ID of the game
      * @param int $case         The position of the pawn 
      * 
-     * @return null|void
+     * @return null
      */
-    public static function store(string $id, int $position) {
+    public static function store(string $id, int $position): null {
 
         // Utilisateurs qui ont rejoint la game
         $players = User_join::where("gameid", $id);
@@ -155,8 +161,8 @@ class GamesController extends Controller
             // Ou alors le joueur essaye de jouer deux fois d'affilé
             || isset($last_turn) && $last_turn->userid === session("id") 
         ) {
-            return;
-        }
+            return null;
+        } 
 
         // Si l'utilisateur rejoint une autre game en meme temps, et qu'il a un symbol différent, 
         // et que la session n'est pas mise à jour, il se peut qu'en revenant sur la game initiale
@@ -188,7 +194,9 @@ class GamesController extends Controller
 
         } else {
             // Sinon on retourne
-            return;
+            return null;
         }
+
+        return null;
     }
 }

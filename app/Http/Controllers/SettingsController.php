@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User_join;
 use App\Models\User;
-use Carbon\Carbon;
+use App\Models\User_join;
 use Illuminate\Support\Facades\DB;
+
+// for type declaration
+use Illuminate\View\View;
+use Illuminate\Database\Eloquent\Collection;
 
 
 class SettingsController extends Controller
@@ -14,11 +17,11 @@ class SettingsController extends Controller
     /**
      * Get several informations about a given user (played/won/lost games... )
      *
-     * @param integer $userid        The user id
+     * @param integer $userid                                     The user id
      * 
-     * @return Collection            The ORM response
+     * @return \Illuminate\Database\Eloquent\Collection            The ORM response
      */
-    private function get_general_stats(int $userid) {
+    private function get_general_stats(int $userid): Collection {
         // On désactive le mode "ONLY_FULL_GROUP_BY" qui est activé par défaut avec Laravel
         DB::statement("SET SQL_MODE=''");
                 
@@ -29,17 +32,18 @@ class SettingsController extends Controller
             ->where("player", $userid) 
             ->where("winner", "!=", null)
             ->get();
+            
     }
 
 
     /**
      * Get the history of played games (player1, player2, winner)
      *
-     * @param integer $userid        Id of the user to query
+     * @param integer $userid                                     Id of the user to query
      * 
-     * @return array                 The ORM response
+     * @return \Illuminate\Database\Eloquent\Collection            The ORM response
      */
-    private function get_history(int $userid) {
+    private function get_history(int $userid): Collection {
         return User_join::select(
             "users.email AS email_p1", 
             "users.name AS name_p1",
@@ -67,19 +71,18 @@ class SettingsController extends Controller
         })
         ->groupBy("games.gameid")
         ->orderBy("games.created_at", "DESC")
-        ->get()
-        ->toArray();
+        ->get();
     } 
 
 
     /**
      * Show the profil of a given user
      *
-     * @param User $user        The User through Model Binding
+     * @param User $user                         The User through Model Binding
      * 
-     * @return view             The profile page view
+     * @return \Illuminate\View\View             The profile page view
      */
-    public function show(User $user) {
+    public function show(User $user): View {
 
         // On recupère des statistiques générale (nombre de games jouées, gagnées et perdues)
         $statistics = $this->get_general_stats($user->id);
@@ -117,8 +120,7 @@ class SettingsController extends Controller
             "name" => $user->name,
             "history" => $history,
 
-            // diffForHumans->15 seconds ago, 2 months ago for example
-            "created_at" => Carbon::parse($user->created_at)->diffForHumans(),
+            "created_at" => $user->created_at,
         ]);
     }
 
@@ -126,9 +128,9 @@ class SettingsController extends Controller
     /**
      * Show the settings page
      *
-     * @return view
+     * @return Illuminate\View\View
      */
-    public function show_settings() {
+    public function show_settings(): View {
         return view("app.settings.settings");
     }
 }

@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Events\SignupEvent;
-use Illuminate\Support\Str;
 
 // Form requests
+use Illuminate\Support\Str;
 use App\Http\Requests\LoginReq;
-use App\Http\Requests\RegisterReq;
 
 // Manage 2FA  
 use RobThree\Auth\TwoFactorAuth;
+use App\Http\Requests\RegisterReq;
 use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
+
+// for type declaration
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+
 
 class AuthController extends Controller
 {
@@ -24,7 +29,7 @@ class AuthController extends Controller
      *
      * @return string                The hash in sha512
      */
-    private static function hash(string $to_hash) {
+    private static function hash(string $to_hash): string {
         return hash("sha512", hash("sha512", $to_hash));
     }
 
@@ -32,12 +37,11 @@ class AuthController extends Controller
     /**
      * Log in a user
      *
-     * @param LoginReq $request        The Form Request
+     * @param LoginReq $request                                The Form Request
      *
-     * @return redirect                Redirection to / or to /login with errors
+     * @return Illuminate\Http\RedirectResponse                Redirection to / or to /login with errors
      */
-    public function login(LoginReq $request) {
-
+    public function login(LoginReq $request): RedirectResponse {
         // On cherche la combinaison email:password dans la table User
         $data = User::where("email", $request["email"])
                     ->where("password", self::hash($request["password"]))
@@ -113,9 +117,10 @@ class AuthController extends Controller
      *
      * @param RegisterReq $request        The Register form request
      * 
-     * @return redirect                   Redirection to the login page with a success message 
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     *                                Redirection to the login page with a success message 
      */
-    public function register(RegisterReq $request) {
+    public function register(RegisterReq $request) : RedirectResponse|View {
 
 
         // On créé le token unique qui sera envoyé à l'utilisateur par mail
@@ -171,12 +176,12 @@ class AuthController extends Controller
     /**
      * Validate a user by confirming his mail
      *
-     * @param User $user              The user through model binding
-     * @param string $checksum        Random UUID generated to check the mail
+     * @param User $user                                      The user through model binding
+     * @param string $checksum                                Random UUID generated to check the mail
      * 
-     * @return route|403              Returns either to /login either to a 403 page
+     * @return \Illuminate\Http\RedirectResponse              Returns either to /login either to a 403 page
      */
-    public function confirm_mail(User $user, string $confirmation_token) {
+    public function confirm_mail(User $user, string $confirmation_token): RedirectResponse {
         
         // Si le confirmation_token passé dans l'URL n'est pas le même que
         // le confirmation token attribué au user lors de sa création
