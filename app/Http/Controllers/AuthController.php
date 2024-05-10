@@ -40,9 +40,9 @@ class AuthController extends Controller
 
         // On cherche la combinaison email:password dans la table User
         $data = User::where("email", $request["email"])
-               ->where("password", self::hash($request["password"]))
-               ->get() 
-               ->toArray();
+                    ->where("password", self::hash($request["password"]))
+                    ->get() 
+                    ->toArray();
 
         // Si on ne trouve rien
         if(empty($data)) {

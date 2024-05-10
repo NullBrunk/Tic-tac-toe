@@ -25,10 +25,10 @@ class SettingsController extends Controller
         // On fait un inner join entre la table user_play et la tabke games pour récupérer les informations
         // qui nous intéressent
         return User_join::select("winner", "symbol") 
-           ->join('games', 'games.gameid', '=', 'user_joins.gameid')
-           ->where("player", $userid) 
-           ->where("winner", "!=", null)
-           ->get();
+            ->join('games', 'games.gameid', '=', 'user_joins.gameid')
+            ->where("player", $userid) 
+            ->where("winner", "!=", null)
+            ->get();
     }
 
 
@@ -50,25 +50,25 @@ class SettingsController extends Controller
             "games.winner",
             "games.created_at",
         ) 
-       ->join('user_joins as user_joins2', 
+        ->join('user_joins as user_joins2', 
             function ($join) {
                 $join->on('user_joins.gameid', '=', DB::raw("`user_joins2`.`gameid`"))
                      ->where('user_joins.player', '<>', DB::raw("`user_joins2`.`player`"));
             })
-       ->join('users', 'user_joins.player', '=', 'users.id')
-       ->join('users as users2', 'user_joins2.player', '=', 'users2.id')
-       ->join('games', 'user_joins.gameid', '=', 'games.gameid')
-       ->where("games.winner", "<>", null) 
-       ->where("games.winner", "<>", "")
-       ->where("users.email", "<>", DB::raw("`users2`.`email`"))
-       ->where(function ($query) use ($userid) {
+        ->join('users', 'user_joins.player', '=', 'users.id')
+        ->join('users as users2', 'user_joins2.player', '=', 'users2.id')
+        ->join('games', 'user_joins.gameid', '=', 'games.gameid')
+        ->where("games.winner", "<>", null) 
+        ->where("games.winner", "<>", "")
+        ->where("users.email", "<>", DB::raw("`users2`.`email`"))
+        ->where(function ($query) use ($userid) {
             $query->where('users.id', $userid)
                   ->orWhere('users2.id', $userid);
         })
-       ->groupBy("games.gameid")
-       ->orderBy("games.created_at", "DESC")
-       ->get()
-       ->toArray();
+        ->groupBy("games.gameid")
+        ->orderBy("games.created_at", "DESC")
+        ->get()
+        ->toArray();
     } 
 
 

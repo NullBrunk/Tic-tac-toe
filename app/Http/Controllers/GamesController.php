@@ -164,10 +164,11 @@ class GamesController extends Controller
         
         // Cette ligne est la pour être sur que ce genre de chose ne se produise pas
         $symbol = $players 
-               ->where("player", session("id")) 
-               ->get() 
-               ->first() 
-               ->symbol;
+            ->where("player", session("id")) 
+            ->get() 
+            ->first() 
+            ->symbol;
+        
         session(["symbol" => $symbol]);
 
         // Si il n'y a pas déja un symbole placé ici
