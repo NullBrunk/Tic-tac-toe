@@ -35,7 +35,7 @@ class Morpion extends Component
         $this->position = $position;
 
         # Play the turn of the player
-        GamesController::store($this->id, $this->position);
+        GamesController::store(Game::findOrFail($this->id), $this->position);
         
         # Update the morpion
         $this->update_morpion();
@@ -49,7 +49,7 @@ class Morpion extends Component
      */
     public function is_alone() {
         
-        $joined_players = User_join::where("gameid", $this->id)->count();
+        $joined_players = User_join::where("game_id", $this->id)->count();
         
         if($joined_players !== 1) {
             $this->alone = false;
@@ -68,7 +68,7 @@ class Morpion extends Component
         # Check if you are alone or not
         if($this->alone === true) $this->is_alone();
 
-        $this->ended = Game::where("gameid", $this->id)->first()->winner;
+        $this->ended = Game::where("id", $this->id)->first()->winner;
 
         # Get the morpion from the model via the controller
         $this->morpion = MorpionController::get_morpion($this->id);

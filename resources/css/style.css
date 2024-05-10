@@ -1068,7 +1068,7 @@ nav .dropdown-content a span i {
     transform: translate(-50%, -50%);
 }
 #settings .block-container:hover > .btn-back {
-    transform: translateZ(20px) rotateZ(15deg) rotateX(-20deg) rotateY(-20deg);
+    transform: translateZ(20px) rotateZ(5deg) rotateX(-5deg) rotateY(-5deg);
 }
 #settings .block-container:hover > .btn-front {
     transform: translateZ(80px) translateY(-5px) rotateX(15deg) rotateY(15deg);

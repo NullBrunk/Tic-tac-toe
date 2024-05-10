@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reset_passwords', function (Blueprint $table) {
-            $table->id();
+        Schema::create('user_moves', function (Blueprint $table) {
+
+            $table->foreignIdFor(\App\Models\User::class);
+
+            $table->foreignIdFor(\App\Models\Game::class);
             
+            $table->string('symbol');
+            $table->string('position');
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('resetpasswords');
+        Schema::dropIfExists('user_plays');
     }
 };

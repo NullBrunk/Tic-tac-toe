@@ -12,22 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_joins', function (Blueprint $table) {
-            $table->unsignedBigInteger('player');
-            $table->foreign('player') 
-                  ->references('id') 
-                  ->on('users')
-                  ->onUpdate('cascade');
 
-            $table->string('gameid');
-            $table->foreign('gameid') 
-                   ->references('gameid') 
-                   ->on('games')
-                   ->onUpdate('cascade');
+            $table->foreignIdFor(\App\Models\User::class);
 
+            $table->foreignIdFor(\App\Models\Game::class);
+                
             $table->string("symbol");
-
-         
-
         });
     }
 

@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use App\Models\User_join;
-use App\Models\User_play;
+use App\Models\User_move;
 use Illuminate\Support\Str;
 use App\Http\Controllers\MorpionController;
 
 // for type declaration
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+
 
 class GamesController extends Controller
 {
@@ -27,7 +28,7 @@ class GamesController extends Controller
     
         // Créé la game ayant cet ID dans la table DB
         Game::create([
-            "gameid" => $uuid,
+            "id" => $uuid,
             "winner" => null
         ]);
 
@@ -38,44 +39,34 @@ class GamesController extends Controller
     /**
      * Join a
      *
-     * @param string $id                    The ID of the game to join
+     * @param Game $game                    The game through model binding
      * 
      * @return \Illuminate\View\View        A view displaying the morpion, or a 403 if we are not
      *                                      authorized to join the game, or a 404 if the game doesn't exists
      */
-    public function join(string $id): View {
-        // Vérifier que la game existe
-        Game::where("gameid", $id)->firstorfail();
-        
+    public function join(Game $game): View {
         // On recupère tous les utilisateurs qui ont rejoint la Game
-        $joined_user = User_join::where("gameid", $id);
-
-        // On les compte
-        $count = $joined_user->count();
+        $joined = $game->get_joined_users()->get();
         
-        // Si cette variable vaut true, ca veut dire que l'utilisateur actuel n'a pas rejoint la game
-        // sinon l'utilisateur a déja rejoint la game
-
-        $user_has_not_join = $joined_user->where("player", session("id")) 
-                            ->count() === 0;
+        // Si cette variable vaut true, l'utilisateur actuel a pas rejoint la game
+        $user_joined = $joined->where("id", session("id"))->count() !== 0;
         
-        // Si deux utilisateurs ont déja rejoint la partie et que l'utilisateur qui fait la requete
-        // ne l'a pas rejoint
-        if($count === 2 && $user_has_not_join) {
+
+        if($joined->count() === 2 && !$user_joined)
             return abort(403);
-        } 
 
-        // Si il y a moins de deux joueurs et que l'utilisateur courant n'a pas rejoint la partie
-        else if($user_has_not_join) {
+
+        // Si l'utilisateur courant n'a pas rejoint la partie
+        else if(!$user_joined) {
             // Alors on la rejoint
 
             // On attribue le bon symbole
-            $symbol = $count === 0 ? "O" : "X";
+            $symbol = $joined->count() === 0 ? "O" : "X";
 
             // On rejoint la partie
             User_join::create([
-                "gameid" => $id,
-                "player" => session("id"),
+                "game_id" => $game->id,
+                "user_id" => session("id"),
                 "symbol" => $symbol,
             ]);
 
@@ -85,7 +76,7 @@ class GamesController extends Controller
 
 
         return view("app.games.morpion", [ 
-            "gameid" => $id, 
+            "game_id" => $game->id, 
         ]);
     }
     
@@ -102,27 +93,23 @@ class GamesController extends Controller
     public static function check_win(array $morpion, int $position, string $id): null {
 
         // Si la game est déjà finie, on quitte la fonction
-        if(Game::where("gameid", $id)->first()->winner !== null) {
+        if(Game::where("id", $id)->first()->winner !== null) {
             return null;
         }
 
-        // On converti un nombre de 0 à 8 en sa position dans un tableau 2D
-        $x = $position / 3;
-        $y = $position % 3;
-        $pion = $morpion[$x][$y];
-
-        // Si on gagne
-        if(MorpionController::check_win($morpion, $x, $y)) {
+        $check_win = MorpionController::check_win($morpion, $position);
+        if($check_win["win"] === true) {
             // Update la table pour indiquer qui a gagné
-            Game::where("gameid", $id)->update([
-                "winner" => $pion
+            Game::where("id", $id)->update([
+                "winner" => $check_win["pawn"],
             ]);
             return null;
         }
-        // Sinon si c'est le 9ème coup
-        else if(User_play::where("gameid", $id)->get()->count() === 9) {
+
+        // Si c'est le 9ème coup
+        if(User_move::where("game_id", $id)->count() === 9) {
             // Update la table pour indiquer que c'est un match nul
-            Game::where("gameid", $id)->update([
+            Game::where("id", $id)->update([
                 "winner" => "draw"
             ]);
         }
@@ -139,27 +126,28 @@ class GamesController extends Controller
      * 
      * @return null
      */
-    public static function store(string $id, int $position): null {
+    public static function store(Game $game, int $position): null {
 
         // Utilisateurs qui ont rejoint la game
-        $players = User_join::where("gameid", $id);
+        $joined = $game->get_joined_users()->get();
 
         // Tous les coups joués pendant la partie
-        $game_coups = User_play::where("gameid", $id);
+        $move = $game->get_played_move()->get();
         
-        // Recupère le dernier coup joué
-        $last_turn = $game_coups->get()->last();
-        
+
         // Test tout ce qui rend interdit au joueur de jouer un coup à cet endroit
         if(
             // La partie est finie
-            Game::where("gameid", $id)->get()->first()->winner !== null
+            $game->winner !== null
             
             // Ou alors la partie n'a pas encore commencé
-            || $players->get()->count() !== 2
+            || $joined->count() !== 2
 
             // Ou alors le joueur essaye de jouer deux fois d'affilé
-            || isset($last_turn) && $last_turn->userid === session("id") 
+            || $move->last()?->user_id === session("id") 
+
+            // Ou alors il y a déjà un symbole placé ici
+            || $move->where("position", $position)->count() !== 0
         ) {
             return null;
         } 
@@ -167,35 +155,17 @@ class GamesController extends Controller
         // Si l'utilisateur rejoint une autre game en meme temps, et qu'il a un symbol différent, 
         // et que la session n'est pas mise à jour, il se peut qu'en revenant sur la game initiale
         // il reusisse à changer de symbole.
-        
-        // Cette ligne est la pour être sur que ce genre de chose ne se produise pas
-        $symbol = $players 
-            ->where("player", session("id")) 
-            ->get() 
-            ->first() 
-            ->symbol;
-        
+        $symbol = User_join::where("game_id", $game->id)->where("user_id", session("id"))->first()->symbol;
+
         session(["symbol" => $symbol]);
 
-        // Si il n'y a pas déja un symbole placé ici
-        if(sizeof(
-                $game_coups->where("position", $position) 
-               ->get() 
-               ->toArray()
-            ) === 0
-        ) {
-            // Si il n'y en a pas, on place le symbole
-            User_play::create([
-                "gameid" => $id,
-                "userid" => session("id"),
-                "position" => $position,
-                "symbol" => $symbol        
-            ]);
 
-        } else {
-            // Sinon on retourne
-            return null;
-        }
+        User_move::create([
+            "game_id" => $game->id,
+            "user_id" => session("id"),
+            "position" => $position,
+            "symbol" => $symbol        
+        ]);
 
         return null;
     }

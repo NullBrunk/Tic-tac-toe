@@ -14,4 +14,8 @@ class User extends Model
     protected $casts = [
         "created_at" => "date",
     ];
+
+    public function get_joined_games() {
+        return $this->belongsToMany(Game::class, "user_joins");
+    }
 }

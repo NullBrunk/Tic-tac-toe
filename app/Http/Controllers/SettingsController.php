@@ -25,11 +25,11 @@ class SettingsController extends Controller
         // On désactive le mode "ONLY_FULL_GROUP_BY" qui est activé par défaut avec Laravel
         DB::statement("SET SQL_MODE=''");
                 
-        // On fait un inner join entre la table user_play et la tabke games pour récupérer les informations
+        // On fait un inner join entre la table user_play et la table games pour récupérer les informations
         // qui nous intéressent
         return User_join::select("winner", "symbol") 
-            ->join('games', 'games.gameid', '=', 'user_joins.gameid')
-            ->where("player", $userid) 
+            ->join('games', 'games.id', '=', 'user_joins.game_id')
+            ->where("user_id", $userid) 
             ->where("winner", "!=", null)
             ->get();
             
@@ -56,12 +56,12 @@ class SettingsController extends Controller
         ) 
         ->join('user_joins as user_joins2', 
             function ($join) {
-                $join->on('user_joins.gameid', '=', DB::raw("`user_joins2`.`gameid`"))
-                     ->where('user_joins.player', '<>', DB::raw("`user_joins2`.`player`"));
+                $join->on('user_joins.game_id', '=', DB::raw("`user_joins2`.`game_id`"))
+                     ->where('user_joins.user_id', '<>', DB::raw("`user_joins2`.`user_id`"));
             })
-        ->join('users', 'user_joins.player', '=', 'users.id')
-        ->join('users as users2', 'user_joins2.player', '=', 'users2.id')
-        ->join('games', 'user_joins.gameid', '=', 'games.gameid')
+        ->join('users', 'user_joins.user_id', '=', 'users.id')
+        ->join('users as users2', 'user_joins2.user_id', '=', 'users2.id')
+        ->join('games', 'user_joins.game_id', '=', 'games.id')
         ->where("games.winner", "<>", null) 
         ->where("games.winner", "<>", "")
         ->where("users.email", "<>", DB::raw("`users2`.`email`"))
@@ -69,7 +69,7 @@ class SettingsController extends Controller
             $query->where('users.id', $userid)
                   ->orWhere('users2.id', $userid);
         })
-        ->groupBy("games.gameid")
+        ->groupBy("games.id")
         ->orderBy("games.created_at", "DESC")
         ->get();
     } 
