@@ -29,11 +29,13 @@ docker-compose up --build
 ### 🔐 Login
 
 ##### Without 2FA
-https://github.com/NullBrunk/L3T/assets/125673909/4e45c561-f96e-4cac-abd6-c36c21e59f8a
+https://github.com/NullBrunk/L3T/assets/125673909/5e55c58b-e841-4126-9835-955c106f4eac
+
 
 
 ##### With 2FA
-https://github.com/NullBrunk/L3T/assets/125673909/9f2c6736-50f9-430a-acf2-32e84edfed9f
+https://github.com/NullBrunk/L3T/assets/125673909/333c661b-7209-4f23-bf6a-5b249cba063e
+
 
 
 
