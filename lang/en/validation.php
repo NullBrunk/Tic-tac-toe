@@ -200,6 +200,8 @@ return [
     
         "2fa_or_secret" => "Or enter this secret: ",
         "2fa_then_go" => "then go to the login page",
+
+        "totp_code" => "Enter the TOTP code",
     ],
 
 ];

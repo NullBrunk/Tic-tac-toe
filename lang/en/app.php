@@ -21,6 +21,8 @@ return [
 		"draw" => "it's a draw"
 	],
 
+	"verify" => "verify",
+
 	"settings" => [
 		"settings" => "settings",
 

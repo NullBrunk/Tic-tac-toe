@@ -19,6 +19,8 @@ return [
 		"draw" => "c'est un match nul"
 	],
 
+	"verify" => "vérifier",
+
 	"settings" => [
 		"settings" => "paramètres",
 

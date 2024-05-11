@@ -6,7 +6,7 @@
     @livewireStyles
     @livewireScripts
 
-    <section class="container" data-aos="zoom-in-up" data-aos-duration="1000">
+    <section class="container" data-aos="fade-right" data-aos-duration="1000">
 
         <section id="morpion" onclick="clicked(event)">
             <livewire:morpion :id="$game_id" />

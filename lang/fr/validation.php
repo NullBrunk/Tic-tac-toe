@@ -193,6 +193,8 @@ return [
     
         "2fa_or_secret" => "Ou entrez ce secret: ",
         "2fa_then_go" => "puis rendez-vous sur la page de connexion",
+
+        "totp_code" => "Entrez le code TOTP",
     ],
 
 ];

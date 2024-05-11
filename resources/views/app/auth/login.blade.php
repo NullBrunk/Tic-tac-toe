@@ -42,23 +42,6 @@
                 <input type="password" name="password" id="password" placeholder="••••••••" class="@if($errors->has("password") || $errors->has("loginerror")) error-border @endif input-form">
                 @error("password") <div class="error">{{ $message }}</div> @enderror 
             </div>
-
-            <div>
-                <label for="2fa_code">
-                    {{ ucfirst(
-                        __("validation.attributes.2fa")
-                    ) }}:
-                </label> 
-                <br>
-                <span class="fa-explanation">
-                    {{ ucfirst(
-                        __("validation.attributes.2fa_explanation")
-                    ) }} 
-                </span>
-                <br>
-                <input type="text" name="2fa_code" id="2fa_code" placeholder="XXXXXX" class="@if($errors->has("2fa_code") || $errors->has("loginerror")) error-border @endif input-form">
-                @error("2fa_code") <div class="error">{{ $message }}</div> @enderror 
-            </div>
             
             <span class="account-creation">
                 {{ ucfirst(__("app.register_message")) }} 

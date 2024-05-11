@@ -12,6 +12,7 @@ use App\Http\Requests\LoginReq;
 // Manage 2FA  
 use RobThree\Auth\TwoFactorAuth;
 use App\Http\Requests\RegisterReq;
+use App\Http\Requests\ValidateA2FRequest;
 use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
 
 // for type declaration
@@ -66,44 +67,18 @@ class AuthController extends Controller
             ]);
         }
         
-        // Alors l'utilisateur à activé l'A2F au signup, il souhaite donc l'utiliser
+     
         if($data["secret"] !== null) {
-            // Mais il laisse le champs "Code A2F" à 6 chiffres vide dans le formulaire
-            if($request["2fa_code"] === null) {
-                // On lui indique qu'il a activé l'A2F, et qu'il doit donc l'utiliser
-                // en remplissant le champs "code A2F" dans le formulaire
-                return to_route("auth.login")->withErrors([
-                    "2fa_code" => __("validation.attributes.empty_2fa"),
-                ]);
-            }
-
-            // Si on en est arrivé ici, cela signifique que l'utilisateur utilise l'A2F, 
-            // et a bien rempli le champs code A2F avec un code. On va tester la validité de celui-ci.
-
-            $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
-            // On check la validité à partir du secret récupéré dans la BDD, et du code fourni par 
-            // l'utilisateur 
-            if($tfa->verifyCode($data["secret"], $request["2fa_code"])) {
-                // On accepte de logger l'utilisateur et de le rediriger à la page /
-
-                // On rajoute la row retourné par la BDD dans la session
-                session($data);
-        
-                // Et on redirect à /
-                return to_route("index");
-            } else {
-                // Le code A2F fourni par l'utilisateur n'est pas valide, on redirige 
-                // à la page login avec une erreur
-                return to_route("auth.login")->withErrors([
-                    "2fa_code" => __("validation.attributes.invalid_2fa"),
-                ]);
-            }
+            // On stocke l'id de l'utilisateur que nous avons "validé"
+            // en d'autre terme, on indique que l'utilisateur avec cet ID a rentré le bon username
+            // et le bon password, mais il n'est pas encore loggé car il n'a pas encore entré le
+            // token a2f
+            session(["validated_id" => $data["id"]]);
+            // L'utilisateur à activé l'A2F, rediriger vers la page demandant l'entrée du code totp
+            return to_route("auth.validate_a2f");
         }
 
-
-         // On accepte de logger l'utilisateur et de le rediriger à la page /
-
-        // On rajoute la row retourné par la BDD dans la session
+        // L'utilisateur n'utilise pas l'A2F, le login instantanément
         session($data);
 
         // Et on redirect à /
@@ -193,5 +168,40 @@ class AuthController extends Controller
         return to_route("auth.login")->with(
             "success", "Your mail have been confirmed, you can log-in now"
         );
+    }
+
+
+    public function validate_a2f(ValidateA2FRequest $request) {
+        if(!session()->has("validated_id")) {
+            return abort(403);
+        }
+
+        $user = User::findOrFail(session("validated_id"));
+
+        $totp_code = 
+                    $request["totp1"] . $request["totp2"] . $request["totp3"] . 
+                    $request["totp4"] . $request["totp5"] . $request["totp6"];
+
+
+
+
+        $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
+
+        // On check la validité à partir du secret récupéré dans la BDD, et du code fourni par 
+        // l'utilisateur. Si ce n'est pas valide on affiche une erreur à l'utilisateur
+        if(!$tfa->verifyCode($user->secret, $totp_code)) {
+            return back()->withErrors([
+                "2fa_code" => __("validation.attributes.invalid_2fa"),
+            ]);
+        }
+
+        // Ceci ne nous sert plus a rien
+        session()->forget("validated_id");
+
+        // On rajoute la row retourné par la BDD dans la session
+        session($user->toArray());
+        
+        // Et on redirect à /
+        return to_route("index");
     }
 }

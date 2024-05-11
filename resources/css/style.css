@@ -98,6 +98,11 @@ nav > div{
     background-size: calc(.75em + .375rem) calc(.75em + .375rem);
 }
 
+.error-border-red {
+    border: 3px solid var(--error-red) !important;
+    border-color: #dc3545;
+}
+
 .error {
     font-size: 12px;
     color: var(--error-red);
@@ -763,6 +768,33 @@ nav .dropdown-content a span i {
     font-style: italic; 
     font-size: 14px;
 }
+
+ 
+#auth .otp-input {
+    background-color: var(--secondary);
+    caret-color: rgb(127, 129, 255);
+    outline: none;
+    
+    height: 18vh;
+    width: 18vh;
+
+    margin: 5px;
+
+    text-align: center;
+    border-radius: 7px;
+    border: none;
+
+    font-size: 50px;
+    font-weight: 600;
+
+}
+
+#auth .otp-input:focus,
+#auth .otp-input:valid {
+    background-color: rgba(127, 129, 255, 0.199);
+    transition-duration: .3s;
+}
+
 
 
 /***************************************************/

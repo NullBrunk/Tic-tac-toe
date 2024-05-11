@@ -34,6 +34,9 @@ Route::middleware("guest")->name("auth.")->controller(AuthController::class)->gr
     Route::view("/register", "app.auth.register")->name("register");
     Route::post("/register", "register");
 
+    Route::view("/validate", "app.auth.validate_a2f")->name("validate_a2f");
+    Route::post("/validate", "validate_a2f");
+
     Route::get("/verify/{user:email}/{confirmation_token}", "confirm_mail")->name("confirm_mail");
 });
 
