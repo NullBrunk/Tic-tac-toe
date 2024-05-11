@@ -35,7 +35,7 @@ class Morpion extends Component
         $this->position = $position;
 
         // Play the turn of the player
-        GamesController::store(Game::findOrFail($this->id), $this->position);
+        GamesController::move(Game::findOrFail($this->id), $this->position);
         
         // Update the morpion
         $this->update_morpion();

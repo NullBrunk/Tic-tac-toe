@@ -16,10 +16,9 @@ use Illuminate\Http\RedirectResponse;
 class GamesController extends Controller
 {
     /**
-     * Generate a 4 char random ID to uniqely identify a game, and creates the 
-     * game with this id in the table
+     * Create a game in the database
      *
-     * @return \Illuminate\Http\RedirectResponse        Return to the "join game" route
+     * @return RedirectResponse        Return to the "join game" route
      */
     public function create(): RedirectResponse {
         
@@ -36,13 +35,13 @@ class GamesController extends Controller
         return to_route("games.join", $uuid);
     }
 
+
     /**
-     * Join a
+     * Join a game with the unique ID associated to it
      *
-     * @param Game $game                    The game through model binding
+     * @param Game $game        The game through model binding
      * 
-     * @return \Illuminate\View\View        A view displaying the morpion, or a 403 if we are not
-     *                                      authorized to join the game, or a 404 if the game doesn't exists
+     * @return View             A view displaying the morpion, or a 403 or a 404
      */
     public function join(Game $game): View {
         // On recupère tous les utilisateurs qui ont rejoint la Game
@@ -82,51 +81,14 @@ class GamesController extends Controller
     
 
     /**
-     * Check if the placed pawn led to a win or a draw or nothing
-     *
-     * @param array $morpion           The morpion
-     * @param integer $position        The position of the placed pawn (from 0 to 8)
-     * @param string $id               The unique ID of the game
-     * 
-     * @return null                    Update the database "winner" row
-     */
-    public static function check_win(array $morpion, int $position, string $id): null {
-
-        // Si la game est déjà finie, on quitte la fonction
-        if(Game::where("id", $id)->first()->winner !== null) {
-            return null;
-        }
-
-        $check_win = MorpionController::check_win($morpion, $position);
-        if($check_win["win"] === true) {
-            // Update la table pour indiquer qui a gagné
-            Game::where("id", $id)->update([
-                "winner" => $check_win["pawn"],
-            ]);
-            return null;
-        }
-
-        // Si c'est le 9ème coup
-        if(User_move::where("game_id", $id)->count() === 9) {
-            // Update la table pour indiquer que c'est un match nul
-            Game::where("id", $id)->update([
-                "winner" => "draw"
-            ]);
-        }
-
-        return null;
-    }
-    
-
-    /**
-     * Play a turn by placing a pawn on a given case (0 to 8)
+     * Play a move by placing a pawn on a given case
      * 
      * @param string $id        The unique ID of the game
-     * @param int $case         The position of the pawn 
+     * @param int $case         The position of the pawn (from 0 to 8)
      * 
      * @return null
      */
-    public static function store(Game $game, int $position): null {
+    public static function move(Game $game, int $position): null {
 
         // Utilisateurs qui ont rejoint la game
         $joined = $game->get_joined_users()->get();
@@ -166,6 +128,43 @@ class GamesController extends Controller
             "position" => $position,
             "symbol" => $symbol        
         ]);
+
+        return null;
+    }
+
+
+    /**
+     * Check if the placed pawn led to a win or a draw or nothing
+     *
+     * @param array $morpion           The morpion
+     * @param integer $position        The position of the placed pawn (from 0 to 8)
+     * @param string $id               The unique ID of the game
+     * 
+     * @return null                    Update the database "winner" row
+     */
+    public static function check_win(array $morpion, int $position, string $id): null {
+
+        // Si la game est déjà finie, on quitte la fonction
+        if(Game::where("id", $id)->first()->winner !== null) {
+            return null;
+        }
+
+        $check_win = MorpionController::check_win($morpion, $position);
+        if($check_win["win"] === true) {
+            // Update la table pour indiquer qui a gagné
+            Game::where("id", $id)->update([
+                "winner" => $check_win["pawn"],
+            ]);
+            return null;
+        }
+
+        // Si c'est le 9ème coup
+        if(User_move::where("game_id", $id)->count() === 9) {
+            // Update la table pour indiquer que c'est un match nul
+            Game::where("id", $id)->update([
+                "winner" => "draw"
+            ]);
+        }
 
         return null;
     }

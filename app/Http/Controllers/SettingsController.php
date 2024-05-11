@@ -17,9 +17,9 @@ class SettingsController extends Controller
     /**
      * Get several informations about a given user (played/won/lost games... )
      *
-     * @param integer $userid                                     The user id
+     * @param integer $userid        The user id
      * 
-     * @return \Illuminate\Database\Eloquent\Collection            The ORM response
+     * @return Collection            The ORM response
      */
     private function get_general_stats(int $userid): Collection {
         // On désactive le mode "ONLY_FULL_GROUP_BY" qui est activé par défaut avec Laravel
@@ -39,9 +39,9 @@ class SettingsController extends Controller
     /**
      * Get the history of played games (player1, player2, winner)
      *
-     * @param integer $userid                                     Id of the user to query
+     * @param integer $userid        Id of the user to query
      * 
-     * @return \Illuminate\Database\Eloquent\Collection            The ORM response
+     * @return Collection            The ORM response
      */
     private function get_history(int $userid): Collection {
         return User_join::select(
@@ -78,11 +78,11 @@ class SettingsController extends Controller
     /**
      * Show the profil of a given user
      *
-     * @param User $user                         The User through Model Binding
+     * @param User $user        The User through Model Binding
      * 
-     * @return \Illuminate\View\View             The profile page view
+     * @return View             The profile page view
      */
-    public function show(User $user): View {
+    public function show_profile(User $user): View {
 
         // On recupère des statistiques générale (nombre de games jouées, gagnées et perdues)
         $statistics = $this->get_general_stats($user->id);
@@ -128,7 +128,7 @@ class SettingsController extends Controller
     /**
      * Show the settings page
      *
-     * @return Illuminate\View\View
+     * @return View
      */
     public function show_settings(): View {
         return view("app.settings.settings");

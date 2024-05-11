@@ -1,1 +1,0 @@
-window.addEventListener("load",()=>{AOS.init({offset:1});let e=document.getElementById("dropdown-content");function t(){e.classList.remove("flex"),window.removeEventListener("click",t)}document.getElementById("dropdown").addEventListener("click",()=>{e.classList.toggle("flex"),e.classList.contains("flex")&&setTimeout(()=>{window.addEventListener("click",t)},50)})});

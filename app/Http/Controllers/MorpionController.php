@@ -14,6 +14,28 @@ class MorpionController extends Controller
     private static $symbol;
 
     /**
+     * Recupère tout les records liés à un morpion à partir de l'id unique de la game qui lui 
+     * est associé afin de construire un tableau 2D représentant le morpion
+     *
+     * @param string $id        L'ID unique de la game associé
+     * 
+     * @return array            Un morpion sous forme d'un tableau 2D
+     */
+    public static function get_morpion(string $id): array {
+        $coups = User_move::where("game_id", $id)->get();
+        $morpion = [["", "", ""],["", "", ""],["", "", ""]];
+
+        foreach($coups as $coup) {
+            $pos = $coup->position;
+            
+            $morpion[(int)floor($pos/3)][$pos%3] = $coup->symbol;
+        }
+        
+        return $morpion;
+    }
+
+
+    /**
      * Test si il y a 3 pions alignés en ligne sur la par rapport au pion de coordonées x,y
      *
      * @return boolean
@@ -127,28 +149,6 @@ class MorpionController extends Controller
         }
         
         return $points === 2;
-    }
-
-
-    /**
-     * Recupère tout les records liés à un morpion à partir de l'id unique de la game qui lui 
-     * est associé afin de construire un tableau 2D représentant le morpion
-     *
-     * @param string $id        L'ID unique de la game associé
-     * 
-     * @return array            Un morpion sous forme d'un tableau 2D
-     */
-    public static function get_morpion(string $id): array {
-        $coups = User_move::where("game_id", $id)->get();
-        $morpion = [["", "", ""],["", "", ""],["", "", ""]];
-
-        foreach($coups as $coup) {
-            $pos = $coup->position;
-            
-            $morpion[(int)floor($pos/3)][$pos%3] = $coup->symbol;
-        }
-        
-        return $morpion;
     }
 
 

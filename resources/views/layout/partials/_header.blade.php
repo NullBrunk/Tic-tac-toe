@@ -15,7 +15,7 @@
                         
                         <div id="dropdown-content" class="dropdown-content">
                             <span class="blur-round"></span>
-                            <a class="flex" href="{{ route("settings.show", session("name")) }}">
+                            <a class="flex" href="{{ route("settings.profile", session("name")) }}">
                                 <span class="flex">
                                     <i class='bx bx-user-circle m-auto' ></i>
                                     <span class="ml-10">

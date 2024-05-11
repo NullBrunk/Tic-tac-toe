@@ -19,16 +19,14 @@ use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
-
 class AuthController extends Controller
 {
-
     /**
-     * Hash a basic string in double sha512 (sha512(sha512("the string")))
+     * Double hash a string in sha512
      *
      * @param string $to_hash        The string to hash
      *
-     * @return string                The hash in sha512
+     * @return string                The sha512 hash
      */
     private static function hash(string $to_hash): string {
         return hash("sha512", hash("sha512", $to_hash));
@@ -38,9 +36,10 @@ class AuthController extends Controller
     /**
      * Log in a user
      *
-     * @param LoginReq $request                                The Form Request
+     * @param LoginReq $request        The Form Request
      *
-     * @return Illuminate\Http\RedirectResponse                Redirection to / or to /login with errors
+     * @return RedirectResponse        Redirection to /, to the 2FA enter token
+     *                                                         or to the /login page
      */
     public function login(LoginReq $request): RedirectResponse {
         // On cherche la combinaison email:password dans la table User
@@ -88,12 +87,51 @@ class AuthController extends Controller
 
 
     /**
+     * Check the validity of the TOTP token provided by the user
+     *
+     * @param ValidateA2FRequest $request        The form Request
+     * @return RedirectResponse                  Redirect to / or to same page with errors
+     */
+    public function login_2fa(ValidateA2FRequest $request): RedirectResponse {
+        if(!session()->has("validated_id")) {
+            return abort(403);
+        }
+
+        $user = User::findOrFail(session("validated_id"));
+
+        $totp_code = 
+                    $request["totp1"] . $request["totp2"] . $request["totp3"] . 
+                    $request["totp4"] . $request["totp5"] . $request["totp6"];
+
+
+        $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
+
+        // On check la validité à partir du secret récupéré dans la BDD, et du code fourni par 
+        // l'utilisateur. Si ce n'est pas valide on affiche une erreur à l'utilisateur
+        if(!$tfa->verifyCode($user->secret, $totp_code)) {
+            return back()->withErrors([
+                "2fa_code" => __("validation.attributes.invalid_2fa"),
+            ]);
+        }
+
+        // Ceci ne nous sert plus a rien
+        session()->forget("validated_id");
+
+        // On rajoute la row retourné par la BDD dans la session
+        session($user->toArray());
+        
+        // Et on redirect à /
+        return to_route("index");
+    }
+
+
+    /**
      * Register a user
      *
-     * @param RegisterReq $request        The Register form request
+     * @param RegisterReq $request          The Register form request
      * 
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     *                                Redirection to the login page with a success message 
+     * @return RedirectResponse|View        Redirection to the login page with a success message 
+     *                                      or to the the QRCode totp page
      */
     public function register(RegisterReq $request) : RedirectResponse|View {
 
@@ -151,10 +189,10 @@ class AuthController extends Controller
     /**
      * Validate a user by confirming his mail
      *
-     * @param User $user                                      The user through model binding
-     * @param string $checksum                                Random UUID generated to check the mail
+     * @param User $user               The user through model binding
+     * @param string $checksum         Random UUID generated to check the mail
      * 
-     * @return \Illuminate\Http\RedirectResponse              Returns either to /login either to a 403 page
+     * @return RedirectResponse        Returns either to /login either to a 403 page
      */
     public function confirm_mail(User $user, string $confirmation_token): RedirectResponse {
         
@@ -168,40 +206,5 @@ class AuthController extends Controller
         return to_route("auth.login")->with(
             "success", "Your mail have been confirmed, you can log-in now"
         );
-    }
-
-
-    public function login_2fa(ValidateA2FRequest $request) {
-        if(!session()->has("validated_id")) {
-            return abort(403);
-        }
-
-        $user = User::findOrFail(session("validated_id"));
-
-        $totp_code = 
-                    $request["totp1"] . $request["totp2"] . $request["totp3"] . 
-                    $request["totp4"] . $request["totp5"] . $request["totp6"];
-
-
-
-
-        $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
-
-        // On check la validité à partir du secret récupéré dans la BDD, et du code fourni par 
-        // l'utilisateur. Si ce n'est pas valide on affiche une erreur à l'utilisateur
-        if(!$tfa->verifyCode($user->secret, $totp_code)) {
-            return back()->withErrors([
-                "2fa_code" => __("validation.attributes.invalid_2fa"),
-            ]);
-        }
-
-        // Ceci ne nous sert plus a rien
-        session()->forget("validated_id");
-
-        // On rajoute la row retourné par la BDD dans la session
-        session($user->toArray());
-        
-        // Et on redirect à /
-        return to_route("index");
     }
 }
