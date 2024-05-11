@@ -5,8 +5,16 @@ AOS.init({
     offset: 1,
 });
 
+let dropdown_content;
+let dropdown;
+
+try {
+    dropdown_content = document.getElementById("dropdown-content");
+    dropdown = document.getElementById("dropdown");
+} catch {
+    return;
+}
 // On recupere la div qui est le conteneur du dropdown
-let dropdown_content = document.getElementById("dropdown-content");
 
 
 /**
@@ -26,7 +34,7 @@ function handle_removal() {
 }
 
 // Quand on clique sur le dropdown
-document.getElementById("dropdown").addEventListener("click", () => {
+dropdown !== null && dropdown.addEventListener("click", () => {
 
     // On l'affiche ou on le masque
     dropdown_content.classList.toggle("flex");

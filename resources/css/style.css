@@ -772,11 +772,12 @@ nav .dropdown-content a span i {
  
 #auth .otp-input {
     background-color: var(--secondary);
+    color: var(--fg-color);
     caret-color: rgb(127, 129, 255);
     outline: none;
     
-    height: 18vh;
-    width: 18vh;
+    height: 12vh;
+    width: 12vh;
 
     margin: 5px;
 

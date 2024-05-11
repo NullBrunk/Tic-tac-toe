@@ -37,7 +37,7 @@
                 </div>
             @enderror
             
-            
+
             <button>
                 {{ ucfirst(
                     __("app.verify")
@@ -46,4 +46,30 @@
         </form>
     
     </section>
+
+    <script>
+
+        // Ce bout de code permet d'automatiquement focus l'input suivant une fois qu'on en a rempli un
+        let totp_inputs = [];
+
+        for(let i = 1; i <= 6; i++) {
+            // On met tous les inputs dans un tableau
+            totp_inputs[i] = document.getElementById(`totp${i}`);
+
+            // On écoute l'événement input
+            totp_inputs[i].addEventListener("input", (e) => {
+                // Si il est de type ajout de texte
+                if(e.inputType === "insertText") {
+                    // On récupère le next input
+                    let next_input = totp_inputs[i+1];
+
+                    // Si il existe
+                    if(next_input) {
+                        // On le focus
+                        next_input.focus();
+                    }
+                } 
+            });
+        }
+    </script>
 @endsection

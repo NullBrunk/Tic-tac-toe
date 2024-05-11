@@ -54,6 +54,13 @@ https://github.com/NullBrunk/L3T/assets/125673909/48261adf-0760-405b-a9f4-ab905f
 
 
 
+# 🤝 Thanks
+
+- Thanks to <a href="https://uiverse.io/buttons">Universe.io</a> for the buttons, which inspired me in the realization of the **"play a game"** button.
+- Thanks to <a href="https://codepen.io/Juxtopposed/pen/mdvaezM">Juxtopposed</a> for this landing page, which inspired me a lot.
+- Thanks to <a href="https://codepen.io/tin-fung-hk/pen/MWrRqBw">tin-fung-hk</a> for those buttons, which inspired me for the profile page.
+- Thanks to <a href="https://codepen.io/md-khokon/pen/bPLqzV">md-khokon</a> for the e-mail template. 
+ 
 
 
 
