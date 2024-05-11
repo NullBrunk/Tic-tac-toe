@@ -25,7 +25,7 @@
                 ) }} {{ $secret }}, 
                 {{ 
                     __("validation.attributes.2fa_then_go")
-                }}
+                }} <a href="{{ route("auth.login") }}"><i class="bx bx-log-in-circle"></i></a>
             </p>
            
         </form>

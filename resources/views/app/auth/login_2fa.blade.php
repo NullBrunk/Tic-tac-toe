@@ -6,7 +6,7 @@
 @section("body")
     <section id="auth" data-aos="fade-down" data-aos-duration="500" class="container">
         
-        <form action="{{ route("auth.validate_a2f") }}" method="post" class="otp-Form">
+        <form action="{{ route("auth.login_2fa") }}" method="post" class="otp-Form">
             @csrf
  
             <div class="icon">

@@ -75,7 +75,7 @@ class AuthController extends Controller
             // token a2f
             session(["validated_id" => $data["id"]]);
             // L'utilisateur à activé l'A2F, rediriger vers la page demandant l'entrée du code totp
-            return to_route("auth.validate_a2f");
+            return to_route("auth.login_2fa");
         }
 
         // L'utilisateur n'utilise pas l'A2F, le login instantanément
@@ -141,7 +141,7 @@ class AuthController extends Controller
         ]);
         
         // On ne va pas a la page de login, mais a la page contenant le QRCode et le secret
-        return view("app.auth.2fa", [
+        return view("app.auth.signup_2fa", [
             "secret" => $secret,
             "qrcode" => $qrcode,
         ]);
@@ -171,7 +171,7 @@ class AuthController extends Controller
     }
 
 
-    public function validate_a2f(ValidateA2FRequest $request) {
+    public function login_2fa(ValidateA2FRequest $request) {
         if(!session()->has("validated_id")) {
             return abort(403);
         }
