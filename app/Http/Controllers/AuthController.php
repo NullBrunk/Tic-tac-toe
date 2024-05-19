@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Events\SignupEvent;
-
+use App\Events\TFAEnableEvent;
 // Form requests
 use Illuminate\Support\Str;
 use App\Http\Requests\LoginReq;
@@ -168,20 +168,12 @@ class AuthController extends Controller
         // Si on est arrivé ici, c'est que l'utilisateur souhaite bénéficier de l'A2F. 
         // On va donc le renvoyer vers une page lui permettant de scanner un QRCode ou 
         // d'ajouter un code secret sur son app de TOTP
-        $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
-        $secret = $tfa->createSecret();
-        $qrcode = $tfa->getQRCodeImageAsDataUri($request["email"], $secret);
-
-    
-        $user->update([
-            // On update le secret pour annoncer que l'utilisateur utilise l'A2F
-            "secret" => $secret,
-        ]);
+        TFAEnableEvent::dispatch($user);
         
         // On ne va pas a la page de login, mais a la page contenant le QRCode et le secret
         return view("app.auth.signup_2fa", [
-            "secret" => $secret,
-            "qrcode" => $qrcode,
+            "secret" => session("tmp_secret"),
+            "qrcode" => session("tmp_qrcode"),
         ]);
     }
 

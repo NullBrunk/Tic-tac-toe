@@ -36,7 +36,7 @@ return [
 		// SETTINGS PAGE
 		"username" => "change your username",
 		"password" => "change your password",
-		"deletion" => "delete",
+		"security" => "security",
 		"delete" => "delete your account",
 	],
 ];

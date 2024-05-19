@@ -34,7 +34,7 @@ return [
 		// SETTINGS PAGE
 		"username" => "changer votre nom d'utilisateur",
 		"password" => "changer votre mot de passe",
-		"deletion" => "suppression",
+		"security" => "securité",
 		"delete" => "supprimer votre compte",
 
 	],

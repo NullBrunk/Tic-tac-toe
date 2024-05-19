@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use App\Events\SignupEvent;
+use App\Events\TFAEnableEvent;
 use App\Listeners\SignupListener;
-
+use App\Listeners\TFAEnableListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -17,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         SignupEvent::class => [
             SignupListener::class,
+        ],
+        TFAEnableEvent::class => [
+            TFAEnableListener::class,
         ],
     ];
 

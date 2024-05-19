@@ -25,6 +25,16 @@
                                     </span>
                                 </span>
                             </a>
+                            <a class="flex" href="{{ route("settings.settings") }}">
+                                <span class="flex">
+                                    <i class='bx bx-cog m-auto'></i>
+                                    <span class="ml-10">
+                                        {{ ucfirst(
+                                            __("app.settings.settings")
+                                        ) }}
+                                    </span>
+                                </span>
+                            </a>
                             <a class="flex" href="{{ route("auth.logout") }}">
                                 <span class="flex">
                                     <i class='bx bx-log-out-circle m-auto'></i>
@@ -35,6 +45,7 @@
                                     </span>
                                 </span>
                             </a>
+                          
                         </div>
                     
                     </div>
