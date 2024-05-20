@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Events\SignupEvent;
-use App\Events\TFAEnableEvent;
+use Illuminate\View\View;
 // Form requests
-use Illuminate\Support\Str;
-use App\Http\Requests\LoginReq;
+use App\Events\SignupEvent;
 
 // Manage 2FA  
+use Illuminate\Support\Str;
+use App\Http\Requests\LoginReq;
 use RobThree\Auth\TwoFactorAuth;
 use App\Http\Requests\RegisterReq;
+
+// for type declaration
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ValidateA2FRequest;
 use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
 
-// for type declaration
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 
 class AuthController extends Controller
 {
@@ -98,7 +98,7 @@ class AuthController extends Controller
         }
 
         $user = User::findOrFail(session("validated_id"));
-
+        
         $totp_code = 
                     $request["totp1"] . $request["totp2"] . $request["totp3"] . 
                     $request["totp4"] . $request["totp5"] . $request["totp6"];
@@ -168,12 +168,12 @@ class AuthController extends Controller
         // Si on est arrivé ici, c'est que l'utilisateur souhaite bénéficier de l'A2F. 
         // On va donc le renvoyer vers une page lui permettant de scanner un QRCode ou 
         // d'ajouter un code secret sur son app de TOTP
-        TFAEnableEvent::dispatch($user);
+        [$secret, $qrcode] = \App\Actions\TFAEnable::handle($user);
         
         // On ne va pas a la page de login, mais a la page contenant le QRCode et le secret
         return view("app.auth.signup_2fa", [
-            "secret" => session("tmp_secret"),
-            "qrcode" => session("tmp_qrcode"),
+            "secret" => $secret,
+            "qrcode" => $qrcode,
         ]);
     }
 
