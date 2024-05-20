@@ -635,6 +635,16 @@ nav .dropdown-content a span i {
     align-self: center;
 }
 
+.errors-page {
+    text-align: center;
+    font-size: 25px;
+}
+
+.errors-page .error-code {
+    font-weight: 900;
+    font-size: 150px;
+}
+
 /**************************************************/
 
  
