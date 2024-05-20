@@ -6,7 +6,7 @@ use App\Models\Game;
 use App\Models\User_join;
 use App\Models\User_move;
 use Illuminate\Support\Str;
-use App\Http\Controllers\MorpionController;
+use App\Services\MorpionService;
 
 // for type declaration
 use Illuminate\View\View;
@@ -22,17 +22,14 @@ class GamesController extends Controller
      */
     public function create(): RedirectResponse {
         
-        // Génère l'ID unique sur 4 caractères
-        $uuid = Str::random(4);
-    
         // Créé la game ayant cet ID dans la table DB
-        Game::create([
-            "id" => $uuid,
+        $game = Game::create([
+            "id" => Str::random(4),
             "winner" => null
         ]);
 
         // Retourne à la route permettant de rejoindre la partie que nous venons de créer
-        return to_route("games.join", $uuid);
+        return to_route("games.join", $game->id);
     }
 
 
@@ -47,32 +44,24 @@ class GamesController extends Controller
         // On recupère tous les utilisateurs qui ont rejoint la Game
         $joined = $game->get_joined_users()->get();
         
-        // Si cette variable vaut true, l'utilisateur actuel a pas rejoint la game
+        // Vaudra true si l'utilisateur actuel n'a pas rejoint la game
         $user_joined = $joined->where("id", session("id"))->count() !== 0;
         
-
-        if($joined->count() === 2 && !$user_joined)
-            return abort(403);
-
+        // Si deux utilisateurs ont rejoint mais pas l'utilisateur actuel
+        abort_if($joined->count() === 2 && !$user_joined, 403);
 
         // Si l'utilisateur courant n'a pas rejoint la partie
-        else if(!$user_joined) {
-            // Alors on la rejoint
-
-            // On attribue le bon symbole
-            $symbol = $joined->count() === 0 ? "O" : "X";
-
+        if(!$user_joined) {
             // On rejoint la partie
-            User_join::create([
+            $join = User_join::create([
                 "game_id" => $game->id,
                 "user_id" => session("id"),
-                "symbol" => $symbol,
+                "symbol" => $joined->count() === 0 ? "O" : "X",
             ]);
 
             // On met le symbole attribué en cache
-            session(["symbol" => $symbol]);
+            session(["symbol" => $join->symbol]);
         }
-
 
         return view("app.games.morpion", [ 
             "game_id" => $game->id, 
@@ -90,29 +79,8 @@ class GamesController extends Controller
      */
     public static function move(Game $game, int $position): null {
 
-        // Utilisateurs qui ont rejoint la game
-        $joined = $game->get_joined_users()->get();
-
-        // Tous les coups joués pendant la partie
-        $move = $game->get_played_move()->get();
-        
-
-        // Test tout ce qui rend interdit au joueur de jouer un coup à cet endroit
-        if(
-            // La partie est finie
-            $game->winner !== null
-            
-            // Ou alors la partie n'a pas encore commencé
-            || $joined->count() !== 2
-
-            // Ou alors le joueur essaye de jouer deux fois d'affilé
-            || $move->last()?->user_id === session("id") 
-
-            // Ou alors il y a déjà un symbole placé ici
-            || $move->where("position", $position)->count() !== 0
-        ) {
+        if(!MorpionService::check_move_permissions($game, $position))
             return null;
-        } 
 
         // Si l'utilisateur rejoint une autre game en meme temps, et qu'il a un symbol différent, 
         // et que la session n'est pas mise à jour, il se peut qu'en revenant sur la game initiale
@@ -149,7 +117,7 @@ class GamesController extends Controller
             return null;
         }
 
-        $check_win = MorpionController::check_win($morpion, $position);
+        $check_win = MorpionService::check_win($morpion, $position);
         if($check_win["win"] === true) {
             // Update la table pour indiquer qui a gagné
             Game::where("id", $id)->update([

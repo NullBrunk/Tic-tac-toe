@@ -16,6 +16,7 @@ use App\Http\Requests\RegisterReq;
 // for type declaration
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ValidateA2FRequest;
+use App\Services\AuthService;
 use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
 
 
@@ -168,7 +169,7 @@ class AuthController extends Controller
         // Si on est arrivé ici, c'est que l'utilisateur souhaite bénéficier de l'A2F. 
         // On va donc le renvoyer vers une page lui permettant de scanner un QRCode ou 
         // d'ajouter un code secret sur son app de TOTP
-        [$secret, $qrcode] = \App\Actions\TFAEnable::handle($user);
+        [$secret, $qrcode] = AuthService::enable_tfa($user);
         
         // On ne va pas a la page de login, mais a la page contenant le QRCode et le secret
         return view("app.auth.signup_2fa", [

@@ -6,8 +6,7 @@ use App\Models\Game;
 use Livewire\Component;
 use App\Models\User_join;
 use App\Http\Controllers\GamesController;
-use App\Http\Controllers\MorpionController;
-
+use App\Services\MorpionService;
 
 class Morpion extends Component
 {
@@ -71,7 +70,7 @@ class Morpion extends Component
         $this->ended = Game::where("id", $this->id)->first()->winner;
 
         // Get the morpion from the model via the controller
-        $this->morpion = MorpionController::get_morpion($this->id);
+        $this->morpion = MorpionService::get_morpion($this->id);
         
         // Si la variable position n'existe pas, alors le joueur n'a pas encore joué, donc pas besoin de 
         // vérifier si quelqu'un a gagné

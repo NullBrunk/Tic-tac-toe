@@ -10,18 +10,18 @@
 
         <div class="absolute informations flex" data-aos="fade-in" data-aos-duration="1000">
             <div class="profile-name flex">
-                <img src="https://ui-avatars.com/api/?background=1e1f30&color=fff&amp;size=300&amp;rounded=true&amp;length=1&amp;name={{ $name }}" alt="Profile picture">
+                <img src="https://ui-avatars.com/api/?background=1e1f30&color=fff&amp;size=300&amp;rounded=true&amp;length=1&amp;name={{ $user->name }}" alt="Profile picture">
             </div>
             <div class="profile-info">
                 <p class="mail">
-                    {{ mb_strtoupper($name) }}
+                    {{ mb_strtoupper($user->name) }}
                 </p>
                 <p class="joined" id="joined">
-                    Created {{ $created_at->diffForHumans() }}
+                    Created {{ $user->created_at->diffForHumans() }}
                 </p>
             </div>    
 
-            @if($email === session("email"))
+            @if($user->email === session("email"))
                 <div class="pro-buttons flex">
                     <span class="blur-round"></span>
                     <a class="glass-button" style="height: 34px;" href="{{ route("settings.settings") }}"><i class="bx bx-cog"></i></a>
@@ -47,10 +47,10 @@
                         @if($battle["winner"] === "draw")                    
                             @php($class = "transfer")
                         @elseif((
-                                $battle["email_p1"] === $email && 
+                                $battle["email_p1"] === $user->email && 
                                 $battle["join_p1"] === $battle["winner"]
                             ) || (
-                                $battle["email_p2"] === $email && 
+                                $battle["email_p2"] === $user->email && 
                                 $battle["join_p2"] === $battle["winner"]
                         ))
                             @php($class = "trophy")
