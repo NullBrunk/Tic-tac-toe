@@ -18,6 +18,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ValidateA2FRequest;
 use App\Services\AuthService;
 use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
+use RobThree\Auth\TwoFactorAuthException;
 
 
 class AuthController extends Controller
@@ -88,10 +89,11 @@ class AuthController extends Controller
 
 
     /**
-     * Check the validity of the TOTP token provided by the user
+     *  Check the validity of the TOTP token provided by the user
      *
-     * @param ValidateA2FRequest $request        The form Request
-     * @return RedirectResponse                  Redirect to / or to same page with errors
+     * @param ValidateA2FRequest $request       The form Request
+     * @return RedirectResponse                 Redirect to / or to same page with errors
+     * @throws TwoFactorAuthException
      */
     public function login_2fa(ValidateA2FRequest $request): RedirectResponse {
         if(!session()->has("validated_id")) {
@@ -132,7 +134,7 @@ class AuthController extends Controller
      * @param RegisterReq $request          The Register form request
      * 
      * @return RedirectResponse|View        Redirection to the login page with a success message 
-     *                                      or to the the QRCode totp page
+     *                                      or to QRCode totp page
      */
     public function register(RegisterReq $request) : RedirectResponse|View {
 
@@ -182,8 +184,8 @@ class AuthController extends Controller
     /**
      * Validate a user by confirming his mail
      *
-     * @param User $user               The user through model binding
-     * @param string $checksum         Random UUID generated to check the mail
+     * @param User $user                         The user through model binding
+     * @param string $confirmation_token         Random UUID generated to check the mail
      * 
      * @return RedirectResponse        Returns either to /login either to a 403 page
      */

@@ -18,7 +18,7 @@ class GamesController extends Controller
     /**
      * Create a game in the database
      *
-     * @return RedirectResponse        Return to the "join game" route
+     * @return RedirectResponse    Return to the "join game" route
      */
     public function create(): RedirectResponse {
         
@@ -36,9 +36,9 @@ class GamesController extends Controller
     /**
      * Join a game with the unique ID associated to it
      *
-     * @param Game $game        The game through model binding
+     * @param Game $game    The game through model binding
      * 
-     * @return View             A view displaying the morpion, or a 403 or a 404
+     * @return View         A view that displays the morpion, or a 403 or a 404
      */
     public function join(Game $game): View {
         // On recupère tous les utilisateurs qui ont rejoint la Game
@@ -67,14 +67,14 @@ class GamesController extends Controller
             "game_id" => $game->id, 
         ]);
     }
-    
+
 
     /**
      * Play a move by placing a pawn on a given case
-     * 
-     * @param string $id        The unique ID of the game
-     * @param int $case         The position of the pawn (from 0 to 8)
-     * 
+     *
+     * @param Game $game       The unique ID of the game
+     * @param int $position    The position of the pawn (from 0 to 8)
+     *
      * @return null
      */
     public static function move(Game $game, int $position): null {

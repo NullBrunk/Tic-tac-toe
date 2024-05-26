@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GamesController;
-
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
 // If you want to test the support for localization :
@@ -30,7 +29,7 @@ Route::view("/", "app.index")->name("index");
 Route::middleware("guest")->name("auth.")->controller(AuthController::class)->group( function () {
     Route::view("/login", "app.auth.login")->name("login");
     Route::post("/login", "login");
-    
+
     Route::view("/register", "app.auth.register")->name("register");
     Route::post("/register", "register");
 
@@ -77,5 +76,4 @@ Route::name("settings.")->middleware(["auth", "no-cache"])->controller(SettingsC
 });
 
 Route::get("p/{user:name}", [ SettingsController::class, "show_profile" ])->name("settings.profile");
-
 

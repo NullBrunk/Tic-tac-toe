@@ -14,7 +14,7 @@ class SettingsController extends Controller
      * Show the profil of a given user
      *
      * @param User $user                The User through Model Binding
-     * @param StatServicce $service     The stat service through dependency injection
+     * @param StatService $service     The stat service through dependency injection
      * 
      * @return View             The profile page view
      */
