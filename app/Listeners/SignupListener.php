@@ -13,13 +13,13 @@ class SignupListener implements ShouldQueue
     /**
      * Create the event listener.
      */
-    public function __construct(private Mailer $mailer)
+    public function __construct(private readonly Mailer $mailer)
     {
         //
     }
 
     /**
-     * Send an email to the user with a random generated string to 
+     * Send email to the user with a random generated string to
      * confirm his mail address.
      */
     public function handle(SignupEvent $event): void

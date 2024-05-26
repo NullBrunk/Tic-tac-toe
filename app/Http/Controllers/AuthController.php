@@ -123,9 +123,10 @@ class AuthController extends Controller
 
 
     /**
-     * @param RegisterReq $request          The Register form request
-     * 
-     * @return RedirectResponse|View        Redirection to the login page with a success message 
+     * @param RegisterReq $request    The Register form request
+     *
+     * @throws TwoFactorAuthException
+     * @return RedirectResponse|View        Redirection to the login page with a success message
      */
     public function register(RegisterReq $request) : RedirectResponse|View {
 
@@ -186,7 +187,7 @@ class AuthController extends Controller
         // le confirmation token attribué au user lors de sa création
         if($user->confirmation_token !== $confirmation_token)
             return abort(403);
-        
+
         $user->update([ "confirmation_token" => null ]);
 
         return to_route("auth.login")->with(

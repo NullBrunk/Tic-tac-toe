@@ -76,4 +76,3 @@ Route::name("settings.")->middleware(["auth", "no-cache"])->controller(SettingsC
 });
 
 Route::get("p/{user:name}", [ SettingsController::class, "show_profile" ])->name("settings.profile");
-

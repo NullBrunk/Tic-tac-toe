@@ -5,18 +5,19 @@ namespace App\Livewire;
 use App\Models\Game;
 use Livewire\Component;
 use App\Models\User_join;
+use Illuminate\View\View;
 use App\Http\Controllers\GamesController;
 use App\Services\MorpionService;
 
 class Morpion extends Component
 {
-    public $k = 0;
-    public $id;
-    public $morpion;
-    public $alone = true;
+    public int $k = 0;
+    public string|int $id;
+    public array $morpion;
+    public bool $alone = true;
     
-    public $position = null;
-    public $ended = null;
+    public ?int $position = null;
+    public ?string $ended = null;
 
     /**
      * Méthode permettant à l'utilisateur de jouer un coup
@@ -26,7 +27,8 @@ class Morpion extends Component
      * 
      * @return void
      */
-    public function play(int $position) {
+    public function play(int $position): void
+    {
         // If the game is ended do not play
         if($this->ended !== null) return;
         
@@ -46,7 +48,8 @@ class Morpion extends Component
      * 
      * @return void
      */
-    public function is_alone() {
+    public function is_alone(): void
+    {
         
         $joined_players = User_join::where("game_id", $this->id)->count();
         
@@ -60,7 +63,8 @@ class Morpion extends Component
      *
      * @return void
      */
-    public function update_morpion() {
+    public function update_morpion(): void
+    {
         // If the game is ended do not reload anything
         if($this->ended !== null) return;
 
@@ -80,7 +84,8 @@ class Morpion extends Component
     }
 
 
-    public function render() {
+    public function render(): View
+    {
         $this->update_morpion();        
         return view('livewire.morpion');
     }

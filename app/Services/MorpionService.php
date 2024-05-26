@@ -68,10 +68,9 @@ class MorpionService
     /**
      * Test si le pion placé en position x,y permet la victoire en ligne, colone ou diagonale du joueur.
      *
-     * @param array $morpion        Le morpion sous forme d'un tableau 2D
-     * @param integer $x            La coordonée en abscisse
-     * @param integer $y            La coordonée en ordonnée 
-     * 
+     * @param array $morpion    Le morpion sous forme d'un tableau 2D
+     * @param int $position     The position of the placed pawn
+     *
      * @return array
      */
     public static function check_win(array $morpion, int $position): array {

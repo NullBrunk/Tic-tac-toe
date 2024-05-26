@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Models\User_join;
 
 class StatService {
     /**
-     * Get unparsed informations about a given user (played/won/lost games...)
+     * Get unparsed information about a given user (played/won/lost games...)
      *
      * @param integer $userid        The user id from which to retrieve the statistics
      * 
@@ -20,7 +22,7 @@ class StatService {
                 
         // On fait un inner join entre la table user_play et la table games pour récupérer les informations
         // qui nous intéressent
-        return User_join::select("winner", "symbol") 
+        return User_join::select(["winner", "symbol"])
             ->join('games', 'games.id', '=', 'user_joins.game_id')
             ->where("user_id", $userid) 
             ->where("winner", "!=", null)
@@ -36,13 +38,13 @@ class StatService {
      * @return Collection            The ORM response
      */
     public function get_game_history(int $userid): Collection {
-        return User_join::select(
+        return User_join::select([
             "users.email AS email_p1", "users.name AS name_p1",
             "users2.email AS email_p2", "users2.name AS name_p2", 
             "user_joins.symbol AS join_p1",
             "user_joins2.symbol AS join_p2",
             "games.winner", "games.created_at",
-        ) 
+        ])
         ->join('user_joins as user_joins2', function ($join) {
                 $join->on('user_joins.game_id', '=', DB::raw("`user_joins2`.`game_id`"))
                      ->where('user_joins.user_id', '<>', DB::raw("`user_joins2`.`user_id`"));
@@ -59,7 +61,7 @@ class StatService {
         ->groupBy("games.id")
         ->orderBy("games.created_at", "DESC")
         ->get();
-    } 
+    }
 
 
     /**

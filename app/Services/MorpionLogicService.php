@@ -30,7 +30,6 @@ class MorpionLogicService {
             $points++;
         }
 
-        $new_x = $this->x;
         $new_y = $this->y;
 
         while($new_y < 2 && $this->morpion[$new_x][$new_y] === $this->morpion[$new_x][$new_y+1]) {
@@ -59,7 +58,6 @@ class MorpionLogicService {
         }
 
         $new_x = $this->x;
-        $new_y = $this->y;
 
         while($new_x < 2 && $this->morpion[$new_x+1][$new_y] === $this->morpion[$new_x][$new_y]) {
             $new_x++;
