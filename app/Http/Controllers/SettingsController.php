@@ -11,12 +11,10 @@ use Illuminate\View\View;
 class SettingsController extends Controller
 {
     /**
-     * Show the profil of a given user
-     *
-     * @param User $user                The User through Model Binding
-     * @param StatService $service     The stat service through dependency injection
+     * @param User $user              The User through Model Binding
+     * @param StatService $service    The stat service through dependency injection
      * 
-     * @return View             The profile page view
+     * @return View                   The profile page view
      */
     public function show_profile(User $user, StatService $service): View {
         
@@ -34,8 +32,6 @@ class SettingsController extends Controller
 
     
     /**
-     * Show the settings page
-     *
      * @return View
      */
     public function show_settings(): View {

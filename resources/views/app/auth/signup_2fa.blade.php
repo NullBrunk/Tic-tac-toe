@@ -18,7 +18,7 @@
                     __("validation.attributes.2fa_body")
                 ) }}
             </p>
-            <img src="{{ $qrcode }}">
+            <img src="{{ $qrcode }}" alt="The QRCode to scan">
             <p>
                 {{ ucfirst(
                     __("validation.attributes.2fa_or_secret")
@@ -29,6 +29,5 @@
             </p>
            
         </form>
-    
     </section>
 @endsection

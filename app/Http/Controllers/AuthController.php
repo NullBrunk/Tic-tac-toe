@@ -24,10 +24,7 @@ use RobThree\Auth\TwoFactorAuthException;
 class AuthController extends Controller
 {
     /**
-     * Double hash a string in sha512
-     *
      * @param string $to_hash        The string to hash
-     *
      * @return string                The sha512 hash
      */
     private static function hash(string $to_hash): string {
@@ -36,12 +33,8 @@ class AuthController extends Controller
 
 
     /**
-     * Log in a user
-     *
      * @param LoginReq $request        The Form Request
-     *
-     * @return RedirectResponse        Redirection to /, to the 2FA enter token
-     *                                                         or to the /login page
+     * @return RedirectResponse        Redirection to /, to the 2FA enter token or to the /login page
      */
     public function login(LoginReq $request): RedirectResponse {
         // On cherche la combinaison email:password dans la table User
@@ -92,6 +85,7 @@ class AuthController extends Controller
      *  Check the validity of the TOTP token provided by the user
      *
      * @param ValidateA2FRequest $request       The form Request
+     *
      * @return RedirectResponse                 Redirect to / or to same page with errors
      * @throws TwoFactorAuthException
      */
@@ -129,12 +123,9 @@ class AuthController extends Controller
 
 
     /**
-     * Register a user
-     *
      * @param RegisterReq $request          The Register form request
      * 
      * @return RedirectResponse|View        Redirection to the login page with a success message 
-     *                                      or to QRCode totp page
      */
     public function register(RegisterReq $request) : RedirectResponse|View {
 

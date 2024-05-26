@@ -34,7 +34,7 @@ class GamesController extends Controller
 
 
     /**
-     * Join a game with the unique ID associated to it
+     * Join a game via the unique ID associated to it
      *
      * @param Game $game    The game through model binding
      * 
@@ -72,7 +72,7 @@ class GamesController extends Controller
     /**
      * Play a move by placing a pawn on a given case
      *
-     * @param Game $game       The unique ID of the game
+     * @param Game $game       The game through model binding
      * @param int $position    The position of the pawn (from 0 to 8)
      *
      * @return null
@@ -102,8 +102,6 @@ class GamesController extends Controller
 
 
     /**
-     * Check if the placed pawn led to a win or a draw or nothing
-     *
      * @param array $morpion           The morpion
      * @param integer $position        The position of the placed pawn (from 0 to 8)
      * @param string $id               The unique ID of the game
