@@ -22,7 +22,7 @@ class GameFactory extends Factory
     {
         return [
             "id" => Str::random(20),
-            "winner" => ["O", "X"][random_int(0, 1)],
+            "winner" => ["O", "X", "draw"][random_int(0, 2)],
         ];
     }
 }

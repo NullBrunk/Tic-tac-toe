@@ -930,13 +930,13 @@ nav .dropdown-content a span i {
     width: 160px;
     border-radius: 50%;
     user-select: none;
-    font-family: Avenir;
+    font-family: Avenir, sans-serif;
     top: -40%;
     left: 0;
 }
 
 #settings .profile-left {
-    margin-left: 35%;
+    margin-left: 10%;
 }
 
 #settings .profile-info {
