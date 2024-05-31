@@ -40,27 +40,28 @@ class StatService {
     public function get_game_history(int $userid): Collection {
         return User_join::select([
             "users.email AS email_p1", "users.name AS name_p1",
-            "users2.email AS email_p2", "users2.name AS name_p2", 
+            "users2.email AS email_p2", "users2.name AS name_p2",
             "user_joins.symbol AS join_p1",
             "user_joins2.symbol AS join_p2",
             "games.winner", "games.created_at",
         ])
-        ->join('user_joins as user_joins2', function ($join) {
+            ->join('games', 'user_joins.game_id', '=', 'games.id')
+            ->join('users', 'user_joins.user_id', '=', 'users.id')
+            ->join('user_joins as user_joins2', function ($join) {
                 $join->on('user_joins.game_id', '=', DB::raw("`user_joins2`.`game_id`"))
-                     ->where('user_joins.user_id', '<>', DB::raw("`user_joins2`.`user_id`"));
-        })
-        ->join('users', 'user_joins.user_id', '=', 'users.id')
-        ->join('users as users2', 'user_joins2.user_id', '=', 'users2.id')
-        ->join('games', 'user_joins.game_id', '=', 'games.id')
-        ->where("games.winner", "<>", null) 
-        ->where("games.winner", "<>", "")
-        ->where("users.email", "<>", DB::raw("`users2`.`email`"))
-        ->where(function ($query) use ($userid) {
-            $query->where('users.id', $userid) ->orWhere('users2.id', $userid);
-        })
-        ->groupBy("games.id")
-        ->orderBy("games.created_at", "DESC")
-        ->get();
+                    ->where('user_joins.user_id', '<>', DB::raw("`user_joins2`.`user_id`"));
+            })
+            ->join('users as users2', 'user_joins2.user_id', '=', 'users2.id')
+            ->where("games.winner", "<>", null)
+            ->where("users.email", "<>", DB::raw("`users2`.`email`"))
+            ->whereExists(function ($query) use ($userid) {
+                $query->select(DB::raw(1))
+                    ->from('user_joins')
+                    ->whereRaw('user_joins.game_id = games.id')
+                    ->where('user_id', $userid);
+            })
+            ->orderBy("games.created_at", "DESC")
+            ->get();
     }
 
 
