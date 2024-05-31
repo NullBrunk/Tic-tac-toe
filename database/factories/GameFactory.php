@@ -21,8 +21,8 @@ class GameFactory extends Factory
     public function definition(): array
     {
         return [
-            "id" => Str::random(4),
-            "winner" => null,
+            "id" => Str::random(20),
+            "winner" => ["O", "X"][random_int(0, 1)],
         ];
     }
 }

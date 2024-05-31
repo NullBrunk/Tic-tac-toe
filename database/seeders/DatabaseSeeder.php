@@ -17,12 +17,24 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
         ]);
         $users = \App\Models\User::factory(20)->create();
-        $games = \App\Models\Game::factory(10)->create();
+        $games = \App\Models\Game::factory(10_000)->create();
 
-        foreach($users as $user) { 
-            var_dump($user -> email);
-            echo "\n\n";
+        foreach($games as $game) {
+            $first_user = $users->random();
+            $second_user = $users->random();
+
+            \App\Models\User_join::factory(1)->create([
+                'user_id' => $first_user->id,
+                'game_id' => $game->id,
+                'symbol' => "O",
+            ]);
+
+            \App\Models\User_join::factory(1)->create([
+                'user_id' => $second_user->id,
+                'game_id' => $game->id,
+                'symbol' => "X",
+            ]);
         }
-        
+
     }
 }

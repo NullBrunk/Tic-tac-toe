@@ -106,7 +106,7 @@
                                     __("app.settings.won")
                                     ) }} 
                             </span>
-                            <span id="won" data-stat="{{ $won_games }}" class="stats">
+                            <span id="won" class="stats">{{ $won_games }}</span>
                         </div>
                       </div>
 
@@ -119,7 +119,7 @@
                                     __("app.settings.drawn")
                                 ) }}
                             </span>
-                            <span id="drawn" data-stat="{{ $drawn_games }}" class="stats">
+                            <span id="drawn" class="stats">{{ $drawn_games }}</span>
                         </div>
                       </div>
 
@@ -132,7 +132,7 @@
                                     __("app.settings.lost")
                                 ) }}
                             </span>
-                            <span id="lost" data-stat="{{ $lost_games }}" class="stats">
+                            <span id="lost" class="stats">{{ $lost_games }}</span>
                         </div>
                       </div>
                     
@@ -143,6 +143,4 @@
 
         </div>
     </section>
-
-    <script src="{{ asset("/assets/specific_js/profile.min.js") }}"></script>
 @endsection

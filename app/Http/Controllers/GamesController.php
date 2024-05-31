@@ -24,7 +24,7 @@ class GamesController extends Controller
         
         // Créé la game ayant cet ID dans la table DB
         $game = Game::create([
-            "id" => Str::random(4),
+            "id" => Str::random(20),
             "winner" => null
         ]);
 

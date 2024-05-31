@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User_join>
  */
-class UserJoinFactory extends Factory
+class User_joinFactory extends Factory
 {
 
     protected $model = User_join::class;
@@ -21,9 +21,6 @@ class UserJoinFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
         ];
     }
 }
