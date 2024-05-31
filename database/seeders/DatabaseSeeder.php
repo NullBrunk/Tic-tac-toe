@@ -12,24 +12,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = \App\Models\User::factory(20)->create();
-        $games = \App\Models\Game::factory(10_000)->create();
+        $game_number = $this->command->ask("How many game do you want to generate", 10000);
+        $user_number = $this->command->ask("How many users do you want to generate", 20);
 
-        foreach($games as $game) {
-            $first_user = $users->random();
-            $second_user = $users->random();
+        $this->command->info(" Generating {$user_number} users");
+        $users = \App\Models\User::factory($user_number)->create();
 
-            \App\Models\User_join::factory(1)->create([
-                'user_id' => $first_user->id,
-                'game_id' => $game->id,
-                'symbol' => "O",
-            ]);
+        $this->command->info(" Generating {$game_number} games");
+        $games = \App\Models\Game::factory($game_number)->create();
 
-            \App\Models\User_join::factory(1)->create([
-                'user_id' => $second_user->id,
-                'game_id' => $game->id,
-                'symbol' => "X",
-            ]);
-        }
+
+        $this->command->info(" Adding random users to random games");
+        $this->command->withProgressBar($game_number, function ($bar) use ($game_number, $games, $users) {
+            foreach ($games as $game) {
+                $bar->advance();
+                $first_user = $users->random();
+                $second_user = $users->random();
+
+                \App\Models\User_join::factory(1)->create([
+                    'user_id' => $first_user->id,
+                    'game_id' => $game->id,
+                    'symbol' => "O",
+                ]);
+
+                \App\Models\User_join::factory(1)->create([
+                    'user_id' => $second_user->id,
+                    'game_id' => $game->id,
+                    'symbol' => "X",
+                ]);
+            }
+        });
+
+        $this->command->info("\n\n You may log-in using '{$users->random()->email}' with password 'a'");
     }
 }

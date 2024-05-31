@@ -39,7 +39,6 @@ return new class extends Migration
 
         Schema::table('games', function (Blueprint $table) {
             $table->dropIndex('id');
-            $table->dropIndex('winner');
         });
 
         Schema::table('users', function (Blueprint $table) {
