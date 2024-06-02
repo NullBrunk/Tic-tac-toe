@@ -5,7 +5,7 @@
 
 @section("body")
 
-    <section id="index" class="container index-page" style="margin-top: 0rem;">
+    <section id="index" class="container index-page" style="margin-top: 0;">
         {{-- <div data-aos="zoom-in" data-aos-duration="1000" class="game main-img up-down">
             
         </div> --}}

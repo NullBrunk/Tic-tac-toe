@@ -37,4 +37,5 @@ class SettingsController extends Controller
     public function show_settings(): View {
         return view("app.settings.settings");
     }
+
 }

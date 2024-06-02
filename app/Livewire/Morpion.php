@@ -19,6 +19,17 @@ class Morpion extends Component
     public ?int $position = null;
     public ?string $ended = null;
 
+    public ?string $symbol = null;
+
+    /**
+     * Store the symbol when the component is rendered for the first time
+     *
+     * @return void
+     */
+    public function mount(): void {
+        $this->symbol = \App\Models\User_join::where("game_id", $this->id)->where("user_id", session("id"))->first()->symbol;
+    }
+
     /**
      * Méthode permettant à l'utilisateur de jouer un coup
      * 
@@ -89,4 +100,5 @@ class Morpion extends Component
         $this->update_morpion();        
         return view('livewire.morpion');
     }
+
 }

@@ -74,5 +74,5 @@ Route::name("games.")->middleware("auth")->controller(GamesController::class)->g
 Route::name("settings.")->middleware(["auth", "no-cache"])->controller(SettingsController::class)->group(function () {
     Route::get("settings",  "show_settings")->name("settings");
 });
-
 Route::get("p/{user:name}", [ SettingsController::class, "show_profile" ])->name("settings.profile");
+

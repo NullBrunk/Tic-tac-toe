@@ -33,24 +33,26 @@
 
             <div class="relative more-infos">
                 <div class="commentbar-top">
-                    <h5>
-                        {{ ucfirst(
-                            __("app.settings.game_history")
-                        ) }} 
+                    <h5 class="">
+                        <span>
+                            {{ ucfirst(
+                                __("app.settings.game_history")
+                            ) }}
+                        </span>
                     </h5>
                     <hr style="background-color: #a14fd6; margin: 0px; height: 5px;">
                 </div>
-                
+
                 <div class="scrollable">
                     @forelse($history as $battle)
-                    
-                        @if($battle["winner"] === "draw")                    
+
+                        @if($battle["winner"] === "draw")
                             @php($class = "transfer")
                         @elseif((
-                                $battle["email_p1"] === $user->email && 
+                                $battle["email_p1"] === $user->email &&
                                 $battle["join_p1"] === $battle["winner"]
                             ) || (
-                                $battle["email_p2"] === $user->email && 
+                                $battle["email_p2"] === $user->email &&
                                 $battle["join_p2"] === $battle["winner"]
                         ))
                             @php($class = "trophy")
@@ -58,23 +60,25 @@
                             @php($class = "x-circle")
                         @endif
 
-                        <div class="battle {{ $class }}">
+                        <div class="battle {{ $class }} flex-between"  >
                             <div>
                                 <i class="bx bx bx-{{ $class }}"></i>
                             </div>
 
-                            <div class="profile-left">
+                            <div class="">
                                 <a class="profile-link" href="{{ $battle["name_p1"] }}">{{ $battle["name_p1"] }}</a>
-    
+
                                 <span class="fg bolder">
                                     VS
                                 </span>
 
                                 <a class="profile-link" href="{{ $battle["name_p2"] }}">{{ $battle["name_p2"] }}</a>
+
                             </div>
 
-                            <div style="margin-left: auto;">
+                            <div>
                                 @human_diff($battle["created_at"])
+                                <i class="bx bx-revision" onclick='window.location.href = "{{ route("games.join", ["game" => $battle["game_id"] ] ) }}"' style="cursor: pointer; margin-left: 20px; color: var(--green)"></i>
                             </div>
 
                         </div>
