@@ -1185,6 +1185,31 @@ nav .dropdown-content a span i {
     transition: all 1s;
 }
 
+#settings-block form input {
+    font-weight: 800;
+    min-width: fit-content;
+    display: inline-block;
+    padding: 14px 19px 11px;
+    text-decoration: none;
+    border-radius: 15px;
+    background-color: rgba(30, 31, 48, 0.7);
+    border: 1px solid var(--grey);
+    backdrop-filter: blur(30px);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 22px;
+    transition: all 0.5s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 60vw !important;}
+
+#settings-block form button {
+    width: calc(60vw + 22px + 18px) !important;
+}
+
+#settings-block button.larger {
+    width: calc(60vw + 22px + 18px) !important;
+}
+
 @media(max-width: 1000px) {
     .container {
         margin: 20px 4.5vw

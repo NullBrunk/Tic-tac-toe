@@ -24,7 +24,7 @@
 
         <div class="pro-cards w-100 mt-10 settings-div" style="margin-top: 30px;" data-aos="fade-up" data-aos-duration="1000">
 
-            <div class="relative more-infos w-100 settings-container">
+            <div class="relative more-infos w-100 settings-container" style="height: max-content !important;">
                 <div class="commentbar-top">
                     <h5>
                         {{ mb_strtoupper(
@@ -37,20 +37,65 @@
                 <div id="settings-block" class="content flex column">
                     <div class="flex column h-100">
                         <div>
-                            <button class="center glass-button">
-                                <span class="blur-round"></span>
+                            <form action="{{ route("settings.update") }}" method="post">
+                                @csrf
 
-                                {{ strtoupper(
-                                    __("app.settings.username")
-                                ) }} 
-                            </button>
-                            <br>
-                            <button class="mt-10 center  glass-button">
-                                <span class="blur-round"></span>
-                                {{ strtoupper(
-                                    __("app.settings.password")
-                                ) }} 
-                            </button>
+                                @error("loginerror")
+                                <div class="bg-red msg-box">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+
+                                @if(session()->has("success"))
+                                    <div class="bg-green msg-box bolder">
+                                        {{ session("success") }}
+                                    </div>
+                                @endif
+
+                                <div>
+                                    <input
+                                            type="text"
+                                            name="name"
+                                            id="name"
+                                            placeholder="{{ mb_strtoupper(__("app.settings.new_username"))  }}"
+                                            class="@if($errors->has("name")) error-border @endif input-form"
+                                            value="{{ old("name") }}"
+                                    >
+                                    @error("name") <div class="error">{{ $message }}</div> @enderror
+                                </div>
+
+                                <div>
+                                    <input
+                                            type="password"
+                                            name="new_password"
+                                            id="new_password"
+                                            placeholder="{{ mb_strtoupper(__("app.settings.new_password"))  }}"
+                                            class="@if($errors->has("new_password")) error-border @endif input-form"
+                                            value="{{ old("new_password") }}"
+                                    >
+                                    @error("new_password") <div class="error">{{ $message }}</div> @enderror
+                                </div>
+
+
+                                <div>
+                                    <input
+                                            type="password"
+                                            name="password"
+                                            id="password"
+                                            placeholder="{{ mb_strtoupper(__("app.current_password"))  }}"
+                                            class="@if($errors->has("password")) error-border @endif input-form"
+                                            value="{{ old("password") }}"
+                                    >
+                                    @error("password") <div class="error">{{ $message }}</div> @enderror
+                                </div>
+
+                                <button class="mt-10 center glass-button">
+                                    <span class="blur-round"></span>
+                                    {{ strtoupper(
+                                        __("app.settings.update")
+                                    ) }}
+                                </button>
+                            </form>
                         </div>
                         <div class="flex column">
                             <h5>
@@ -60,7 +105,7 @@
                             </h5>
                             <hr style="background-color: #a14fd6; margin: 0px; height: 5px; margin-bottom: 20px;">
 
-                            <button class="mt-10 center glass-button">
+                            <button class="mt-10 center glass-button larger">
                                 <span class="blur-round"></span>
                                 @php                                
                                     $tfa_situation = session()->has("secret") 

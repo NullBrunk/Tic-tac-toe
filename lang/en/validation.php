@@ -201,7 +201,7 @@ return [
         "2fa_or_secret" => "or enter this secret: ",
         "2fa_then_go" => "then go to the login page",
 
-        "totp_code" => "dnter the TOTP code",
+        "totp_code" => "enter the TOTP code",
 
         "2fa_enable" => "enable TFA",
         "2fa_disable" => "disable TFA",

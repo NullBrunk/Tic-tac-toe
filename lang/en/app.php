@@ -1,6 +1,7 @@
 <?php
 
 return [
+    "current_password" => "current password",
 	"register_message" => "don't have an account yet ?",
 	"register" => "register",
 
@@ -38,5 +39,12 @@ return [
 		"password" => "change your password",
 		"security" => "security",
 		"delete" => "delete your account",
+
+        "update" => "update",
+
+        "new_username" => "New username",
+        "new_password" => "New password",
+
+        "updated_success" => "Informations have been updated",
 	],
 ];

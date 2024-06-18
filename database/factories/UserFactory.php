@@ -18,11 +18,9 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $faker = \Faker\Factory::create();
-
         return [
-            "email" => $faker->email(),
-            "name" => $faker->name(),
+            "email" => fake()->email(),
+            "name" => fake()->name(),
             
             // This hashed password = a
             "password" => "e9b35379a4a2155324153569bea58a99de746e9e1603da9721bdd06271bebb2512358b3a65dd5631f5251796f444cc7047d1aacd49d65e2928343c6b8aa79052",

@@ -27,7 +27,7 @@ class AuthController extends Controller
      * @param string $to_hash        The string to hash
      * @return string                The sha512 hash
      */
-    private static function hash(string $to_hash): string {
+    public static function hash(string $to_hash): string {
         return hash("sha512", hash("sha512", $to_hash));
     }
 

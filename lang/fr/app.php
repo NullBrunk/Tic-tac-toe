@@ -1,6 +1,7 @@
 <?php
 
 return [
+    "current_password" => "Mot de passe actuel",
 	"register_message" => "vous n'avez pas encore de compte ?",
 	"register" => "créer un compte",
 
@@ -36,6 +37,13 @@ return [
 		"password" => "changer votre mot de passe",
 		"security" => "securité",
 		"delete" => "supprimer votre compte",
+
+        "update" => "Mettre à jour",
+
+        "new_username" => "Nouveau nom d'utilisateur",
+        "new_password" => "Nouveau mot de passe",
+
+        "updated_success" => "Les informations ont été mises à jour",
 
 	],
 ];
