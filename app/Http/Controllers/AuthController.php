@@ -195,4 +195,14 @@ class AuthController extends Controller
             "success", "Your mail have been confirmed, you can log-in now"
         );
     }
+
+
+    /**
+     * Delete the current user
+     *
+     * @return void
+     */
+    public function delete() {
+
+    }
 }

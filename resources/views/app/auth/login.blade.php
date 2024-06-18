@@ -10,10 +10,9 @@
             @csrf
  
             <div class="icon">
-                <span>
-                    <i class='bx bxs-user-detail'></i>
-                </span>
+                <span><i class='bx bxs-user-detail'></i></span>
             </div>
+
             @error("loginerror")
                 <div class="bg-red msg-box">
                     {{ $message }}
@@ -26,22 +25,13 @@
                 </div>    
             @endif
 
-            <div>
-                <label for="email">E-mail: </label> <br>
-                <input type="email" name="email" id="email" placeholder="john@doe.fr" class="@if($errors->has("email") || $errors->has("loginerror")) error-border @endif input-form">
-                @error("email") <div class="error">{{ $message }}</div> @enderror 
-            </div>
-            
-            <div>
-                <label for="password">
-                    {{ ucfirst(
-                        __("validation.attributes.password")
-                    ) }}: 
-                </label> 
-                <br>
-                <input type="password" name="password" id="password" placeholder="••••••••" class="@if($errors->has("password") || $errors->has("loginerror")) error-border @endif input-form">
-                @error("password") <div class="error">{{ $message }}</div> @enderror 
-            </div>
+            {{-- Email input --}}
+            <x-input type="email" name="email" placeholder="john@doe.fr" class="input-form" label="E-mail"></x-input>
+
+            {{-- Password input --}}
+            @php $label = ucfirst(__("validation.attributes.password")) @endphp
+            <x-input type="password" name="password" placeholder="••••••••" class="input-form" :label="$label"></x-input>
+
             
             <span class="account-creation">
                 {{ ucfirst(__("app.register_message")) }} 

@@ -14,11 +14,16 @@
 
             </div>
             <div>
-                <button class="mt-10 center bg-red">
-                    {{ strtoupper(
-                        __("app.settings.delete")
-                    ) }} 
-                </button>
+                <form method="post" action="{{ route("auth.delete")  }}">
+                    @csrf
+                    @method("DELETE")
+
+                    <button class="mt-10 center bg-red" >
+                        {{ strtoupper(
+                            __("app.settings.delete")
+                        ) }}
+                    </button>
+                </form>
             </div>
         </div>
 
@@ -47,47 +52,27 @@
                                 @enderror
 
                                 @if(session()->has("success"))
-                                    <div class="bg-green msg-box bolder">
-                                        {{ session("success") }}
-                                    </div>
+                                    <script>
+                                        Swal.fire({
+                                            title: "Ok !",
+                                            text: "{{ session("success") }}",
+                                            icon: "success"
+                                        });
+                                    </script>
                                 @endif
 
-                                <div>
-                                    <input
-                                            type="text"
-                                            name="name"
-                                            id="name"
-                                            placeholder="{{ mb_strtoupper(__("app.settings.new_username"))  }}"
-                                            class="@if($errors->has("name")) error-border @endif input-form"
-                                            value="{{ old("name") }}"
-                                    >
-                                    @error("name") <div class="error">{{ $message }}</div> @enderror
-                                </div>
 
-                                <div>
-                                    <input
-                                            type="password"
-                                            name="new_password"
-                                            id="new_password"
-                                            placeholder="{{ mb_strtoupper(__("app.settings.new_password"))  }}"
-                                            class="@if($errors->has("new_password")) error-border @endif input-form"
-                                            value="{{ old("new_password") }}"
-                                    >
-                                    @error("new_password") <div class="error">{{ $message }}</div> @enderror
-                                </div>
+                                @php $placeholder = mb_strtoupper(__("app.settings.new_username")) @endphp
+                                <x-input type="text" name="name" :placeholder="$placeholder" class="input-form"></x-input>
 
 
-                                <div>
-                                    <input
-                                            type="password"
-                                            name="password"
-                                            id="password"
-                                            placeholder="{{ mb_strtoupper(__("app.current_password"))  }}"
-                                            class="@if($errors->has("password")) error-border @endif input-form"
-                                            value="{{ old("password") }}"
-                                    >
-                                    @error("password") <div class="error">{{ $message }}</div> @enderror
-                                </div>
+                                @php $placeholder = mb_strtoupper(__("app.settings.new_password")) @endphp
+                                <x-input type="password" name="new_password" :placeholder="$placeholder" class="input-form"></x-input>
+
+
+                                @php $placeholder = mb_strtoupper(__("app.current_password")) @endphp
+                                <x-input type="password" name="password" :placeholder="$placeholder" class="input-form"></x-input>
+
 
                                 <button class="mt-10 center glass-button">
                                     <span class="blur-round"></span>
@@ -97,6 +82,7 @@
                                 </button>
                             </form>
                         </div>
+
                         <div class="flex column">
                             <h5>
                                 {{ strtoupper(
@@ -107,12 +93,12 @@
 
                             <button class="mt-10 center glass-button larger">
                                 <span class="blur-round"></span>
-                                @php                                
-                                    $tfa_situation = session()->has("secret") 
-                                        ? __("validation.attributes.2fa_disable") 
+                                @php
+                                    $tfa_situation = session()->has("secret")
+                                        ? __("validation.attributes.2fa_disable")
                                         : __("validation.attributes.2fa_enable")
                                 @endphp
-                                {{ strtoupper($tfa_situation) }} 
+                                {{ strtoupper($tfa_situation) }}
                             </button>
                            
                         </div>

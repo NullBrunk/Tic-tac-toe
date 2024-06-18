@@ -34,13 +34,6 @@ class SettingsController extends Controller
         ]);
     }
 
-    
-    /**
-     * @return View
-     */
-    public function show_settings(): View {
-        return view("app.settings.settings");
-    }
 
     /**
      * Updates username AND password OR only username OR only password
@@ -50,38 +43,20 @@ class SettingsController extends Controller
      *
      * @return RedirectResponse
      */
-    public function update(SettingsRequest $request, SettingsService $services): RedirectResponse {
+    public function update(SettingsRequest $request, SettingsService $service): RedirectResponse {
 
         // Check if the provided password match the user password
-
-        $hashed_password = AuthController::hash($request->get("password"));
-
-        if($hashed_password !== session("password")) {
+        if(!$service->check_password($request->get("password"))) {
             return back()->withErrors([
                 "password" => __("validation.current_password"),
             ]);
         }
 
         // If a new username is given, change the users username
-        $name = $request->get("name");
-        if($name !== null) {
-            User::find(session("id"))->update([
-                "name" => $name,
-            ]);
-            session(["name" => $name]);
-        }
+        $service->change_username($request->get("name"));
 
         // If a password is given, change the users password
-        $password = $request->get("new_password");
-        if($password !== null) {
-            $hashed_new_password = AuthController::hash($password);
-
-            User::find(session("id"))->update([
-                "password" => $hashed_new_password,
-            ]);
-
-            session(["password" => $hashed_new_password]);
-        }
+        $service->change_password($request->get("new_password"));
 
 
         return back()->with("success", __("app.settings.updated_success"));

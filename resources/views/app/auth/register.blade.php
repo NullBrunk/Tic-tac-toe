@@ -10,46 +10,24 @@
             @csrf
  
             <div class="icon">
-                <span>
-                    <i class='bx bxs-user-plus'></i>
-                </span>
+                <span><i class='bx bxs-user-plus'></i></span>
             </div>
 
-            <div>
-                <label for="name">
-                    {{ ucfirst(
-                        __("validation.attributes.name")
-                        ) }}:
-                </label> <br>
-                <input type="text" name="name" id="name" value="{{ old("name") }}" placeholder="John Doe" class="@error("name") error-border @enderror input-form">
-                @error("name") <div class="error">{{ $message }}</div> @enderror 
-            </div>
-            
-            <div>
-                <label for="email">E-mail: </label> <br>
-                <input type="email" name="email" id="email" value="{{ old("email") }}" placeholder="john@doe.fr" class="@error("email") error-border @enderror input-form">
-                @error("email") <div class="error">{{ $message }}</div> @enderror 
-            </div>
-            
-            <div>
-                <label for="password">
-                    {{ ucfirst(
-                        __("validation.attributes.password")
-                        ) }}:
-                </label> <br>
-                <input type="password" name="password" id="password" placeholder="••••••••" class="@error("password") error-border @enderror input-form">
-                @error("password") <div class="error">{{ $message }}</div> @enderror 
-            </div>
-            
-            <div>
-                <label for="password_confirmation">
-                    {{ ucfirst(
-                        __("validation.attributes.password_confirmation")
-                        ) }}:
-                </label> <br>
-                <input type="password" name="password_confirmation" id="password_confirmation" placeholder="••••••••" class="@error("password_confirmation") error-border @enderror input-form">
-                @error("password_confirmation") <div class="error">{{ $message }}</div> @enderror 
-            </div>
+            {{-- Username input --}}
+            @php $label = ucfirst(__("validation.attributes.name")) @endphp
+            <x-input type="text" name="name" placeholder="John Doe" class="input-form" :label="$label"></x-input>
+
+            {{-- Email input --}}
+            <x-input type="email" name="email" placeholder="john@doe.fr" class="input-form" label="E-mail"></x-input>
+
+            {{-- Password input --}}
+            @php $label = ucfirst(__("validation.attributes.password")) @endphp
+            <x-input type="password" name="password" placeholder="••••••••" class="input-form" :label="$label"></x-input>
+
+            {{-- Password confirmatopn input --}}
+            @php $label = ucfirst(__("validation.attributes.password_confirmation")) @endphp
+            <x-input type="password" name="password_confirmation" placeholder="••••••••" class="input-form" :label="$label"></x-input>
+
 
             <div>
                 <span class="checkbox-wrapper">
@@ -60,7 +38,6 @@
                     </label>
                     <input class="checkbox" type="checkbox" name="2fa_token" id="2fa_token">
                 </span>
-                </div>
             </div>
             <br>
 

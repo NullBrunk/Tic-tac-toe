@@ -10,6 +10,7 @@
 
         
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         @vite(['resources/css/style.css', 'resources/js/app.js'])
     </head>

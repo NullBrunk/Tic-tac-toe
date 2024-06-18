@@ -39,14 +39,19 @@ Route::middleware("guest")->name("auth.")->controller(AuthController::class)->gr
     Route::get("/verify/{user:email}/{confirmation_token}", "confirm_mail")->name("confirm_mail");
 });
 
+Route::middleware("auth")->name("auth.")->group( function () {
+    Route::delete("delete", [AuthController::class, "delete"]) -> name("delete");
 
-Route::get("logout", function () {
-    # Clean the session
-    session()->flush();
+    Route::get("logout", function () {
+        # Clean the session
+        session()->flush();
 
-    # Redirect to /
-    return to_route("index");
-})->name("auth.logout")->middleware("auth");
+        # Redirect to /
+        return to_route("index");
+    })->name("logout");
+});
+
+
 
 
 /*
@@ -72,7 +77,7 @@ Route::name("games.")->middleware("auth")->controller(GamesController::class)->g
 */
 
 Route::name("settings.")->middleware(["auth", "no-cache"])->controller(SettingsController::class)->group(function () {
-    Route::get("settings",  "show_settings")->name("settings");
+    Route::view("settings",  "app.settings.settings")->name("settings");
     Route::post("update",  "update")->name("update");
 });
 Route::get("p/{user:name}", [ SettingsController::class, "show_profile" ])->name("settings.profile");

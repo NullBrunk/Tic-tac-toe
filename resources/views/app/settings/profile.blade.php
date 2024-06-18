@@ -139,12 +139,8 @@
                             <span id="lost" class="stats">{{ $lost_games }}</span>
                         </div>
                       </div>
-                    
-                    
                 </div>
-
             </div>
-
         </div>
     </section>
 @endsection

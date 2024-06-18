@@ -7,6 +7,7 @@ serv:
 stop:
 	sudo killall mailhog node php
 
+# Testing part with sonarqube
 sonar-test:
 	/opt/sonar-scanner/bin/sonar-scanner \
 		-Dsonar.projectKey=testestest \
