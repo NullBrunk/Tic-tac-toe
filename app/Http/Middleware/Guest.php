@@ -15,9 +15,10 @@ class Guest
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(session()->has("id"))
+        if(session()->has("id")) {
             return to_route("index");
-        
+        }
+
         return $next($request);
     }
 }

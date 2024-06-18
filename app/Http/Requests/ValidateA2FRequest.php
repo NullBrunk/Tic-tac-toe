@@ -21,13 +21,15 @@ class ValidateA2FRequest extends FormRequest
      */
     public function rules(): array
     {
+        $rule = "required|string|min:1|max:1";
+
         return [
-            "totp1" => "required|string|min:1|max:1",
-            "totp2" => "required|string|min:1|max:1",
-            "totp3" => "required|string|min:1|max:1",
-            "totp4" => "required|string|min:1|max:1",
-            "totp5" => "required|string|min:1|max:1",
-            "totp6" => "required|string|min:1|max:1",
+            "totp1" => $rule,
+            "totp2" => $rule,
+            "totp3" => $rule,
+            "totp4" => $rule,
+            "totp5" => $rule,
+            "totp6" => $rule,
         ];
     }
 }

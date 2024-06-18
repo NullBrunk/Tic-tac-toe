@@ -10,11 +10,11 @@ class MorpionService
 {
 
     /**
-     * Recupère tout les records liés à un morpion à partir de l'id unique de la game qui lui 
+     * Recupère tout les records liés à un morpion à partir de l'id unique de la game qui lui
      * est associé afin de construire un tableau 2D représentant le morpion
      *
      * @param string $id        L'ID unique de la game associé
-     * 
+     *
      * @return array            Un morpion sous forme d'un tableau 2D
      */
     public static function get_morpion(string $id): array {
@@ -35,7 +35,7 @@ class MorpionService
      *
      * @param Game $game            Current Game through model binding
      * @param integer $position     Pawn position
-     * @return boolean              
+     * @return boolean
      */
     public static function check_move_permissions(Game $game, int $position): bool {
         // Utilisateurs qui ont rejoint la game
@@ -54,13 +54,13 @@ class MorpionService
             || $joined->count() !== 2
 
             // Ou alors le joueur essaye de jouer deux fois d'affilé
-            || $move->last()?->user_id === session("id") 
+            || $move->last()?->user_id === session("id")
 
             // Ou alors il y a déjà un symbole placé ici
             || $move->where("position", $position)->count() !== 0
         ) {
             return false;
-        } 
+        }
 
         return true;
     }
@@ -84,7 +84,10 @@ class MorpionService
         $mls = new MorpionLogicService($morpion, $x, $y);
 
 
-        if($symbol === "") return [ "win" => false, "pawn" => null ];
+        if($symbol === "") {
+            return [ "win" => false, "pawn" => null ];
+        }
+
         return [
             "win" => $mls->check_line() || $mls->check_col() || $mls->check_diagonale_dg() || $mls->check_diagonale_gd(),
             "pawn" => $symbol,

@@ -7,7 +7,7 @@ use Illuminate\View\View;
 // Form requests
 use App\Events\SignupEvent;
 
-// Manage 2FA  
+// Manage 2FA
 use Illuminate\Support\Str;
 use App\Http\Requests\LoginReq;
 use RobThree\Auth\TwoFactorAuth;
@@ -40,7 +40,7 @@ class AuthController extends Controller
         // On cherche la combinaison email:password dans la table User
         $data = User::where("email", $request["email"])
                     ->where("password", self::hash($request["password"]))
-                    ->get() 
+                    ->get()
                     ->toArray();
 
         // Si on ne trouve rien
@@ -53,7 +53,7 @@ class AuthController extends Controller
         // On recupère le premier record, qui sera notre user a logger
         $data = $data[0];
 
-        // Si le champs confirmation token ne vaut pas null, c'est que le mail 
+        // Si le champs confirmation token ne vaut pas null, c'est que le mail
         // n'a pas encore été validé
         if($data["confirmation_token"] !== null) {
             return to_route("auth.login")->withErrors([
@@ -96,14 +96,14 @@ class AuthController extends Controller
 
         $user = User::findOrFail(session("validated_id"));
         
-        $totp_code = 
-                    $request["totp1"] . $request["totp2"] . $request["totp3"] . 
+        $totp_code =
+                    $request["totp1"] . $request["totp2"] . $request["totp3"] .
                     $request["totp4"] . $request["totp5"] . $request["totp6"];
 
 
         $tfa = new TwoFactorAuth(new BaconQrCodeProvider());
 
-        // On check la validité à partir du secret récupéré dans la BDD, et du code fourni par 
+        // On check la validité à partir du secret récupéré dans la BDD, et du code fourni par
         // l'utilisateur. Si ce n'est pas valide on affiche une erreur à l'utilisateur
         if(!$tfa->verifyCode($user->secret, $totp_code)) {
             return back()->withErrors([
@@ -155,13 +155,13 @@ class AuthController extends Controller
         // Si l'utilisateur ne souhaite pas bénéficier de l'authentification à deux facteurs,
         if(!($request->has("2fa_token"))) {
             return to_route("auth.login")->with(
-                "success", 
+                "success",
                 "User " . $user->name . " has been created, please check your inbox !"
             );
         }
 
-        // Si on est arrivé ici, c'est que l'utilisateur souhaite bénéficier de l'A2F. 
-        // On va donc le renvoyer vers une page lui permettant de scanner un QRCode ou 
+        // Si on est arrivé ici, c'est que l'utilisateur souhaite bénéficier de l'A2F.
+        // On va donc le renvoyer vers une page lui permettant de scanner un QRCode ou
         // d'ajouter un code secret sur son app de TOTP
         [$secret, $qrcode] = AuthService::enable_tfa($user);
         
@@ -178,15 +178,16 @@ class AuthController extends Controller
      *
      * @param User $user                         The user through model binding
      * @param string $confirmation_token         Random UUID generated to check the mail
-     * 
+     *
      * @return RedirectResponse        Returns either to /login either to a 403 page
      */
     public function confirm_mail(User $user, string $confirmation_token): RedirectResponse {
         
         // Si le confirmation_token passé dans l'URL n'est pas le même que
         // le confirmation token attribué au user lors de sa création
-        if($user->confirmation_token !== $confirmation_token)
+        if($user->confirmation_token !== $confirmation_token) {
             return abort(403);
+        }
 
         $user->update([ "confirmation_token" => null ]);
 

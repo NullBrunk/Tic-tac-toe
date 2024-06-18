@@ -17,12 +17,12 @@ class SettingsController extends Controller
     /**
      * @param User $user              The User through Model Binding
      * @param StatService $service    The stat service through dependency injection
-     * 
+     *
      * @return View                   The profile page view
      */
     public function show_profile(User $user, StatService $service): View {
         
-        [$won, $lost, $drawn] = $service->get_game_stats($user->id);        
+        [$won, $lost, $drawn] = $service->get_game_stats($user->id);
 
         // Enfin on retourne la vue de la profile page
         return view("app.settings.profile", [

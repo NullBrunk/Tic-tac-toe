@@ -1,4 +1,4 @@
-FROM composer
+FROM composer:2.7.7
 
 # Create the web directory to serve the app
 RUN mkdir -p /var/www/html
@@ -15,10 +15,11 @@ RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 RUN docker-php-ext-install pdo_mysql mysqli
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
 
-RUN apk add $PHPSIZE_DEPS
+RUN apk add "$PHPSIZE_DEPS"
 
 # install imagemagick for the qrcode for the 2FA
-RUN apk add imagemagick-dev
+RUN apk add imagemagick-dev \
+    && apk cache clean
 
 # Install && Enable the imagick extension
 RUN mkdir -p /usr/src/php/ext/imagick
@@ -30,7 +31,9 @@ RUN composer update
 RUN composer install --no-dev
 
 # Install deps for the wait-for-mysql script
-RUN apk add mariadb-client
+RUN apk add mariadb-client \
+    && apk cache clean \
+
 RUN mv wait-for-mysql.sh /
 
 # Ensure that the MySQL container is started and launch migration

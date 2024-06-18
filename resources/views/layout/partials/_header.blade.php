@@ -2,7 +2,7 @@
    <div class="flex-between header">
        <div class="title flex">
            <a href="{{ route("index") }}" class="flex">
-                <img src="{{ asset("/assets/img/logo.svg") }}" class="m-auto" height="37" width="47">
+                <img src="{{ asset("/assets/img/logo.svg") }}" class="m-auto" height="37" width="47" alt="Logo">
                 <span class="m-auto ml-10">{{ config("app.name") }}</span>
             </a>
        </div>

@@ -11,8 +11,7 @@ class MorpionLogicService {
      * @param integer $x
      * @param integer $y
      */
-    public function __construct(public array $morpion, public int $x, public int $y) 
-    {}
+    public function __construct(public array $morpion, public int $x, public int $y) {}
     
     /**
      * Test si il y a 3 pions alignés en ligne sur la par rapport au pion de coordonées x,y

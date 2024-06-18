@@ -10,7 +10,7 @@
 
         <div class="absolute informations flex" data-aos="fade-in" data-aos-duration="1000">
             <div class="profile-name flex">
-                <img src="https://ui-avatars.com/api/?background=1e1f30&color=fff&amp;size=300&amp;rounded=true&amp;length=1&amp;name={{ $user->name }}" alt="Profile picture">
+                <img src="https://ui-avatars.com/api/?background=1e1f30&color=fff&amp;size=300&amp;rounded=true&amp;length=1&amp;name={{ $user->name }}" alt="Profile">
             </div>
             <div class="profile-info">
                 <p class="mail">

@@ -37,7 +37,7 @@ class GamesController extends Controller
      * Join a game via the unique ID associated to it
      *
      * @param Game $game    The game through model binding
-     * 
+     *
      * @return View         A view that displays the morpion, or a 403 or a 404
      */
     public function join(Game $game): View {
@@ -63,8 +63,8 @@ class GamesController extends Controller
             session(["symbol" => $join->symbol]);
         }
 
-        return view("app.games.morpion", [ 
-            "game_id" => $game->id, 
+        return view("app.games.morpion", [
+            "game_id" => $game->id,
         ]);
     }
 
@@ -79,10 +79,11 @@ class GamesController extends Controller
      */
     public static function move(Game $game, int $position): null {
 
-        if(!MorpionService::check_move_permissions($game, $position))
+        if(!MorpionService::check_move_permissions($game, $position)) {
             return null;
+        }
 
-        // Si l'utilisateur rejoint une autre game en meme temps, et qu'il a un symbol différent, 
+        // Si l'utilisateur rejoint une autre game en meme temps, et qu'il a un symbol différent,
         // et que la session n'est pas mise à jour, il se peut qu'en revenant sur la game initiale
         // il reusisse à changer de symbole.
         $symbol = User_join::where("game_id", $game->id)->where("user_id", session("id"))->first()->symbol;
@@ -94,7 +95,7 @@ class GamesController extends Controller
             "game_id" => $game->id,
             "user_id" => session("id"),
             "position" => $position,
-            "symbol" => $symbol        
+            "symbol" => $symbol
         ]);
 
         return null;
@@ -105,7 +106,7 @@ class GamesController extends Controller
      * @param array $morpion           The morpion
      * @param integer $position        The position of the placed pawn (from 0 to 8)
      * @param string $id               The unique ID of the game
-     * 
+     *
      * @return null                    Update the database "winner" row
      */
     public static function check_win(array $morpion, int $position, string $id): null {
