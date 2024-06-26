@@ -90,5 +90,21 @@
                 }
             });
         }
+
+        /* ------- Support du controle V/clique droit coller sur le premier input ------- */
+        totp_inputs[1].addEventListener("paste", (e) => {
+            let clipboard = e.clipboardData || window.clipboardData;
+            let clipboard_data = clipboard.getData('Text');
+
+            // On limite la borne supérieure de notre for loop à 6
+            let upper_bound = (clipboard_data.length <= 6) ? clipboard_data.length : 6;
+
+            for(let i = 0; i < upper_bound; i++) {
+                totp_inputs[i+1].value = clipboard_data[i];
+            }
+
+            totp_inputs[upper_bound].focus();
+        });
+
     </script>
 @endsection
