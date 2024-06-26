@@ -15,7 +15,6 @@
         "robthree/twofactorauth": "dev-master"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.13",
         "barryvdh/laravel-ide-helper": "^3.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",

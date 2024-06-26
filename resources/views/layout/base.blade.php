@@ -5,12 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@yield("title", config("app.name"))</title>
 
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>       
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel="shortcut icon" href="{{ asset("/favicon.svg") }}" type="image/x-icon">
 
         
-        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="{{ asset("/assets/vendor/aos.css") }}" />
+        <script src="{{ asset("/assets/vendor/sweetalert.js") }}"></script>
 
         @vite(['resources/css/style.css', 'resources/js/app.js'])
     </head>
@@ -34,7 +34,7 @@
             @yield("body")
         </main>
     
-        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script src="{{ asset("/assets/vendor/aos.js") }}"></script>
     </body>
 
 
