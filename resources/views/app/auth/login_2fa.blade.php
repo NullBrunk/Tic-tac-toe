@@ -48,7 +48,6 @@
     </section>
 
     <script>
-
         // Ce bout de code permet d'automatiquement focus l'input suivant une fois qu'on en a rempli un
         let totp_inputs = [];
 
@@ -68,8 +67,40 @@
                         // On le focus
                         next_input.focus();
                     }
-                } 
+                }
+                // else if(e.inputType === "deleteContentBackward") {
+                //     console.log(e.target);
+                //     let previous_input = totp_inputs[i-1];
+                //
+                //     if(previous_input) {
+                //         previous_input.focus();
+                //     }
+                //
+                // }
             });
+
+            totp_inputs[i].addEventListener("keydown", (e) => {
+                // Si l'utilisateur presse backspace
+                if(e.key === "Backspace") {
+
+                    // On va vérifier si l'input sur lequel il est contient quelque chose ou pas
+                    // si il contient un nombre -> ne rien faire (laisser le comportement par défaut)
+                    // Sinon, retourner un input derriere
+                    if(e.target.value === "") {
+                        let new_input = totp_inputs[i-1];
+
+                        if(new_input) {
+                            new_input.focus();
+                            new_input.value = '';
+
+                        }
+                    }
+                }
+            });
+
+            totp_inputs[i].addEventListener("focus", (e) => {
+                this.selectionStart = this.selectionEnd = 10000;
+            })
         }
     </script>
 @endsection
