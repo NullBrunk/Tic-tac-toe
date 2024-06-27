@@ -8,4 +8,4 @@ done
 
 >&2 echo "MySQL is up - executing command"
 
-php artisan migrate --seed
+php artisan migrate

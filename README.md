@@ -22,7 +22,10 @@ git clone https://github.com/NullBrunk/L3T && cd L3T
 docker-compose up --build
 ```
 
-
+You may seed the database using:
+```bash
+docker exec -it morpion-web bash -c 'php artisan db:seed'
+```
 
 # 📚 Deep overview
 
