@@ -18,8 +18,7 @@ RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS}
 RUN apk add "$PHPSIZE_DEPS"
 
 # install imagemagick for the qrcode for the 2FA
-RUN apk add imagemagick-dev \
-    && apk cache clean
+RUN apk add imagemagick-dev 
 
 # Install && Enable the imagick extension
 RUN mkdir -p /usr/src/php/ext/imagick
@@ -31,8 +30,7 @@ RUN composer update
 RUN composer install --no-dev
 
 # Install deps for the wait-for-mysql script
-RUN apk add mariadb-client \
-    && apk cache clean \
+RUN apk add mariadb-client && apk cache clean
 
 RUN mv wait-for-mysql.sh /
 

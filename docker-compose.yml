@@ -6,9 +6,6 @@ services:
       - "80:80"
     depends_on:
       - mysql
-    links:
-      - mysql
-      - mailhog
     networks:
       - morpion
 
