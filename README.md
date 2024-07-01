@@ -14,15 +14,16 @@
 
 
 # ⚒️ Installation
-As always, I have created a Dockerfile as well as a docker-compose file if you want to test this app. 
-So you can simply do:
+> [!TIP]
+> **There is a Dockerfile as well as a docker-compose file if you want to test this app.**
 
 ```bash
-git clone https://github.com/NullBrunk/L3T && cd L3T
+git clone https://github.com/NullBrunk/Tic-tac-toe && cd Tic-tac-toe
 docker-compose up --build
 ```
 
-You may seed the database using:
+> [!NOTE]
+> **You may seed the database using:**
 ```bash
 docker exec -it morpion-web bash -c 'php artisan db:seed'
 ```
@@ -55,6 +56,10 @@ https://github.com/NullBrunk/L3T/assets/125673909/34c88f92-5a71-4fc4-a4f4-ff6036
 
 
 ### 📱 Responsive
+
+> [!NOTE]
+> All web pages have been designed to be responsive
+
 https://github.com/NullBrunk/L3T/assets/125673909/48261adf-0760-405b-a9f4-ab905fcd627c
 
 
