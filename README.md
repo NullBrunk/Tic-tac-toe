@@ -15,7 +15,7 @@
 
 # ⚒️ Installation
 > [!TIP]
-> **There is a Dockerfile as well as a docker-compose file if you want to test this app.**
+> There is a Dockerfile as well as a docker-compose file if you want to test this app.
 
 ```bash
 git clone https://github.com/NullBrunk/Tic-tac-toe && cd Tic-tac-toe
@@ -23,7 +23,7 @@ docker-compose up --build
 ```
 
 > [!NOTE]
-> **You may seed the database using:**
+> You may seed the database using:
 ```bash
 docker exec -it morpion-web bash -c 'php artisan db:seed'
 ```
