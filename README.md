@@ -8,9 +8,9 @@
 
 ![L3T](https://github.com/NullBrunk/L3T/assets/125673909/1c2c492c-1a03-4670-8fb3-1bb291005b2a)
 
-
-
 </div>
+
+Created using the **Laravel/Livewire** stack + vanilla JS and CSS, this web app allows multiplayer, real-time tic-tac-toe gameplay. The application is secured with email address validation and the option to use TFA (TOTP). Finally, the project includes internationalization, with French and English currently supported.
 
 
 # ⚒️ Installation
