@@ -32,6 +32,10 @@ docker exec -it morpion-web bash -c 'php artisan db:seed'
 
 ### 🔐 Login
 
+
+> [!NOTE]
+> You can choose whether or not to use 2FA as shown in these videos.
+
 ##### Without 2FA
 https://github.com/NullBrunk/L3T/assets/125673909/5e55c58b-e841-4126-9835-955c106f4eac
 
@@ -45,14 +49,22 @@ https://github.com/NullBrunk/L3T/assets/125673909/333c661b-7209-4f23-bf6a-5b249c
 
 
 ### 🎮 Game
+
+> [!NOTE]
+> You can generate a game, and send the unique link to your opponent to challenge them. The board is updated in real-time on both sides, and at the end of the game, the user's statistics are updated.
+
 https://github.com/NullBrunk/L3T/assets/125673909/5f2f5d09-5f43-4f88-a914-0beb7f21e110
 
 
 
 
 ### 👤 Profile
-https://github.com/NullBrunk/L3T/assets/125673909/34c88f92-5a71-4fc4-a4f4-ff60364aa4db
 
+
+> [!NOTE]
+> There is a profile page viewable by everyone that displays your won/drawn/lost games. You can watch a replay of a game by clicking on it in the "game history" section.
+
+https://github.com/NullBrunk/L3T/assets/125673909/34c88f92-5a71-4fc4-a4f4-ff60364aa4db
 
 
 ### 📱 Responsive
