@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GamesController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::view("/", "app.index")->name("index");
-
+//Route::view("/", "app.index")->name("index");
+Route::get("/", IndexController::class)->name("index");
 
 /*
 |--------------------------------------------------------------------------

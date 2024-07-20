@@ -473,7 +473,8 @@ nav .dropdown-content a span i {
     align-items: center;
     justify-content: center;
 }
-  
+
+
 
 .index-button {
     --width: 100px;
@@ -607,21 +608,27 @@ nav .dropdown-content a span i {
 
 
 .index-title {
-    font-family: 'Manrope', sans-serif;
-    font-size: 2px;
-    font-weight: 700;
-    letter-spacing: -0.8rem;
     display: flex;
-    flex-direction: column;
+    width: fit-content;
     justify-content: center;
-    align-self: center;
     z-index: 1000;
-    margin-top: 36vh;
-    margin-bottom: 22vh;
+    padding: 80px 105px !important;
 }
 
-.index-title img {
-    width: 2000px;
+.index-title .card {
+    width: 400px;
+}
+
+.index-title .card span {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.index-title .card span.number {
+    font-weight: 900;
+    font-size: 80px;
+    color: white;
 }
 
 .buttons {
@@ -650,7 +657,8 @@ nav .dropdown-content a span i {
     display: flex;
 }
 
-#auth form {
+#auth form,
+.transparent{
     transition: all .3s;
 
     color:var(--fg-color);
@@ -1249,6 +1257,10 @@ nav .dropdown-content a span i {
 
     #settings .info .card {
         width: calc(100% - 40px);
+    }
+
+    .index-title {
+        flex-direction: column;
     }
 }
 
