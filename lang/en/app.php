@@ -47,4 +47,10 @@ return [
 
         "updated_success" => "Informations have been updated",
 	],
+
+    "index" => [
+        "played_games" => "played games",
+        "active_users" => "active users",
+        "played_games_today" => "played_games_today",
+    ],
 ];

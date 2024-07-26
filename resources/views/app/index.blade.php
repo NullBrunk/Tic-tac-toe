@@ -9,15 +9,15 @@
             <div class="index-title transparent" data-aos="fade-down" data-aos-duration="1000">
                 <div class="card">
                     <span class="number"><i class='bx bx-joystick' style="color: #01beff"></i> {{ $games }}</span>
-                    <span>Played games</span>
+                    <span>{{ ucfirst(__("app.index.played_games")) }}</span>
                 </div>
                 <div class="card">
                     <span class="number"><i class='bx bx-trophy' style="color: #0bb9cb;"></i> {{ $users }}</span>
-                    <span>Active users</span>
+                    <span>{{ ucfirst(__("app.index.active_users")) }}</span>
                 </div>
                 <div class="card">
                     <span class="number"><i class='bx bx-play-circle' style="color: #07deaf;"></i> {{ $today_games }}</span>
-                    <span>Played games today</span>
+                    <span>{{ ucfirst(__("app.index.played_games_today")) }}</span>
                 </div>
             </div>
     

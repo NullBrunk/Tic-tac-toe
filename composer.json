@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
+        "mcamara/laravel-localization": "^2.0",
         "robthree/twofactorauth": "dev-master"
     },
     "require-dev": {

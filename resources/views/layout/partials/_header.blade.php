@@ -51,7 +51,15 @@
                     </div>
                 </li>
             @else
-                <li>        
+                <li>
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <li>
+                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ mb_strtoupper($localeCode) }}
+                            </a>
+                        </li>
+                    @endforeach
+
                     <a class="link header-login-button" href="{{ route("auth.login") }}">
                         <i class='bx bx-log-in-circle'></i> 
                         <span class="ml-10">

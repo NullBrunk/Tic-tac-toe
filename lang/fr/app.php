@@ -44,6 +44,11 @@ return [
         "new_password" => "Nouveau mot de passe",
 
         "updated_success" => "Les informations ont été mises à jour",
-
 	],
+
+    "index" => [
+        "played_games" => "parties jouées",
+        "active_users" => "utilisateurs actif",
+        "played_games_today" => "parties jouées aujourd'hui",
+    ],
 ];
