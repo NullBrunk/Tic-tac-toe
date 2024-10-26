@@ -61,8 +61,14 @@ class AuthController extends Controller
                 "loginerror" => "You need to verify your mail address"
             ]);
         }
-        
-     
+
+        // Si l'utilisateur est banni, ne pas autoriser sa connexion
+        if($data["is_banned"] === 1) {
+            return to_route("auth.login")->withErrors([
+                "loginerror" => "Your account has been banned"
+            ]);
+        }
+
         if($data["secret"] !== null) {
             // On stocke l'id de l'utilisateur que nous avons "validé"
             // en d'autre terme, on indique que l'utilisateur avec cet ID a rentré le bon username

@@ -51,6 +51,6 @@ return [
     "index" => [
         "played_games" => "played games",
         "active_users" => "active users",
-        "played_games_today" => "played_games_today",
+        "played_games_today" => "played games today",
     ],
 ];
