@@ -16,7 +16,7 @@ class SettingsService
      * @return bool
      */
     public function check_password(string $password): bool {
-        $hashed_password = AuthController::hash($password);
+        $hashed_password = AuthService::hash($password);
 
         return $hashed_password === session("password");
     }
@@ -53,7 +53,7 @@ class SettingsService
             return;
         }
 
-        $hashed_new_password = AuthController::hash($new_password);
+        $hashed_new_password = AuthService::hash($new_password);
 
         User::find(session("id"))->update([
             "password" => $hashed_new_password,

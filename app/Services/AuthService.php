@@ -11,6 +11,15 @@ use RobThree\Auth\Providers\Qr\BaconQrCodeProvider;
 
 class AuthService {
     /**
+     * @param string $to_hash        The string to hash
+     * @return string                The sha512 hash
+     */
+    public static function hash(string $to_hash): string {
+        return hash("sha512", hash("sha512", $to_hash));
+    }
+
+
+    /**
      * Enable TFA (TOTP) for a given user
      *
      * @param User $user    The user

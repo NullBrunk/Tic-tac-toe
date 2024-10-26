@@ -25,22 +25,13 @@ use RobThree\Auth\TwoFactorAuthException;
 class AuthController extends Controller
 {
     /**
-     * @param string $to_hash        The string to hash
-     * @return string                The sha512 hash
-     */
-    public static function hash(string $to_hash): string {
-        return hash("sha512", hash("sha512", $to_hash));
-    }
-
-
-    /**
      * @param LoginReq $request        The Form Request
      * @return RedirectResponse        Redirection to /, to the 2FA enter token or to the /login page
      */
     public function login(LoginReq $request): RedirectResponse {
         // On cherche la combinaison email:password dans la table User
         $data = User::where("email", $request["email"])
-                    ->where("password", self::hash($request["password"]))
+                    ->where("password", AuthService::hash($request["password"]))
                     ->get()
                     ->toArray();
 
